@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafik Tasarım Final Sınavı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            width: 90%;
+            max-width: 700px;
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        /* Üst Panel */
+        .header-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .question-tracker {
+            background-color: #e8f6f3;
+            color: #1abc9c;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+        }
+
+        .score-tracker {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+        }
+
+        .score-tracker .correct { color: #27ae60; }
+        .score-tracker .wrong { color: #c0392b; }
+
+        /* Soru Alanı */
+        .question-text {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* Şıklar */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            padding: 18px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1.05rem;
+            color: #34495e;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            background-color: #f7f9fa;
+            border-color: #bdc3c7;
+        }
+
+        .option-btn.correct {
+            background-color: #d5f5e3;
+            border-color: #2ecc71;
+            color: #145a32;
+        }
+
+        .option-btn.wrong {
+            background-color: #fadbd8;
+            border-color: #e74c3c;
+            color: #78281f;
+        }
+
+        /* Sonraki Butonu */
+        #next-btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: none;
+            transition: background 0.3s;
+        }
+        
+        #next-btn:hover { background-color: #2980b9; }
+
+        /* Sonuç Ekranı */
+        #result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .final-score-box {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 20px 0;
+        }
+        
+        .final-score-text {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        .final-details {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div id="quiz-screen">
+        <div class="header-stats">
+            <div class="question-tracker">
+                <i class="fa-solid fa-file-circle-question"></i> <span id="current-q">1</span> / <span id="total-q">50</span>
+            </div>
+            <div class="score-tracker">
+                <div class="correct"><i class="fa-solid fa-check"></i> <span id="correct-count">0</span></div>
+                <div class="wrong"><i class="fa-solid fa-xmark"></i> <span id="wrong-count">0</span></div>
+            </div>
+        </div>
+
+        <div class="question-text" id="question-text">Soru yükleniyor...</div>
+        <div class="options-list" id="options-list"></div>
+
+        <button id="next-btn" onclick="nextQuestion()">Sonraki Soru <i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div id="result-screen">
+        <h2 style="color:#2c3e50;">Sınav Tamamlandı</h2>
+        
+        <div class="final-score-box">
+            <span id="final-score">0</span><span style="font-size:2rem; color:#95a5a6;">/100</span>
+        </div>
+        
+        <div class="final-details">
+            <div style="color:#27ae60"><i class="fa-solid fa-check"></i> <span id="final-correct">0</span> Doğru</div>
+            <div style="color:#c0392b"><i class="fa-solid fa-xmark"></i> <span id="final-wrong">0</span> Yanlış</div>
+        </div>
+
+        <p class="final-score-text" id="feedback-text"></p>
+
+        <button id="next-btn" onclick="location.reload()" style="display:block; background-color: #34495e;">
+            <i class="fa-solid fa-rotate"></i> Testi Tekrarla
+        </button>
+    </div>
+</div>
+
+<script>
+    // --- SORU HAVUZU (Ders Notlarından Hazırlanmıştır) ---
+    const questions = [
+        // HAFTA 1 & GENEL KAVRAMLAR
+        {
+            question: "Dijital ekranlar (bilgisayar, telefon) hangi renk uzayını kullanır?",
+            options: ["CMYK", "RGB", "Grayscale", "Lab"],
+            answer: "RGB"
+        },
+        {
+            question: "Baskı işlerinde hangi renk modu tercih edilmelidir?",
+            options: ["RGB", "CMYK", "HSB", "Hexadecimal"],
+            answer: "CMYK"
+        },
+        {
+            question: "Hangi görüntü türü büyütüldüğünde kalite kaybına uğrar ve pikselleşir?",
+            options: ["Vektörel", "Raster (Bitmap)", "AI Dosyası", "SVG"],
+            answer: "Raster (Bitmap)"
+        },
+        {
+            question: "Web tasarımı için en yaygın kullanılan, şeffaflığı destekleyen dosya formatı hangisidir?",
+            options: ["JPG", "PNG", "TIFF", "EPS"],
+            answer: "PNG"
+        },
+        {
+            question: "Baskı için ideal çözünürlük değeri genellikle kaç dpi olmalıdır?",
+            options: ["72 dpi", "96 dpi", "150 dpi", "300 dpi"],
+            answer: "300 dpi"
+        },
+        // PHOTOSHOP TEMEL & KATMANLAR
+        {
+            question: "Photoshop'ta bir katmanın belirli kısıımlarını silmeden gizlemek için ne kullanılır?",
+            options: ["Eraser Tool", "Crop Tool", "Katman Maskesi (Layer Mask)", "Paint Bucket"],
+            answer: "Katman Maskesi (Layer Mask)"
+        },
+        {
+            question: "Photoshop'ta katman maskesinde 'Siyah' renk ne anlama gelir?",
+            options: ["Görünür yapar", "Gizler", "Yarı saydam yapar", "Rengi tersine çevirir"],
+            answer: "Gizler"
+        },
+        {
+            question: "Photoshop'ta 'Geri alınabilir' (yıkıcı olmayan) renk düzenlemesi yapmak için hangi katman türü kullanılır?",
+            options: ["Background Layer", "Adjustment Layer (Ayar Katmanı)", "Raster Layer", "Text Layer"],
+            answer: "Adjustment Layer (Ayar Katmanı)"
+        },
+        {
+            question: "Photoshop dosyalarının düzenlenebilir, katmanlı çalışma formatı nedir?",
+            options: [".JPG", ".PSD", ".PDF", ".PNG"],
+            answer: ".PSD"
+        },
+        {
+            question: "Photoshop'ta 'Move Tool' (Taşıma Aracı) kısayolu nedir?",
+            options: ["V", "M", "T", "P"],
+            answer: "V"
+        },
+        {
+            question: "Bir katmanın görünürlüğünü sadece altındaki katmanla sınırlayan maske türü hangisidir?",
+            options: ["Vektör Maskesi", "Kırpma Maskesi (Clipping Mask)", "Hızlı Maske", "Kanal Maskesi"],
+            answer: "Kırpma Maskesi (Clipping Mask)"
+        },
+        // PHOTOSHOP RENK & TON
+        {
+            question: "Görselin parlaklık ve kontrastını histogram üzerinden ayarlamayı sağlayan araç hangisidir?",
+            options: ["Levels", "Crop", "Eraser", "Brush"],
+            answer: "Levels"
+        },
+        {
+            question: "Sadece belirli bir rengin tonunu ve doygunluğunu değiştirmek için hangi araç kullanılır?",
+            options: ["Brightness/Contrast", "Selective Color", "Invert", "Threshold"],
+            answer: "Selective Color"
+        },
+        {
+            question: "Photoshop'ta 'fx' simgesi neyi ifade eder?",
+            options: ["Filtre Galerisi", "Katman Efektleri (Layer Styles)", "3D Ayarları", "Kırpma Ayarları"],
+            answer: "Katman Efektleri (Layer Styles)"
+        },
+        {
+            question: "Aşağıdakilerden hangisi bir 'Karışım Modu' (Blending Mode) değildir?",
+            options: ["Multiply", "Screen", "Overlay", "Crop"],
+            answer: "Crop"
+        },
+        {
+            question: "Photoshop'ta serbest seçim yapmaya yarayan araç hangisidir?",
+            options: ["Marquee Tool", "Lasso Tool", "Crop Tool", "Type Tool"],
+            answer: "Lasso Tool"
+        },
+        // ILLUSTRATOR TEMEL & VEKTÖR
+        {
+            question: "Adobe Illustrator hangi tabanlı bir programdır?",
+            options: ["Piksel tabanlı", "Vektör tabanlı", "Ses tabanlı", "Video tabanlı"],
+            answer: "Vektör tabanlı"
+        },
+        {
+            question: "Vektörel çizimlerin en büyük avantajı nedir?",
+            options: ["Dosya boyutu çok büyüktür", "Büyütüldüğünde kalite kaybı olmaz", "Sadece fotoğraflarda kullanılır", "Piksellerden oluşur"],
+            answer: "Büyütüldüğünde kalite kaybı olmaz"
+        },
+        {
+            question: "Illustrator'da nesneleri bir bütün olarak seçip taşımaya yarayan 'Selection Tool'un kısayolu nedir?",
+            options: ["A", "V", "P", "T"],
+            answer: "V"
+        },
+        {
+            question: "Bir nesnenin sadece köşe noktalarını (anchor points) seçip düzenlemek için hangi araç kullanılır?",
+            options: ["Selection Tool", "Direct Selection Tool", "Magic Wand", "Lasso Tool"],
+            answer: "Direct Selection Tool"
+        },
+        {
+            question: "Illustrator'da noktalar arasında eğriler oluşturarak özel şekiller çizmemizi sağlayan araç hangisidir?",
+            options: ["Pen Tool", "Rectangle Tool", "Star Tool", "Type Tool"],
+            answer: "Pen Tool"
+        },
+        {
+            question: "İki veya daha fazla nesne arasında renk ve şekil geçişi oluşturan araç hangisidir?",
+            options: ["Gradient Tool", "Blend Tool", "Mesh Tool", "Width Tool"],
+            answer: "Blend Tool"
+        },
+        {
+            question: "Birden fazla şekli birleştirip çıkarmaya yarayan, karmaşık çizimleri basitleştiren araç hangisidir?",
+            options: ["Shape Builder Tool", "Eraser Tool", "Hand Tool", "Zoom Tool"],
+            answer: "Shape Builder Tool"
+        },
+        {
+            question: "Illustrator'da serbest çizim yaparken şekilleri otomatik olarak birleştiren fırça aracı hangisidir?",
+            options: ["Paintbrush Tool", "Blob Brush Tool", "Pencil Tool", "Pen Tool"],
+            answer: "Blob Brush Tool"
+        },
+        {
+            question: "Çizgilerin (stroke) kalınlığını belirli noktalarda artırıp azaltmaya yarayan araç hangisidir?",
+            options: ["Width Tool", "Scale Tool", "Rotate Tool", "Hand Tool"],
+            answer: "Width Tool"
+        },
+        {
+            question: "Tasarımın kesim sırasında hata payını önlemek için bırakılan taşma payına ne ad verilir?",
+            options: ["Margin", "Bleed", "Gutter", "Column"],
+            answer: "Bleed"
+        },
+        // INDESIGN
+        {
+            question: "Adobe InDesign programı temel olarak ne için kullanılır?",
+            options: ["Fotoğraf düzenleme", "Video montajı", "Çok sayfalı katalog/dergi tasarımı", "3D modelleme"],
+            answer: "Çok sayfalı katalog/dergi tasarımı"
+        },
+        {
+            question: "InDesign'da oluşturulan şablon sayfalarına ne ad verilir?",
+            options: ["Master Pages (Ana Sayfalar)", "Layer Pages", "Effect Pages", "Cover Pages"],
+            answer: "Master Pages (Ana Sayfalar)"
+        },
+        {
+            question: "InDesign'da sayfalar panelinde 'Yeni Sayfa' eklemek için nereye tıklanır?",
+            options: ["Çöp kutusu simgesine", "Yeni sayfa (New Page) simgesine", "Göz simgesine", "Kilit simgesine"],
+            answer: "Yeni sayfa (New Page) simgesine"
+        },
+        {
+            question: "InDesign'da yazı alanları oluşturmak için hangi araç kullanılır?",
+            options: ["Pen Tool", "Type Tool", "Line Tool", "Scissors Tool"],
+            answer: "Type Tool"
+        },
+        {
+            question: "InDesign'da bir şablonu (Master Page) sayfaya uygulamak için ne yapılır?",
+            options: ["Şablonu sayfaya sürükleyip bırakılır", "Dosya silinir", "Program kapatılır", "Yazı yazılır"],
+            answer: "Şablonu sayfaya sürükleyip bırakılır"
+        },
+        // KARIŞIK & ARAÇ DETAYLARI
+        {
+            question: "Illustrator'da nesnelerin ayna görüntüsünü (yansımasını) almak için hangi araç kullanılır?",
+            options: ["Rotate Tool", "Reflect Tool", "Scale Tool", "Shear Tool"],
+            answer: "Reflect Tool"
+        },
+        {
+            question: "Illustrator'da bir nesneyi kopyalamak için sürüklerken hangi tuşa basılı tutulur?",
+            options: ["Ctrl", "Alt", "Shift", "Space"],
+            answer: "Alt"
+        },
+        {
+            question: "Photoshop'ta 'Type Tool' (Metin Aracı) kısayolu nedir?",
+            options: ["T", "P", "M", "L"],
+            answer: "T"
+        },
+        {
+            question: "CMYK renk modelindeki 'K' harfi hangi rengi temsil eder?",
+            options: ["Kırmızı (Red)", "Kahverengi (Brown)", "Siyah (Key/Black)", "Kobalt (Cobalt)"],
+            answer: "Siyah (Key/Black)"
+        },
+        {
+            question: "Illustrator'da çalışma alanlarının (sayfaların) boyutunu ayarlayan araç hangisidir?",
+            options: ["Artboard Tool", "Slice Tool", "Hand Tool", "Zoom Tool"],
+            answer: "Artboard Tool"
+        },
+        {
+            question: "Photoshop'ta 'Magic Wand' aracı ne işe yarar?",
+            options: ["Kare seçim yapar", "Benzer renk tonlarını seçer", "Serbest çizim yapar", "Metin yazar"],
+            answer: "Benzer renk tonlarını seçer"
+        },
+        {
+            question: "Illustrator'da 'Mesh Tool' ne işe yarar?",
+            options: ["Nesneye ağ (grid) ekleyerek detaylı renk geçişi sağlar", "Nesneyi siler", "Nesneyi döndürür", "Yazı yazar"],
+            answer: "Nesneye ağ (grid) ekleyerek detaylı renk geçişi sağlar"
+        },
+        {
+            question: "Photoshop'ta 'Ctrl + T' (Free Transform) ne işe yarar?",
+            options: ["Dosyayı kaydeder", "Nesneyi boyutlandırır ve döndürür", "Yeni katman açar", "Seçimi iptal eder"],
+            answer: "Nesneyi boyutlandırır ve döndürür"
+        },
+        {
+            question: "Bir görselin transparan (şeffaf) arka plana sahip olabilmesi için hangi formatta kaydedilmesi önerilmez?",
+            options: ["JPG", "PNG", "GIF", "PSD"],
+            answer: "JPG"
+        },
+        {
+            question: "InDesign'da sayfa numarası eklemek için hangi menü kullanılır?",
+            options: ["Type > Insert Special Character > Markers", "Edit > Paste", "File > Save", "View > Zoom"],
+            answer: "Type > Insert Special Character > Markers"
+        },
+        {
+            question: "Photoshop'ta 'Clone Stamp Tool' ne işe yarar?",
+            options: ["Bir alandaki dokuyu başka bir alana kopyalar", "Rengi değiştirir", "Yazı yazar", "Seçim yapar"],
+            answer: "Bir alandaki dokuyu başka bir alana kopyalar"
+        },
+        {
+            question: "Illustrator dosya uzantısı nedir?",
+            options: [".PSD", ".AI", ".INDD", ".TXT"],
+            answer: ".AI"
+        },
+        {
+            question: "InDesign dosya uzantısı nedir?",
+            options: [".PSD", ".AI", ".INDD", ".JPG"],
+            answer: ".INDD"
+        },
+        {
+            question: "Hangisi 'Sıcak Renkler' grubuna girer?",
+            options: ["Mavi", "Yeşil", "Turuncu", "Mor"],
+            answer: "Turuncu"
+        },
+        {
+            question: "Web için hazırlanan bir görselde çözünürlük (PPI) genelde kaç olmalıdır?",
+            options: ["300", "72", "600", "1200"],
+            answer: "72"
+        },
+        {
+            question: "Illustrator'da 'Shift + M' kısayolu hangi araca aittir?",
+            options: ["Pen Tool", "Shape Builder Tool", "Type Tool", "Gradient Tool"],
+            answer: "Shape Builder Tool"
+        },
+        {
+            question: "Photoshop'ta iki görseli matematiksel olarak harmanlamak için hangi komut kullanılır?",
+            options: ["Apply Image", "Save As", "Import", "Export"],
+            answer: "Apply Image"
+        },
+        {
+            question: "Bir tasarımda 'Hiyerarşi' ne anlama gelir?",
+            options: ["Renklerin karışımı", "Bilgilerin önem sırasına göre düzenlenmesi", "Dosya boyutu", "Kağıt kalitesi"],
+            answer: "Bilgilerin önem sırasına göre düzenlenmesi"
+        },
+        {
+            question: "Illustrator'da sembolleri püskürtmek için kullanılan araç hangisidir?",
+            options: ["Symbol Sprayer Tool", "Brush Tool", "Eraser Tool", "Pen Tool"],
+            answer: "Symbol Sprayer Tool"
+        }
+    ];
+
+    // --- SİSTEM DEĞİŞKENLERİ ---
+    let currentQuestionIndex = 0;
+    let correctScore = 0;
+    let wrongScore = 0;
+
+    const questionEl = document.getElementById("question-text");
+    const optionsEl = document.getElementById("options-list");
+    const nextBtn = document.getElementById("next-btn");
+    const currentQEl = document.getElementById("current-q");
+    const totalQEl = document.getElementById("total-q");
+    const correctCountEl = document.getElementById("correct-count");
+    const wrongCountEl = document.getElementById("wrong-count");
+
+    // Toplam soru sayısını yaz
+    totalQEl.textContent = questions.length;
+
+    function loadQuestion() {
+        const currentQ = questions[currentQuestionIndex];
+        
+        questionEl.textContent = `${currentQuestionIndex + 1}. ${currentQ.question}`;
+        currentQEl.textContent = currentQuestionIndex + 1;
+        
+        optionsEl.innerHTML = "";
+        nextBtn.style.display = "none";
+
+        // Şıkları karıştırıp butonları oluştur
+        let shuffledOptions = [...currentQ.options].sort(() => Math.random() - 0.5);
+
+        shuffledOptions.forEach(opt => {
+            const btn = document.createElement("button");
+            btn.textContent = opt;
+            btn.classList.add("option-btn");
+            btn.onclick = () => selectAnswer(btn, opt, currentQ.answer);
+            optionsEl.appendChild(btn);
+        });
+    }
+
+    function selectAnswer(btn, selected, correct) {
+        const allBtns = document.querySelectorAll(".option-btn");
+        allBtns.forEach(b => b.disabled = true);
+
+        if (selected === correct) {
+            btn.classList.add("correct");
+            correctScore++;
+            correctCountEl.textContent = correctScore;
+        } else {
+            btn.classList.add("wrong");
+            wrongScore++;
+            wrongCountEl.textContent = wrongScore;
+            
+            // Doğru cevabı göster
+            allBtns.forEach(b => {
+                if(b.textContent === correct) b.classList.add("correct");
+            });
+        }
+        nextBtn.style.display = "block";
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function finishQuiz() {
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+
+        document.getElementById("final-correct").textContent = correctScore;
+        document.getElementById("final-wrong").textContent = wrongScore;
+
+        // PUAN HESAPLAMA (100 ÜZERİNDEN)
+        let score = (correctScore / questions.length) * 100;
+        score = Math.round(score); 
+        
+        document.getElementById("final-score").textContent = score;
+
+        // Puana göre mesaj
+        const feedback = document.getElementById("feedback-text");
+        if(score >= 90) feedback.textContent = "Mükemmel! Konulara çok hakimsin.";
+        else if(score >= 70) feedback.textContent = "Gayet başarılı. Tebrikler.";
+        else if(score >= 50) feedback.textContent = "Fena değil, notları biraz daha tekrar etmelisin.";
+        else feedback.textContent = "Daha fazla çalışman gerekiyor.";
+    }
+
+    // Başlat
+    loadQuestion();
+</script>
+
+</body>
+</html>
