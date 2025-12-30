@@ -75,6 +75,46 @@
             font-weight: 600;
         }
 
+        /* Konu Anlatımı Alanı */
+        .explanation-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .explanation-title {
+            color: #007bff;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation-content {
+            color: #495057;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .explanation-content code {
+            background-color: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Şıklar */
         .options-grid {
             display: grid;
@@ -217,6 +257,12 @@
 
         <div class="question-area">
             <div class="question-text" id="question-text">Soru yükleniyor...</div>
+            <div class="explanation-box" id="explanation-box">
+                <div class="explanation-title">
+                    <i class="fa-solid fa-lightbulb"></i> KONU ANLATIMI
+                </div>
+                <div class="explanation-content" id="explanation-content"></div>
+            </div>
         </div>
 
         <div class="options-grid" id="options-list"></div>
@@ -254,260 +300,310 @@
         {
             question: "HTML'in açılımı aşağıdakilerden hangisidir?",
             options: ["Hyper Tool Markup Language", "Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
-            answer: "Hyper Text Markup Language"
+            answer: "Hyper Text Markup Language",
+            explanation: "HTML, <strong>Hyper Text Markup Language</strong>'in kısaltmasıdır. 'Hyper Text' (hiper metin) bağlantılı metinler anlamına gelirken, 'Markup Language' (işaretleme dili) etiketler kullanarak içeriği yapılandırdığımızı ifade eder. HTML, web sayfalarının yapı taşıdır ve tarayıcılar tarafından yorumlanır."
         },
         {
             question: "HTML kodlarında sayfanın başlığı (tarayıcı sekmesinde görünen kısım) hangi etiketler arasına yazılır?",
             options: ["<header>", "<title>", "<body>", "<h1>"],
-            answer: "<title>"
+            answer: "<title>",
+            explanation: "<code>&lt;title&gt;</code> etiketi, HTML belgesinin başlığını tanımlar ve bu başlık tarayıcı sekmesinde, arama motoru sonuçlarında ve yer işaretlerinde görüntülenir. <code>&lt;header&gt;</code> ise sayfanın üst kısmındaki bölüm için kullanılır."
         },
         {
             question: "HTML sayfalarında kullanıcı tarafından görülen tüm içerik hangi etiketler arasında yer alır?",
             options: ["<head>", "<title>", "<body>", "<footer>"],
-            answer: "<body>"
+            answer: "<body>",
+            explanation: "<code>&lt;body&gt;</code> etiketi, kullanıcının tarayıcıda gördüğü tüm içeriği (metinler, resimler, bağlantılar, tablolar, listeler vb.) kapsar. <code>&lt;head&gt;</code> etiketi ise sayfanın meta bilgilerini, başlığını ve stil/script dosyalarını içerir."
         },
         {
             question: "HTML'de en büyük başlık etiketi aşağıdakilerden hangisidir?",
             options: ["<h1>", "<h6>", "<header>", "<head>"],
-            answer: "<h1>"
+            answer: "<h1>",
+            explanation: "HTML'de başlık etiketleri <code>&lt;h1&gt;</code> ile <code>&lt;h6&gt;</code> arasında değişir. <code>&lt;h1&gt;</code> <strong>en büyük ve en önemli</strong> başlığı temsil ederken, <code>&lt;h6&gt;</code> en küçük başlıktır. SEO için her sayfada bir tane <code>&lt;h1&gt;</code> kullanılması önerilir."
         },
         {
             question: "HTML'de bir alt satıra geçmek için kullanılan etiket hangisidir?",
             options: ["<lb>", "<break>", "<br>", "<p>"],
-            answer: "<br>"
+            answer: "<br>",
+            explanation: "<code>&lt;br&gt;</code> etiketi (break), satır sonu anlamına gelir ve içeriği bir alt satıra taşır. <strong>Kapanış etiketi gerektirmez</strong> (void element). <code>&lt;p&gt;</code> etiketi ise yeni bir paragraf oluşturur ve satır sonunda daha fazla boşluk bırakır."
         },
         {
             question: "HTML'de bir bağlantı (köprü/link) oluşturmak için hangi etiket kullanılır?",
             options: ["<link>", "<a>", "<href>", "<url>"],
-            answer: "<a>"
+            answer: "<a>",
+            explanation: "<code>&lt;a&gt;</code> etiketi (anchor), HTML'de bağlantı oluşturmak için kullanılır. <code>href</code> özelliği ile hedef URL belirtilir. Örnek: <code>&lt;a href='https://ornek.com'&gt;Tıkla&lt;/a&gt;</code>. <code>&lt;link&gt;</code> etiketi ise CSS dosyalarını bağlamak için kullanılır."
         },
         {
             question: "Bir bağlantının yeni bir sekmede açılmasını sağlayan özellik (attribute) hangisidir?",
             options: ["target=\"_blank\"", "target=\"_new\"", "window=\"new\"", "open=\"tab\""],
-            answer: "target=\"_blank\""
+            answer: "target=\"_blank\"",
+            explanation: "<code>target='_blank'</code> özelliği, bağlantının <strong>yeni bir sekme veya pencerede</strong> açılmasını sağlar. Örnek: <code>&lt;a href='https://ornek.com' target='_blank'&gt;Yeni Sekmede Aç&lt;/a&gt;</code>. Güvenlik için <code>rel='noopener noreferrer'</code> eklemek de önerilir."
         },
         {
             question: "E-posta gönderme bağlantısı oluşturmak için href özelliğine ne yazılmalıdır?",
             options: ["email:", "send:", "mailto:", "post:"],
-            answer: "mailto:"
+            answer: "mailto:",
+            explanation: "<code>mailto:</code> protokolü, bir e-posta bağlantısı oluşturur. Kullanıcı bu bağlantıya tıkladığında varsayılan e-posta istemcisi açılır. Örnek: <code>&lt;a href='mailto:ornek@email.com'&gt;E-posta Gönder&lt;/a&gt;</code>. Konu ve mesaj eklemek için: <code>mailto:ornek@email.com?subject=Konu&body=Mesaj</code>"
         },
         {
             question: "Sayfa içi bağlantı oluşturmak için id ile belirtilen bir alana nasıl link verilir?",
             options: ["href=\"@altkisim\"", "href=\"#altkisim\"", "href=\".altkisim\"", "href=\"*altkisim\""],
-            answer: "href=\"#altkisim\""
+            answer: "href=\"#altkisim\"",
+            explanation: "Sayfa içi bağlantılar için <code>#</code> (kare) işareti kullanılır. Önce hedef elemente bir <code>id</code> verilir: <code>&lt;div id='bolum2'&gt;</code>. Daha sonra bağlantıda: <code>&lt;a href='#bolum2'&gt;Bölüm 2'ye git&lt;/a&gt;</code>. Tıklandığında sayfa o bölüme kayar."
         },
         {
             question: "HTML'de tarayıcıda görünmeyen yorum satırı nasıl tanımlanır?",
             options: ["// Yorum", "/* Yorum */", "<!-- Yorum -->", "# Yorum"],
-            answer: "<!-- Yorum -->"
+            answer: "<!-- Yorum -->",
+            explanation: "HTML'de yorum satırları <code>&lt;!-- yorum içeriği --&gt;</code> şeklinde yazılır. Bu yorumlar tarayıcıda görüntülenmez ama kaynak kodda görülebilir. Kod açıklamaları, notlar bırakmak veya kod bölümlerini geçici olarak devre dışı bırakmak için kullanışlıdır."
         },
 
         // --- BÖLÜM 2: CSS TEMELLERİ & SEÇİCİLER (CSS.pptx) ---
         {
             question: "CSS'in açılımı nedir?",
             options: ["Creative Style Sheets", "Cascading Style Sheets", "Computer Style Sheets", "Colorful Style Sheets"],
-            answer: "Cascading Style Sheets"
+            answer: "Cascading Style Sheets",
+            explanation: "CSS, <strong>Cascading Style Sheets</strong> (Basamaklı Stil Şablonları) anlamına gelir. 'Cascading' (basamaklı) terimi, stil kurallarının belirli bir öncelik sırasına göre uygulandığını ifade eder. CSS, HTML elementlerinin görünümünü (renk, boyut, konum vb.) düzenlemek için kullanılır."
         },
         {
             question: "CSS'de bir HTML etiketine ID vererek stil uygulamak için hangi işaret kullanılır?",
             options: [". (Nokta)", "# (Kare)", "@ (Et)", "& (Ve)"],
-            answer: "# (Kare)"
+            answer: "# (Kare)",
+            explanation: "CSS'de <strong>ID seçiciler</strong> için <code>#</code> (kare) işareti kullanılır. HTML'de: <code>&lt;div id='menu'&gt;</code>. CSS'de: <code>#menu { color: blue; }</code>. Bir ID, bir sayfada <strong>sadece bir elemente</strong> verilebilir. JavaScript ile element seçiminde de kullanılır."
         },
         {
             question: "CSS'de bir HTML etiketine CLASS vererek stil uygulamak için hangi işaret kullanılır?",
             options: [". (Nokta)", "# (Kare)", "* (Yıldız)", "$ (Dolar)"],
-            answer: ". (Nokta)"
+            answer: ". (Nokta)",
+            explanation: "CSS'de <strong>class seçiciler</strong> için <code>.</code> (nokta) işareti kullanılır. HTML'de: <code>&lt;p class='onemli'&gt;</code>. CSS'de: <code>.onemli { font-weight: bold; }</code>. Bir class, <strong>birden fazla elemente</strong> verilebilir ve bir element birden fazla class alabilir."
         },
         {
             question: "CSS'de metin rengini değiştirmek için hangi özellik kullanılır?",
             options: ["font-color", "text-color", "color", "background-color"],
-            answer: "color"
+            answer: "color",
+            explanation: "Metin rengini değiştirmek için <code>color</code> özelliği kullanılır. Örnek: <code>color: red;</code> veya <code>color: #FF0000;</code> veya <code>color: rgb(255, 0, 0);</code>. <code>background-color</code> ise arka plan rengini değiştirir. CSS'de 'text-color' veya 'font-color' diye bir özellik yoktur."
         },
         {
             question: "Arka plan rengini değiştirmek için kullanılan CSS özelliği hangisidir?",
             options: ["color", "bg-color", "background-color", "back-color"],
-            answer: "background-color"
+            answer: "background-color",
+            explanation: "Arka plan rengi için <code>background-color</code> özelliği kullanılır. Örnek: <code>background-color: yellow;</code>. Kısaltma olarak sadece <code>background</code> özelliği de kullanılabilir: <code>background: yellow url('resim.jpg') no-repeat center;</code>"
         },
         {
             question: "HTML içerisine satır içi (inline) CSS yazmak için hangi özellik kullanılır?",
             options: ["style", "css", "class", "design"],
-            answer: "style"
+            answer: "style",
+            explanation: "Satır içi CSS için <code>style</code> özelliği kullanılır: <code>&lt;div style='color: blue; font-size: 16px;'&gt;</code>. Ancak bu yöntem <strong>öncelikli olmasına rağmen</strong> bakımı zor olduğu ve tekrar kullanılamadığı için genellikle önerilmez. Harici CSS dosyaları veya <code>&lt;style&gt;</code> etiketi tercih edilmelidir."
         },
         {
             question: "Harici bir CSS dosyasını HTML sayfasına bağlamak için hangi etiket kullanılır?",
             options: ["<style>", "<script>", "<link>", "<css>"],
-            answer: "<link>"
+            answer: "<link>",
+            explanation: "Harici CSS dosyalarını bağlamak için <code>&lt;link&gt;</code> etiketi kullanılır, genellikle <code>&lt;head&gt;</code> bölümüne yerleştirilir: <code>&lt;link rel='stylesheet' href='stil.css'&gt;</code>. <code>&lt;style&gt;</code> etiketi ise dahili CSS yazmak için kullanılır. <code>&lt;script&gt;</code> JavaScript dosyaları içindir."
         },
         {
             question: "Hücre içi (iç kenar) boşluk vermek için kullanılan CSS özelliği hangisidir?",
             options: ["margin", "padding", "border", "spacing"],
-            answer: "padding"
+            answer: "padding",
+            explanation: "<strong>Padding</strong>, elementin içeriği ile kenarlığı (border) arasındaki boşluktur. <strong>Margin</strong> ise elementin diğer elementlerle arasındaki dış boşluktur. CSS Box Model: <code>margin → border → padding → content</code>. Örnek: <code>padding: 10px;</code> (her yöne) veya <code>padding: 10px 20px;</code> (üst-alt, sağ-sol)"
         },
         {
             question: "Hücre dışı (dış kenar) boşluk vermek için kullanılan CSS özelliği hangisidir?",
             options: ["padding", "margin", "border", "outline"],
-            answer: "margin"
+            answer: "margin",
+            explanation: "<strong>Margin</strong>, bir elementin diğer elementlerden ne kadar uzakta olacağını belirler. Örnek: <code>margin: 20px;</code>. Negatif değerler de alabilir: <code>margin: -10px;</code>. <code>margin: auto;</code> ile element yatayda ortalanabilir. Margin collapse (birleşme) özelliği dikey margin'ler için geçerlidir."
         },
         {
             question: "Tüm HTML elementlerini seçmek için kullanılan CSS seçicisi hangisidir?",
             options: ["#", ".", "*", "body"],
-            answer: "*"
+            answer: "*",
+            explanation: "<strong>Evrensel seçici</strong> (<code>*</code>) tüm HTML elementlerini seçer. Genellikle CSS sıfırlama (reset) için kullanılır: <code>* { margin: 0; padding: 0; box-sizing: border-box; }</code>. Dikkatli kullanılmalıdır çünkü performansı etkileyebilir ve tüm elementlere uygulanır."
         },
 
         // --- BÖLÜM 3: ÖZEL CSS KONULARI (!important, transition, animation, border-radius, object-position) ---
         {
             question: "CSS'de 'border-radius' özelliği ne işe yarar?",
             options: ["Kenarlara gölge ekler", "Kenarlık rengini değiştirir", "Köşeleri yuvarlatır (oval yapar)", "Kenarlık kalınlığını ayarlar"],
-            answer: "Köşeleri yuvarlatır (oval yapar)"
+            answer: "Köşeleri yuvarlatır (oval yapar)",
+            explanation: "<code>border-radius</code>, elementin köşelerini yuvarlatır. Değer ne kadar büyükse, yuvarlaklık o kadar artar. Örnekler: <code>border-radius: 10px;</code> (tüm köşeler), <code>border-radius: 50%;</code> (daire yapar). Ayrı ayrı köşeler: <code>border-radius: 10px 20px 30px 40px;</code> (saat yönü: sol-üst, sağ-üst, sağ-alt, sol-alt)"
         },
         {
             question: "Bir CSS kuralının diğer tüm kuralları ezerek (baskın çıkarak) uygulanmasını sağlamak için hangisi kullanılır?",
             options: ["!priority", "!override", "!important", "!force"],
-            answer: "!important"
+            answer: "!important",
+            explanation: "<code>!important</code> kuralı, bir CSS özelliğinin diğer tüm kurallardan (daha yüksek özgüllük de olsa) <strong>daha öncelikli</strong> olmasını sağlar. Örnek: <code>color: red !important;</code>. Ancak aşırı kullanımı CSS'in 'cascading' doğasına aykırıdır ve bakımı zorlaştırır. Mümkünse özgüllük (specificity) ile çözüm bulmak daha iyidir."
         },
         {
             question: "CSS'de elementlerin özellik değişimlerinin (örneğin hover durumunda) zamana yayılarak yumuşak olmasını sağlayan özellik nedir?",
             options: ["animation", "transform", "transition", "decoration"],
-            answer: "transition"
+            answer: "transition",
+            explanation: "<code>transition</code>, CSS özellik değişikliklerini belirli bir süreye yayarak animasyon efekti oluşturur. Örnek: <code>transition: all 0.3s ease;</code>. Hangi özellik: <code>transition-property</code>, süre: <code>transition-duration</code>, zamanlama fonksiyonu: <code>transition-timing-function</code>, gecikme: <code>transition-delay</code>."
         },
         {
             question: "Kullanıcı etkileşimi olmadan elementlerin hareket etmesini veya şekil değiştirmesini sağlayan yapı nedir?",
             options: ["transition", "animation (@keyframes)", "transform", "hover"],
-            answer: "animation (@keyframes)"
+            answer: "animation (@keyframes)",
+            explanation: "CSS <code>animation</code> ve <code>@keyframes</code> kullanıcı etkileşimi olmadan otomatik animasyonlar oluşturur. <code>@keyframes</code> ile animasyonun adımları tanımlanır: <code>@keyframes slide { from { left: 0; } to { left: 100px; } }</code>. Elemente: <code>animation: slide 2s infinite;</code>"
         },
         {
             question: "Bir resmin veya videonun kapsayıcısı (kutusu) içerisindeki hizalamasını ayarlamak için hangi özellik kullanılır?",
             options: ["background-position", "object-position", "text-align", "justify-content"],
-            answer: "object-position"
+            answer: "object-position",
+            explanation: "<code>object-position</code>, <code>&lt;img&gt;</code> veya <code>&lt;video&gt;</code> gibi yerleştirilmiş içeriklerin, kendi kutusu içindeki konumunu belirler. <code>object-fit</code> ile birlikte kullanılır. Örnek: <code>object-position: center top;</code>. <code>background-position</code> ise sadece arka plan resimleri içindir."
         },
         {
             question: "CSS'de animasyonun zaman akış eğrisini (hızlanma/yavaşlama) belirleyen özellik hangisidir?",
             options: ["transition-duration", "transition-timing-function", "animation-delay", "animation-name"],
-            answer: "transition-timing-function"
+            answer: "transition-timing-function",
+            explanation: "<code>transition-timing-function</code> veya <code>animation-timing-function</code>, animasyonun zaman içindeki hız eğrisini belirler. Değerler: <code>linear</code> (sabit), <code>ease</code> (yavaş-hızlı-yavaş, varsayılan), <code>ease-in</code> (yavaş başlar), <code>ease-out</code> (yavaş biter), <code>ease-in-out</code> (yavaş-hızlı-yavaş), <code>cubic-bezier()</code> (özel eğri)."
         },
         {
             question: "Bir elementin üzerine mouse ile gelindiğinde stil değiştirmesini sağlayan sözde sınıf (pseudo-class) hangisidir?",
             options: [":active", ":focus", ":hover", ":visited"],
-            answer: ":hover"
+            answer: ":hover",
+            explanation: "<code>:hover</code> sözde sınıfı, kullanıcı fare imlecini bir elementin üzerine getirdiğinde tetiklenir. Örnek: <code>a:hover { color: red; }</code>. Diğerleri: <code>:active</code> (tıklanma anı), <code>:focus</code> (odaklanıldığında - input gibi), <code>:visited</code> (ziyaret edilmiş bağlantılar)."
         },
         {
             question: "CSS'de bir öğeyi tamamen gizlemek ve yer kaplamamasını sağlamak için hangisi kullanılır?",
             options: ["visibility: hidden", "display: none", "opacity: 0", "z-index: -1"],
-            answer: "display: none"
+            answer: "display: none",
+            explanation: "<code>display: none</code> öğeyi tamamen gizler ve <strong>doküman akışından kaldırır</strong> (yer kaplamaz). <code>visibility: hidden</code> ise öğeyi gizler ama <strong>yerini korur</strong> (boşluk bırakır). <code>opacity: 0</code> görünmez yapar ama tıklanabilirliği koruyabilir. <code>z-index: -1</code> sadece katman sırasını değiştirir."
         },
         {
             question: "Opacity: 0.5 kodu ne anlama gelir?",
             options: ["Öğe tamamen görünmez olur", "Öğe %50 şeffaf olur", "Öğe siyah beyaz olur", "Öğe 50px kaydırılır"],
-            answer: "Öğe %50 şeffaf olur"
+            answer: "Öğe %50 şeffaf olur",
+            explanation: "<code>opacity</code> özelliği, bir elementin şeffaflığını (opaklığını) belirler. Değer 0 ile 1 arasındadır: <code>0</code> tamamen şeffaf (görünmez), <code>0.5</code> %50 şeffaf (yarı saydam), <code>1</code> tamamen opak (normal). Öğe ve tüm içeriği şeffaflaşır. Sadece arka plan şeffaflığı için <code>background-color: rgba(255,0,0,0.5)</code> kullanılabilir."
         },
         {
             question: "Z-index özelliği ne işe yarar?",
             options: ["Yazı boyutunu ayarlar", "Elementlerin katman sırasını (öne/arkaya geçmesini) belirler", "Saydamlığı ayarlar", "Yatay hizalama yapar"],
-            answer: "Elementlerin katman sırasını (öne/arkaya geçmesini) belirler"
+            answer: "Elementlerin katman sırasını (öne/arkaya geçmesini) belirler",
+            explanation: "<code>z-index</code>, konumlandırılmış (positioned) elementlerin (position: relative, absolute, fixed, sticky) <strong>yığın sırasını (stacking order)</strong> belirler. Daha yüksek değer, öne gelir. Negatif değerler arka plana gönderir. Sadece <code>position</code> özelliği atanmış elementlerde çalışır. Varsayılan değer <code>auto</code>'dur."
         },
 
         // --- BÖLÜM 4: TABLOLAR VE FORMLAR (Ders Notları 4-5. Hafta) ---
         {
             question: "HTML'de tablo oluşturmak için kullanılan ana etiket hangisidir?",
             options: ["<tab>", "<table>", "<list>", "<grid>"],
-            answer: "<table>"
+            answer: "<table>",
+            explanation: "HTML tabloları <code>&lt;table&gt;</code> etiketi ile başlar. Yapısı: <code>&lt;table&gt; → &lt;tr&gt; (table row - satır) → &lt;td&gt; (table data - hücre) veya &lt;th&gt; (table header - başlık hücresi)</code>. <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code> ile bölümlere ayrılabilir. Tablolar veri sunmak için kullanılmalı, sayfa düzeni için değil."
         },
         {
             question: "Tabloda yeni bir satır (row) oluşturmak için hangi etiket kullanılır?",
             options: ["<td>", "<th>", "<tr>", "<row>"],
-            answer: "<tr>"
+            answer: "<tr>",
+            explanation: "<code>&lt;tr&gt;</code> (table row), bir tabloda yeni bir satır oluşturur. Her <code>&lt;tr&gt;</code> içinde <code>&lt;td&gt;</code> (normal hücre) veya <code>&lt;th&gt;</code> (başlık hücresi) bulunur. Örnek: <code>&lt;tr&gt;&lt;td&gt;İstanbul&lt;/td&gt;&lt;td&gt;15M&lt;/td&gt;&lt;/tr&gt;</code>"
         },
         {
             question: "Tabloda sütunları birleştirmek için hangi özellik kullanılır?",
             options: ["rowspan", "colspan", "merge", "combine"],
-            answer: "colspan"
+            answer: "colspan",
+            explanation: "<code>colspan</code> özelliği, bir hücrenin <strong>yatayda kaç sütun</strong> kaplayacağını belirler. Örnek: <code>&lt;td colspan='2'&gt;İki sütun birleşik&lt;/td&gt;</code>. Birleştirilen sütun sayısı kadar sonraki <code>&lt;td&gt;</code> çıkarılmalıdır. <code>rowspan</code> ise dikey birleştirme içindir."
         },
         {
             question: "Tabloda satırları birleştirmek için hangi özellik kullanılır?",
             options: ["rowspan", "colspan", "rowmerge", "span"],
-            answer: "rowspan"
+            answer: "rowspan",
+            explanation: "<code>rowspan</code> özelliği, bir hücrenin <strong>dikeyde kaç satır</strong> kaplayacağını belirler. Örnek: <code>&lt;td rowspan='2'&gt;İki satır birleşik&lt;/td&gt;</code>. Birleştirilen satır sayısı kadar sonraki satırlarda ilgili hücre çıkarılmalıdır."
         },
         {
             question: "Form verilerini gizli bir şekilde (URL'de görünmeden) göndermek için hangi metod kullanılır?",
             options: ["GET", "POST", "SEND", "HIDDEN"],
-            answer: "POST"
+            answer: "POST",
+            explanation: "<code>POST</code> metodu, form verilerini HTTP isteği gövdesinde (body) gönderir, bu nedenle <strong>URL'de görünmez</strong> ve daha güvenlidir. Büyük veriler, dosya yükleme veya hassas bilgiler (şifre, kredi kartı) için kullanılır. <code>GET</code> metodu ise verileri URL'de sorgu string'i olarak gönderir: <code>?isim=Ali&yas=25</code>."
         },
         {
             question: "Kullanıcının sadece tek bir seçim yapabildiği (örneğin Cinsiyet: Kadın/Erkek) form elemanı hangisidir?",
             options: ["Checkbox (Onay Kutusu)", "Radio Button (Radyo Düğmesi)", "Text Area", "Select Box"],
-            answer: "Radio Button (Radyo Düğmesi)"
+            answer: "Radio Button (Radyo Düğmesi)",
+            explanation: "<strong>Radio button</strong>'lar, aynı <code>name</code> özelliğine sahip olduklarında bir grup oluşturur ve gruptan sadece <strong>bir tanesi seçilebilir</strong>. Örnek: <code>&lt;input type='radio' name='cinsiyet' value='kadin'&gt; Kadın &lt;input type='radio' name='cinsiyet' value='erkek'&gt; Erkek</code>. Checkbox'lar ise birden fazla seçime izin verir."
         },
         {
             question: "Birden fazla seçeneğin aynı anda seçilebildiği (örneğin Hobiler) form elemanı hangisidir?",
             options: ["Radio Button", "Checkbox", "Password", "Submit"],
-            answer: "Checkbox"
+            answer: "Checkbox",
+            explanation: "<strong>Checkbox</strong> (onay kutusu), kullanıcının birden fazla seçeneği işaretlemesine olanak tanır. Her checkbox'ın <code>name</code> özelliği aynı veya farklı olabilir. Örnek: <code>&lt;input type='checkbox' name='hobi' value='futbol'&gt; Futbol &lt;input type='checkbox' name='hobi' value='muzik'&gt; Müzik</code>. Sunucuya seçilen değerlerin listesi gönderilir."
         },
         {
             question: "Açılır liste (Dropdown menu) oluşturmak için kullanılan etiket hangisidir?",
             options: ["<list>", "<input type='dropdown'>", "<select>", "<optionlist>"],
-            answer: "<select>"
+            answer: "<select>",
+            explanation: "<code>&lt;select&gt;</code> etiketi, bir açılır liste (dropdown) oluşturur. İçinde <code>&lt;option&gt;</code> etiketleri ile seçenekler tanımlanır. Örnek: <code>&lt;select name='sehir'&gt; &lt;option value='34'&gt;İstanbul&lt;/option&gt; &lt;option value='06'&gt;Ankara&lt;/option&gt; &lt;/select&gt;</code>. <code>multiple</code> özelliği ile çoklu seçim yapılabilir."
         },
         {
             question: "Çok satırlı metin girişi (örneğin mesaj kutusu) için hangi etiket kullanılır?",
             options: ["<input type='text'>", "<textarea>", "<text>", "<input type='box'>"],
-            answer: "<textarea>"
+            answer: "<textarea>",
+            explanation: "<code>&lt;textarea&gt;</code> etiketi, çok satırlı metin giriş alanı oluşturur. <code>rows</code> ve <code>cols</code> özellikleri ile boyutu belirlenebilir. Örnek: <code>&lt;textarea name='mesaj' rows='4' cols='50'&gt;Varsayılan metin&lt;/textarea&gt;</code>. <code>&lt;input type='text'&gt;</code> ise tek satırlık metin alanıdır."
         },
         {
             question: "Formdaki verileri sunucuya göndermek için kullanılan buton tipi hangisidir?",
             options: ["type='button'", "type='reset'", "type='submit'", "type='send'"],
-            answer: "type='submit'"
+            answer: "type='submit'",
+            explanation: "<code>type='submit'</code> butonu, form verilerini sunucuya gönderir. Örnek: <code>&lt;input type='submit' value='Gönder'&gt;</code> veya <code>&lt;button type='submit'&gt;Gönder&lt;/button&gt;</code>. <code>type='reset'</code> formu temizler, <code>type='button'</code> ise varsayılan bir işlevi olmayan butondur (JavaScript ile kullanılır)."
         },
 
         // --- BÖLÜM 5: PROJE YÖNETİMİ, HOSTING VE GENEL KAVRAMLAR (Ders Notları 1. ve 6. Hafta) ---
         {
             question: "Web sitesi dosyalarının internette yayınlanmak üzere barındırıldığı bilgisayarlara ne denir?",
             options: ["Domain", "Hosting (Server)", "Browser", "Modem"],
-            answer: "Hosting (Server)"
+            answer: "Hosting (Server)",
+            explanation: "<strong>Hosting (web barındırma)</strong>, web sitesi dosyalarının (HTML, CSS, JavaScript, resimler) sürekli erişilebilir olması için <strong>sunucu bilgisayarlarda</strong> saklanması hizmetidir. <strong>Domain (alan adı)</strong> ise bu sunucuya erişmek için kullanılan isimdir (örn: google.com). Tarayıcı (browser) kullanıcının siteye eriştiği programdır."
         },
         {
             question: "Web sitesinin internetteki adı veya adresi (örneğin google.com) kavramı nedir?",
             options: ["Hosting", "Domain (Alan Adı)", "DNS", "IP"],
-            answer: "Domain (Alan Adı)"
+            answer: "Domain (Alan Adı)",
+            explanation: "<strong>Domain (alan adı)</strong>, bir web sitesinin insanların hatırlayabileceği adresidir (örnek: www.facebook.com). DNS (Domain Name System) bu alan adını sunucunun IP adresine (örn: 192.0.2.1) çevirir. Hosting olmadan alan adı tek başına bir siteyi yayınlayamaz."
         },
         {
             question: "Dosya Aktarım Protokolü (Web sitesi dosyalarını sunucuya yüklemek için kullanılan protokol) kısaltması nedir?",
             options: ["HTTP", "FTP", "SMTP", "DNS"],
-            answer: "FTP"
+            answer: "FTP",
+            explanation: "<strong>FTP (File Transfer Protocol)</strong>, bilgisayarlar arasında dosya transferi yapmak için kullanılan bir protokoldür. Web geliştiriciler, site dosyalarını yerel bilgisayardan hosting sunucusuna FTP istemcisi (FileZilla, WinSCP gibi) veya panel üzerinden yüklerler. HTTP web sayfalarını görüntülemek, SMTP e-posta göndermek için kullanılır."
         },
         {
             question: "Yazılım kodlamasında 'KISS' prensibi neyi ifade eder?",
             options: ["Kodun karmaşık olması gerektiğini", "Kodun kısa ve basit tutulması gerektiğini (Keep It Short and Simple)", "Kodun uzun olması gerektiğini", "Kodun sadece geliştiriciler için olduğunu"],
-            answer: "Kodun kısa ve basit tutulması gerektiğini (Keep It Short and Simple)"
+            answer: "Kodun kısa ve basit tutulması gerektiğini (Keep It Short and Simple)",
+            explanation: "<strong>KISS prensibi</strong> (Keep It Short and Simple veya Keep It Simple, Stupid), yazılım geliştirmede kodun mümkün olduğunca <strong>basit, anlaşılır ve kısa</strong> tutulması gerektiğini savunur. Karmaşık kodlar bakımı zorlaştırır, hatalara yol açar ve diğer geliştiricilerin anlamasını güçleştirir. DRY (Don't Repeat Yourself) ve YAGNI (You Aren't Gonna Need It) benzer prensiplerdir."
         },
         {
             question: "Bir yazılım projesinde kodlama başlamadan önceki ilk aşama genellikle nedir?",
             options: ["Test", "Bakım", "Analiz ve Planlama", "Sürüm Teslimi"],
-            answer: "Analiz ve Planlama"
+            answer: "Analiz ve Planlama",
+            explanation: "Yazılım geliştirme yaşam döngüsünün (SDLC) ilk aşaması <strong>Analiz ve Planlama</strong>'dır. Bu aşamada: <br>1. İhtiyaç analizi yapılır <br>2. Proje kapsamı belirlenir <br>3. Kaynak ve zaman planlaması yapılır <br>4. Teknoloji seçimi yapılır <br>5. Risk analizi yapılır<br>Sonrasında tasarım, kodlama, test, dağıtım ve bakım aşamaları gelir."
         },
         {
             question: "Web sitelerinin görünen yüzünü (tasarım, menüler vb.) kodlayan alana ne ad verilir?",
             options: ["Backend", "Frontend", "Database", "Network"],
-            answer: "Frontend"
+            answer: "Frontend",
+            explanation: "<strong>Frontend (istemci tarafı)</strong>, kullanıcının gördüğü ve etkileşimde bulunduğu arayüzü oluşturur. Teknolojiler: HTML (yapı), CSS (stil), JavaScript (davranış). <strong>Backend (sunucu tarafı)</strong> ise veritabanı işlemleri, kullanıcı doğrulama, sunucu mantığı gibi arka planda çalışan kısımdır. Teknolojiler: PHP, Python, Node.js, Java, C#."
         },
         {
             question: "Veritabanı Yönetim Sistemlerinin (DBMS) temel görevi nedir?",
             options: ["Web sayfasını renklendirmek", "Verileri depolamak, yönetmek ve sorgulamak", "Resimleri düzenlemek", "İnternet hızını artırmak"],
-            answer: "Verileri depolamak, yönetmek ve sorgulamak"
+            answer: "Verileri depolamak, yönetmek ve sorgulamak",
+            explanation: "<strong>DBMS (Database Management System)</strong>, verilerin depolanması, düzenlenmesi, güncellenmesi, silinmesi ve sorgulanması için kullanılan yazılım sistemidir. Örnekler: MySQL, PostgreSQL, MongoDB, Oracle. SQL (Structured Query Language) ile veritabanında işlem yapılır. Web siteleri kullanıcı bilgileri, ürün verileri, siparişler gibi bilgileri veritabanında saklar."
         },
         {
             question: "Hataların düzeltilmesi, yeni özelliklerin eklenmesi gibi işlemler projenin hangi aşamasında yapılır?",
             options: ["Analiz", "Bakım Aşaması", "Planlama", "Gereksinim Belirleme"],
-            answer: "Bakım Aşaması"
+            answer: "Bakım Aşaması",
+            explanation: "<strong>Bakım aşaması</strong>, yazılımın canlıya alınmasından sonraki süreçtir ve proje yaşam döngüsünün önemli bir parçasıdır. Bu aşamada: <br>1. Hata düzeltmeleri (bug fixes) <br>2. Performans iyileştirmeleri <br>3. Yeni özellik eklemeleri <br>4. Güvenlik güncellemeleri <br>5. Uyumluluk güncellemeleri yapılır."
         },
         {
             question: "Web sitesinin farklı ekran boyutlarına (mobil, tablet, pc) uyumlu olmasına ne denir?",
             options: ["Responsive Tasarım", "Statik Tasarım", "Grafik Tasarım", "Veritabanı Tasarımı"],
-            answer: "Responsive Tasarım"
+            answer: "Responsive Tasarım",
+            explanation: "<strong>Responsive (duyarlı) tasarım</strong>, bir web sitesinin tüm cihazlarda (masaüstü, tablet, mobil) ve ekran boyutlarında <strong>doğru görüntülenmesini</strong> sağlayan tasarım yaklaşımıdır. CSS media query'ler ile farklı ekran genişliklerine özel stiller yazılır. Örnek: <code>@media (max-width: 768px) { ... }</code>. Mobil-first yaklaşımı önce mobil tasarım yapmayı önerir."
         },
         {
             question: "Aşağıdakilerden hangisi popüler bir veritabanı yönetim sistemidir?",
             options: ["MySQL", "HTML", "CSS", "Photoshop"],
-            answer: "MySQL"
+            answer: "MySQL",
+            explanation: "<strong>MySQL</strong>, açık kaynak kodlu, popüler bir ilişkisel veritabanı yönetim sistemidir (RDBMS). Web uygulamalarında sıklıkla kullanılır (WordPress, Drupal gibi). <strong>HTML ve CSS</strong> web sayfası yapılandırma ve stil için kullanılır, veritabanı değildir. <strong>Photoshop</strong> ise grafik tasarım programıdır. Diğer popüler veritabanları: PostgreSQL, SQLite, MongoDB (NoSQL), Oracle."
         }
     ];
 
@@ -523,6 +619,8 @@
     const currentQEl = document.getElementById("current-q");
     const correctCountEl = document.getElementById("correct-count");
     const wrongCountEl = document.getElementById("wrong-count");
+    const explanationBox = document.getElementById("explanation-box");
+    const explanationContent = document.getElementById("explanation-content");
 
     // Başlangıç
     loadQuestion();
@@ -535,6 +633,7 @@
         
         optionsEl.innerHTML = "";
         nextBtn.style.display = "none";
+        explanationBox.style.display = "none";
 
         // Şıkları karıştır
         let shuffledOptions = [...currentQ.options].sort(() => Math.random() - 0.5);
@@ -543,14 +642,14 @@
             const btn = document.createElement("button");
             btn.textContent = opt;
             btn.classList.add("option-btn");
-            btn.onclick = () => selectAnswer(btn, opt, currentQ.answer);
+            btn.onclick = () => selectAnswer(btn, opt, currentQ.answer, currentQ.explanation);
             optionsEl.appendChild(btn);
         });
     }
 
-    function selectAnswer(btn, selected, correct) {
+    function selectAnswer(btn, selected, correct, explanation) {
         const allBtns = document.querySelectorAll(".option-btn");
-        allBtns.forEach(b => b.disabled = true); // Tüm butonları kilitle
+        allBtns.forEach(b => b.disabled = true);
 
         if (selected === correct) {
             btn.classList.add("correct");
@@ -571,6 +670,10 @@
                 }
             });
         }
+        
+        // Konu anlatımını göster
+        explanationContent.innerHTML = explanation;
+        explanationBox.style.display = "block";
         nextBtn.style.display = "block";
     }
 
