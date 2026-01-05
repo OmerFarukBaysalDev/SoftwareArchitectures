@@ -3,2413 +3,965 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Programlama - 118 Soruluk Kapsamlı Test</title>
-    <!-- Font Awesome'ı alternatif kaynaktan alalım -->
+    <title>Python Final Hazırlık - 70 Soru (Düzeltilmiş)</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
-        /* CSS kodu aynı kalacak, değişiklik yapmıyorum */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --bg-gradient: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: var(--bg-gradient);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            line-height: 1.6;
         }
 
         .quiz-container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 1000px;
+            max-width: 900px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             overflow: hidden;
-            position: relative;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-            color: white;
-            padding: 25px 30px;
-            position: relative;
-        }
-
-        .header:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #00bcd4, #4caf50);
-        }
-
-        .title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .title i {
-            color: #00bcd4;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .stats-container {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .stat-box {
-            flex: 1;
-            min-width: 120px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .question-count .stat-icon { background: #2196f3; }
-        .score-correct .stat-icon { background: #4caf50; }
-        .score-wrong .stat-icon { background: #f44336; }
-        .progress .stat-icon { background: #ff9800; }
-
-        .stat-text {
             display: flex;
             flex-direction: column;
+            min-height: 650px;
         }
 
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        .content-area {
-            padding: 30px;
-        }
-
-        .explanation-box {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-left: 5px solid #2196f3;
-            display: none;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .explanation-title {
-            color: #2196f3;
-            font-weight: 700;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .explanation-content {
-            color: #455a64;
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        .explanation-content code {
-            background: #2d3436;
-            color: #00bcd4;
-            padding: 4px 8px;
-            border-radius: 5px;
-            font-family: 'Consolas', monospace;
-            font-size: 0.9rem;
-            margin: 0 2px;
-        }
-
-        .explanation-content pre {
-            background: #2d3436;
-            color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 10px 0;
-            font-family: 'Consolas', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .question-area {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid #e9ecef;
-        }
-
-        .question-header {
+        /* Header */
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .question-topic {
-            display: inline-block;
-            background: #e3f2fd;
-            color: #1976d2;
-            padding: 8px 20px;
-            border-radius: 20px;
+        .title-group h1 { font-size: 1.4rem; margin-bottom: 5px; }
+        .title-group p { font-size: 0.9rem; opacity: 0.8; }
+
+        .stats {
+            display: flex;
+            gap: 10px;
+        }
+
+        .stat-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
             font-size: 0.9rem;
             font-weight: 600;
         }
 
-        .question-number {
-            color: #666;
-            font-weight: 600;
-            font-size: 1.1rem;
+        .stat-correct { color: #2ecc71; }
+        .stat-wrong { color: #e74c3c; }
+
+        /* Content */
+        .content { padding: 30px; flex: 1; display: flex; flex-direction: column; }
+
+        .progress-bar {
+            height: 6px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-box {
+            background: #f8f9fa;
+            border-left: 5px solid var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            background: #e1f0fa;
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         .question-text {
-            font-size: 1.4rem;
-            color: #2d3436;
-            line-height: 1.6;
+            font-size: 1.15rem;
+            color: #2c3e50;
             font-weight: 600;
+            line-height: 1.5;
         }
 
+        .code-block {
+            background: #2d3436;
+            color: #a29bfe;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            border-left: 4px solid #fdcb6e;
+        }
+
+        /* Options */
         .options-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
+
+        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
 
         .option-btn {
             background: white;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 18px 20px;
-            font-size: 1.05rem;
-            color: #37474f;
-            text-align: left;
+            padding: 15px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
+            text-align: left;
             position: relative;
-            outline: none;
+            font-size: 1rem;
+            color: #555;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .option-btn:hover:not([disabled]) {
-            border-color: #2196f3;
-            background: #f8fdff;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.1);
-        }
+        .option-btn:hover:not([disabled]) { border-color: var(--secondary); background: #f4faff; }
+        .option-btn:disabled { opacity: 0.8; cursor: default; }
+        
+        .option-btn.correct { border-color: var(--success); background: #eafaf1; color: var(--success); }
+        .option-btn.wrong { border-color: var(--accent); background: #fdedec; color: var(--accent); }
+        .option-btn.selected-wrong { border-color: var(--accent); background: #fdedec; color: var(--accent); }
 
-        .option-letter {
-            width: 36px;
-            height: 36px;
+        .btn-letter {
+            width: 28px;
+            height: 28px;
+            background: #eee;
             border-radius: 50%;
-            background: #f5f5f5;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            color: #666;
+            font-weight: bold;
+            font-size: 0.8rem;
+            color: #777;
             flex-shrink: 0;
-            transition: all 0.3s ease;
         }
 
-        .option-btn:hover:not([disabled]) .option-letter {
-            background: #2196f3;
-            color: white;
+        .option-btn.correct .btn-letter { background: var(--success); color: white; }
+        .option-btn.wrong .btn-letter { background: var(--accent); color: white; }
+
+        /* Explanation */
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f8f5;
+            border-radius: 8px;
+            border: 1px solid #d1f2eb;
+            color: #0e6251;
+            display: none;
+            animation: fadeIn 0.4s;
         }
 
-        .option-btn.correct {
-            background: #e8f5e9;
-            border-color: #4caf50;
-            color: #2e7d32;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .option-btn.correct .option-letter {
-            background: #4caf50;
-            color: white;
-        }
-
-        .option-btn.wrong {
-            background: #ffebee;
-            border-color: #f44336;
-            color: #c62828;
-        }
-
-        .option-btn.wrong .option-letter {
-            background: #f44336;
-            color: white;
-        }
-
-        .navigation-buttons {
+        /* Footer */
+        .footer {
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
             display: flex;
-            gap: 15px;
             justify-content: space-between;
+            align-items: center;
         }
 
         .nav-btn {
-            flex: 1;
-            padding: 16px;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .prev-btn {
-            background: #f5f5f5;
-            color: #666;
-        }
-
-        .prev-btn:hover:not(:disabled) {
-            background: #e0e0e0;
-        }
-
-        .next-btn {
-            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
-            color: white;
-        }
-
-        .next-btn:hover:not(:disabled) {
-            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(33, 150, 243, 0.4);
-        }
-
-        .finish-btn {
-            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
-            color: white;
-        }
-
-        .finish-btn:hover {
-            background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        #result-screen {
-            display: none;
-            text-align: center;
-            padding: 40px 30px;
-        }
-
-        .result-icon {
-            font-size: 5rem;
-            margin-bottom: 20px;
-        }
-
-        .score-excellent { color: #4caf50; }
-        .score-good { color: #ff9800; }
-        .score-average { color: #ff9800; }
-        .score-poor { color: #f44336; }
-
-        .circular-chart {
-            display: block;
-            margin: 30px auto;
-            max-width: 250px;
-        }
-
-        .circle-bg {
-            fill: none;
-            stroke: #eee;
-            stroke-width: 3.8;
-        }
-
-        .circle {
-            fill: none;
-            stroke-width: 2.8;
-            stroke-linecap: round;
-            stroke-dasharray: 0, 100;
-            transition: stroke-dasharray 1.5s ease-out;
-        }
-
-        .percentage {
-            fill: #37474f;
-            font-family: sans-serif;
-            font-weight: 700;
-            font-size: 0.5em;
-            text-anchor: middle;
-        }
-
-        .result-details {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .result-detail {
-            background: #f5f5f5;
-            padding: 20px;
-            border-radius: 15px;
-            min-width: 120px;
-        }
-
-        .result-detail-value {
-            font-size: 2rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .result-detail-label {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .result-feedback {
-            font-size: 1.2rem;
-            color: #455a64;
-            margin: 25px 0;
-            line-height: 1.6;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .action-btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
+            transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
+            font-weight: 600;
         }
 
-        .restart-btn {
-            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
-            color: white;
-        }
+        .prev-btn { background: #ecf0f1; color: #7f8c8d; }
+        .prev-btn:hover:not(:disabled) { background: #bdc3c7; color: #2c3e50; }
+        
+        .next-btn { background: var(--secondary); color: white; }
+        .next-btn:hover:not(:disabled) { background: #2980b9; transform: translateY(-2px); }
+        
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        .restart-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(33, 150, 243, 0.4);
+        /* Results */
+        #result-screen { display: none; text-align: center; padding: 50px; }
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success) 0%, #eee 0%);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
+        .score-circle::after {
+            content: ''; position: absolute; width: 150px; height: 150px; background: white; border-radius: 50%;
+        }
+        .score-text { position: relative; z-index: 2; font-size: 3rem; font-weight: 800; color: var(--primary); }
 
-        .review-btn {
-            background: #f5f5f5;
-            color: #37474f;
-        }
-
-        .review-btn:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .quiz-container {
-                border-radius: 15px;
-            }
-            
-            .header {
-                padding: 20px;
-            }
-            
-            .title {
-                font-size: 1.5rem;
-            }
-            
-            .stats-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .stat-box {
-                min-width: 100%;
-            }
-            
-            .content-area {
-                padding: 20px;
-            }
-            
-            .question-text {
-                font-size: 1.2rem;
-            }
-            
-            .navigation-buttons {
-                flex-direction: column;
-            }
-            
-            .result-details {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
 <body>
 
 <div class="quiz-container">
-    <div id="quiz-screen">
+    <div id="quiz-screen" style="display: flex; flex-direction: column; height: 100%;">
         <div class="header">
-            <h1 class="title"><i class="fas fa-code"></i> Python Programlama Temelleri</h1>
-            <div class="subtitle">Yozgat Bozok Üniversitesi - 118 Soruluk Kapsamlı Test</div>
-            
-            <div class="stats-container">
-                <div class="stat-box question-count">
-                    <div class="stat-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <div class="stat-text">
-                        <span class="stat-value" id="current-q">1</span>
-                        <span class="stat-label">SORU</span>
-                    </div>
-                </div>
-                
-                <div class="stat-box score-correct">
-                    <div class="stat-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="stat-text">
-                        <span class="stat-value" id="correct-count">0</span>
-                        <span class="stat-label">DOĞRU</span>
-                    </div>
-                </div>
-                
-                <div class="stat-box score-wrong">
-                    <div class="stat-icon">
-                        <i class="fas fa-times-circle"></i>
-                    </div>
-                    <div class="stat-text">
-                        <span class="stat-value" id="wrong-count">0</span>
-                        <span class="stat-label">YANLIŞ</span>
-                    </div>
-                </div>
-                
-                <div class="stat-box progress">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-text">
-                        <span class="stat-value" id="progress-percent">1%</span>
-                        <span class="stat-label">İLERLEME</span>
-                    </div>
-                </div>
+            <div class="title-group">
+                <h1>Python Final Hazırlık</h1>
+                <p>Yozgat Bozok Üni. - Öğr. Gör. Anıl KUŞ</p>
+            </div>
+            <div class="stats">
+                <div class="stat-badge"><i class="fas fa-list-ol"></i> <span id="q-val">1/70</span></div>
+                <div class="stat-badge stat-correct"><i class="fas fa-check-circle"></i> <span id="score-val">0</span></div>
+                <div class="stat-badge stat-wrong"><i class="fas fa-times-circle"></i> <span id="wrong-val">0</span></div>
             </div>
         </div>
 
-        <div class="content-area">
-            <div class="explanation-box" id="explanation-box">
-                <div class="explanation-title">
-                    <i class="fas fa-lightbulb"></i> KONU ANLATIMI
-                </div>
-                <div class="explanation-content" id="explanation-content"></div>
+        <div class="content">
+            <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+            <div class="question-box">
+                <div class="topic-tag" id="topic">Konu</div>
+                <div class="question-text" id="question">Soru yükleniyor...</div>
             </div>
 
-            <div class="question-area">
-                <div class="question-header">
-                    <div class="question-topic" id="question-topic">TEMEL KAVRAMLAR</div>
-                    <div class="question-number">Soru <span id="question-number">1</span>/118</div>
-                </div>
-                <div class="question-text" id="question-text">Soru yükleniyor...</div>
-            </div>
+            <div class="options-grid" id="options"></div>
 
-            <div class="options-grid" id="options-list"></div>
-
-            <div class="navigation-buttons">
-                <button class="nav-btn prev-btn" id="prev-btn" onclick="prevQuestion()" disabled>
-                    <i class="fas fa-arrow-left"></i> Önceki Soru
-                </button>
-                <button class="nav-btn next-btn" id="next-btn" onclick="nextQuestion()">
-                    Sonraki Soru <i class="fas fa-arrow-right"></i>
-                </button>
+            <div class="explanation" id="explanation">
+                <strong><i class="fas fa-info-circle"></i> Çözüm:</strong> <span id="explanation-text"></span>
             </div>
+        </div>
+
+        <div class="footer">
+            <button class="nav-btn prev-btn" id="prev-btn" onclick="prevQuestion()" disabled>
+                <i class="fas fa-arrow-left"></i> Önceki
+            </button>
+            <button class="nav-btn next-btn" id="next-btn" onclick="nextQuestion()" disabled>
+                Sonraki <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
     </div>
 
     <div id="result-screen">
-        <div class="result-icon">
-            <i class="fas fa-graduation-cap" id="result-icon"></i>
-        </div>
+        <h2 style="color:var(--primary); margin-bottom:10px; font-size: 2rem;">Test Tamamlandı!</h2>
+        <p style="color:#7f8c8d; margin-bottom:40px;">Tüm konuları başarıyla taradınız.</p>
         
-        <h2 style="color:#1a237e; font-size: 2.2rem; margin-bottom: 10px;">TEST TAMAMLANDI!</h2>
-        <p style="color:#666; margin-bottom: 30px;">Python programlama temelleri sınav sonucunuz</p>
-        
-        <svg viewBox="0 0 36 36" class="circular-chart">
-            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-            <path class="circle" id="score-circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-            <text x="18" y="20.35" class="percentage" id="final-score">0%</text>
-        </svg>
+        <div class="score-circle" id="final-circle">
+            <span class="score-text" id="final-score">0%</span>
+        </div>
 
-        <div class="result-details">
-            <div class="result-detail" style="border-top: 4px solid #4caf50;">
-                <span class="result-detail-value" id="final-correct">0</span>
-                <span class="result-detail-label">DOĞRU CEVAP</span>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; max-width:400px; margin:0 auto 40px;">
+            <div style="background:#eafaf1; padding:20px; border-radius:10px;">
+                <div style="font-size:2rem; color:var(--success); font-weight:bold;" id="final-correct">0</div>
+                <div style="font-size:0.9rem; color:#555;">DOĞRU</div>
             </div>
-            
-            <div class="result-detail" style="border-top: 4px solid #f44336;">
-                <span class="result-detail-value" id="final-wrong">0</span>
-                <span class="result-detail-label">YANLIŞ CEVAP</span>
-            </div>
-            
-            <div class="result-detail" style="border-top: 4px solid #ff9800;">
-                <span class="result-detail-value" id="final-skipped">0</span>
-                <span class="result-detail-label">BOŞ BIRAKILAN</span>
+            <div style="background:#fdedec; padding:20px; border-radius:10px;">
+                <div style="font-size:2rem; color:var(--accent); font-weight:bold;" id="final-wrong">0</div>
+                <div style="font-size:0.9rem; color:#555;">YANLIŞ</div>
             </div>
         </div>
 
-        <div class="result-feedback" id="feedback-text"></div>
-
-        <div class="action-buttons">
-            <button class="action-btn restart-btn" onclick="restartQuiz()">
-                <i class="fas fa-redo"></i> Testi Yeniden Başlat
-            </button>
-            <button class="action-btn review-btn" onclick="reviewAnswers()">
-                <i class="fas fa-list-check"></i> Cevapları İncele
-            </button>
-        </div>
+        <button class="nav-btn next-btn" onclick="location.reload()" style="margin:0 auto; padding: 15px 40px;">
+            <i class="fas fa-redo"></i> Testi Yeniden Başlat
+        </button>
     </div>
 </div>
 
 <script>
-    // Python Programlama Temelleri - 100 Soru
     const questions = [
-        // ========== BÖLÜM 1: ALGORİTMA VE TEMEL KAVRAMLAR (5 soru) ==========
-        {
-            topic: "ALGORİTMA",
-            question: "Aşağıdakilerden hangisi bir algoritmanın temel özelliklerinden biri DEĞİLDİR?",
-            options: [
-                "Sonlu sayıda adımdan oluşmalıdır",
-                "Her adım açık ve belirli olmalıdır",
-                "Mutlaka bilgisayar diliyle yazılmalıdır",
-                "Girdi ve çıktıya sahip olmalıdır"
-            ],
-            answer: "Mutlaka bilgisayar diliyle yazılmalıdır",
-            explanation: "✅ Algoritmalar doğal dilde, akış diyagramlarıyla veya sözde kodla (pseudocode) yazılabilir. Önemli olan adımların açık ve net olmasıdır. Örnek: Yemek tarifleri de bir algoritmadır ama bilgisayar diliyle yazılmaz."
-        },
-        {
-            topic: "ALGORİTMA",
-            question: "Python'da 'Hello World' yazdırmak için hangi komut kullanılır?",
-            options: [
-                "echo('Hello World')",
-                "printf('Hello World')",
-                "print('Hello World')",
-                "console.log('Hello World')"
-            ],
-            answer: "print('Hello World')",
-            explanation: "✅ Python'da ekrana çıktı vermek için print() fonksiyonu kullanılır.<br><br>📌 Örnek kullanımlar:<br><pre>print('Merhaba Dünya')  # string yazdırma<br>print(42)             # sayı yazdırma<br>print('Sayı:', 10)    # birden fazla argüman</pre>"
-        },
-        {
-            topic: "ALGORİTMA",
-            question: "Kullanıcıdan veri almak için hangi fonksiyon kullanılır?",
-            options: [
-                "read()",
-                "input()",
-                "get()",
-                "scan()"
-            ],
-            answer: "input()",
-            explanation: "✅ Python'da kullanıcıdan veri almak için input() fonksiyonu kullanılır. Bu fonksiyon her zaman string türünde değer döndürür.<br><br>📌 Örnekler:<br><pre>isim = input('Adınız: ')<br>yaş = int(input('Yaşınız: '))  # string'i integer'a çevirme</pre>"
-        },
-        {
-            topic: "DEĞİŞKENLER",
-            question: "Hangi değişken ismi Python'da geçerli DEĞİLDİR?",
-            options: [
-                "_ogrenci",
-                "ogrenci_adi",
-                "1ogrenci",
-                "ogrenciNo"
-            ],
-            answer: "1ogrenci",
-            explanation: "✅ Değişken isimleri:<br>• Rakamla başlayamaz<br>• Harf veya alt çizgi (_) ile başlamalı<br>• Sadece harf, rakam ve alt çizgi içerebilir<br>• Büyük/küçük harf duyarlıdır<br><br>📌 Geçerli isimler: ogrenci, ogrenci_adi, _ogrenci, ogrenci123<br>📌 Geçersiz isimler: 1ogrenci, ogrenci-adi, öğrenci"
-        },
-        {
-            topic: "DEĞİŞKENLER",
-            question: "x = 5.0 ifadesinde x değişkeninin türü nedir?",
-            options: [
-                "int",
-                "float",
-                "str",
-                "bool"
-            ],
-            answer: "float",
-            explanation: "✅ Python veri türleri:<br>• int: tam sayılar (5, -3, 42)<br>• float: ondalıklı sayılar (5.0, 3.14, -2.5)<br>• str: metinler ('Python', \"Merhaba\")<br>• bool: mantıksal değerler (True, False)<br><br>📌 type() fonksiyonu ile tür kontrolü:<br><pre>x = 5.0<br>print(type(x))  # &lt;class 'float'&gt;</pre>"
-        },
-        // ========== BÖLÜM 2: OPERATÖRLER (3 soru) ==========
-        {
-            topic: "OPERATÖRLER",
-            question: "7 % 3 işleminin sonucu nedir?",
-            options: [
-                "2",
-                "1",
-                "3",
-                "0"
-            ],
-            answer: "1",
-            explanation: "✅ % operatörü bölümden kalanı (mod) verir.<br><br>📌 Örnekler:<br><pre>7 % 3 = 1   (7'nin 3'e bölümünden kalan 1)<br>10 % 2 = 0  (10'un 2'ye bölümünden kalan 0)<br>15 % 4 = 3  (15'in 4'e bölümünden kalan 3)</pre>"
-        },
-        {
-            topic: "OPERATÖRLER",
-            question: "Python'da üs alma işlemi hangi operatörle yapılır?",
-            options: [
-                "^",
-                "**",
-                "^^",
-                "//"
-            ],
-            answer: "**",
-            explanation: "✅ Python operatörleri:<br>• **: üs alma (2**3 = 8)<br>• //: tam bölme (10//3 = 3)<br>• /: normal bölme (10/3 = 3.333)<br>• %: mod alma (10%3 = 1)<br><br>📌 Örnek:<br><pre>print(2 ** 3)   # 8 (2 üzeri 3)<br>print(5 ** 2)   # 25 (5'in karesi)</pre>"
-        },
-        {
-            topic: "OPERATÖRLER",
-            question: "10 // 3 işleminin sonucu nedir?",
-            options: [
-                "3.33",
-                "3",
-                "1",
-                "4"
-            ],
-            answer: "3",
-            explanation: "✅ // operatörü tam bölme yapar ve sonucu aşağı yuvarlar.<br><br>📌 Karşılaştırma:<br><pre>10 / 3  = 3.333...  # normal bölme<br>10 // 3 = 3         # tam bölme<br>10 % 3  = 1         # kalan</pre><br>📌 Diğer örnekler:<br><pre>15 // 4 = 3<br>-7 // 2 = -4  # dikkat: aşağı yuvarlar</pre>"
-        },
-        // ========== BÖLÜM 3: KONTROL YAPILARI (4 soru) ==========
-        {
-            topic: "KONTROL YAPILARI",
-            question: "'elif' anahtar kelimesinin anlamı nedir?",
-            options: [
-                "else if (alternatif koşul)",
-                "end if (koşul sonu)",
-                "else (aksi takdirde)",
-                "if (eğer)"
-            ],
-            answer: "else if (alternatif koşul)",
-            explanation: "✅ elif = else if (alternatif koşul). Birden fazla koşulu kontrol etmek için kullanılır.<br><br>📌 Örnek:<br><pre>notu = 85<br>if notu >= 90:<br>    print('AA')<br>elif notu >= 80:<br>    print('BA')<br>elif notu >= 70:<br>    print('BB')<br>else:<br>    print('FF')</pre>"
-        },
-        {
-            topic: "KONTROL YAPILARI",
-            question: "Python'da geçerli bir if-elif-else yapısı hangisidir?",
-            options: [
-                "if notu > 90 then print('AA') elsif notu > 80 print('BA')",
-                "if notu > 90: print('AA') elif notu > 80: print('BA') else: print('FF')",
-                "if notu > 90 { print('AA') } else if notu > 80 { print('BA') }",
-                "if notu > 90 => print('AA') elif notu > 80 => print('BA')"
-            ],
-            answer: "if notu > 90: print('AA') elif notu > 80: print('BA') else: print('FF')",
-            explanation: "✅ Python'da if-elif-else yapısı:<br>• if, elif, else'den sonra : (iki nokta) kullanılır<br>• Bloklar girinti (indentation) ile belirlenir<br>• {} parantezleri kullanılmaz<br><br>📌 Doğru yazım:<br><pre>if koşul1:<br>    # kodlar<br>elif koşul2:<br>    # kodlar<br>else:<br>    # kodlar</pre>"
-        },
-        {
-            topic: "KONTROL YAPILARI",
-            question: "match-case yapısı hangi Python versiyonuyla eklenmiştir?",
-            options: [
-                "Python 2.7",
-                "Python 3.6",
-                "Python 3.10",
-                "Python 3.8"
-            ],
-            answer: "Python 3.10",
-            explanation: "✅ match-case (pattern matching) Python 3.10 ile eklenmiştir. switch-case benzeri bir yapıdır.<br><br>📌 Örnek kullanım:<br><pre>gün = 'Pazartesi'<br>match gün:<br>    case 'Pazartesi' | 'Salı':<br>        print('Hafta başı')<br>    case 'Çarşamba' | 'Perşembe':<br>        print('Hafta ortası')<br>    case 'Cuma':<br>        print('Hafta sonu yakın')<br>    case _:<br>        print('Hafta sonu')</pre>"
-        },
-        {
-            topic: "KONTROL YAPILARI",
-            question: "Hangi mantıksal operatör tüm koşullar True olduğunda True döner?",
-            options: [
-                "or",
-                "and",
-                "not",
-                "xor"
-            ],
-            answer: "and",
-            explanation: "✅ Mantıksal operatörler:<br>• and: Tüm koşullar True ise True<br>• or: En az bir koşul True ise True<br>• not: True'yu False, False'u True yapar<br><br>📌 Örnekler:<br><pre>True and True   = True<br>True and False  = False<br>True or False   = True<br>not True        = False</pre>"
-        },
-        // ========== BÖLÜM 4: VERİ YAPILARI (5 soru) ==========
-        {
-            topic: "VERİ YAPILARI",
-            question: "Python'da liste nasıl tanımlanır?",
-            options: [
-                "() parantezlerle",
-                "[] köşeli parantezlerle",
-                "{} süslü parantezlerle",
-                "<> açılı parantezlerle"
-            ],
-            answer: "[] köşeli parantezlerle",
-            explanation: "✅ Python veri yapıları:<br>• Liste: [] - değiştirilebilir, sıralı<br>• Demet: () - değiştirilemez, sıralı<br>• Sözlük: {} - anahtar-değer çiftleri<br>• Küme: {} - tekrarsız, sırasız<br><br>📌 Örnekler:<br><pre>liste = [1, 2, 3]<br>demet = (1, 2, 3)<br>sozluk = {'a': 1, 'b': 2}<br>kume = {1, 2, 3}</pre>"
-        },
-        {
-            topic: "VERİ YAPILARI",
-            question: "Hangisi değiştirilemez (immutable) bir veri yapısıdır?",
-            options: [
-                "Liste (List)",
-                "Sözlük (Dictionary)",
-                "Demet (Tuple)",
-                "Küme (Set)"
-            ],
-            answer: "Demet (Tuple)",
-            explanation: "✅ Değiştirilebilirlik (mutability):<br>• Mutable (değiştirilebilir): Liste, Sözlük, Küme<br>• Immutable (değiştirilemez): Demet, String, Sayılar<br><br>📌 Örnek:<br><pre>liste = [1, 2, 3]<br>liste[0] = 10  # ÇALIŞIR<br><br>demet = (1, 2, 3)<br>demet[0] = 10  # HATA: 'tuple' object does not support item assignment</pre>"
-        },
-        {
-            topic: "VERİ YAPILARI",
-            question: "Bir listeye eleman eklemek için hangi metot kullanılır?",
-            options: [
-                "add()",
-                "insert()",
-                "append()",
-                "extend()"
-            ],
-            answer: "append()",
-            explanation: "✅ Liste metodları:<br>• append(): listenin sonuna tek eleman ekler<br>• insert(): belirtilen pozisyona eleman ekler<br>• extend(): başka bir listeyi ekler<br>• add(): küme metodudur<br><br>📌 Örnekler:<br><pre>liste = [1, 2, 3]<br>liste.append(4)      # [1, 2, 3, 4]<br>liste.insert(1, 10)  # [1, 10, 2, 3, 4]<br>liste.extend([5,6]) # [1, 10, 2, 3, 4, 5, 6]</pre>"
-        },
-        {
-            topic: "VERİ YAPILARI",
-            question: "Kümelerle ilgili hangisi doğrudur?",
-            options: [
-                "Sıralıdır (ordered)",
-                "Tekrar eden eleman içerebilir",
-                "Süslü parantezle tanımlanır",
-                "İndeksle eleman seçilebilir"
-            ],
-            answer: "Süslü parantezle tanımlanır",
-            explanation: "✅ Küme özellikleri:<br>• {} ile tanımlanır (boş küme için set() kullan)<br>• Sırasızdır (unordered)<br>• Tekrar eden eleman içermez<br>• İndeksleme desteklemez<br><br>📌 Örnekler:<br><pre>kume = {1, 2, 3, 3, 2}  # {1, 2, 3}<br>bos_kume = set()        # boş küme<br># kume[0] HATA verir</pre>"
-        },
-        {
-            topic: "SÖZLÜKLER",
-            question: "ogrenci = {'isim': 'Ali', 'yas': 20} tanımından 'yas' değerini nasıl alırız?",
-            options: [
-                "ogrenci.yas",
-                "ogrenci['yas']",
-                "ogrenci.get('yas')",
-                "Hem B hem C doğru"
-            ],
-            answer: "Hem B hem C doğru",
-            explanation: "✅ Sözlükten değer alma yöntemleri:<br>1. Köşeli parantez: ogrenci['yas']<br>2. get() metodu: ogrenci.get('yas')<br><br>📌 Farklar:<br><pre>ogrenci['yas']     # 20 (anahtar yoksa KeyError)<br>ogrenci.get('yas') # 20 (anahtar yoksa None döner)<br>ogrenci.get('not', 0) # 0 (varsayılan değer)</pre>"
-        },
-        // ========== BÖLÜM 5: DÖNGÜLER (5 soru) ==========
-        {
-            topic: "DÖNGÜLER",
-            question: "while döngüsü ne zaman sona erer?",
-            options: [
-                "10 kez çalıştığında",
-                "Koşul True olduğunda",
-                "Koşul False olduğunda",
-                "break komutuyla"
-            ],
-            answer: "Koşul False olduğunda",
-            explanation: "✅ while döngüsü koşul False olana kadar çalışır. break ile erken sonlandırılabilir.<br><br>📌 Örnek:<br><pre>sayac = 0<br>while sayac < 3:<br>    print(sayac)<br>    sayac += 1<br># Çıktı: 0 1 2</pre>"
-        },
-        {
-            topic: "DÖNGÜLER",
-            question: "range(5) fonksiyonu hangi sayıları üretir?",
-            options: [
-                "0, 1, 2, 3, 4",
-                "1, 2, 3, 4, 5",
-                "0, 1, 2, 3, 4, 5",
-                "5, 4, 3, 2, 1"
-            ],
-            answer: "0, 1, 2, 3, 4",
-            explanation: "✅ range() fonksiyonu:<br>• range(stop): 0'dan stop-1'e kadar<br>• range(start, stop): start'tan stop-1'e kadar<br>• range(start, stop, step): step adımıyla<br><br>📌 Örnekler:<br><pre>list(range(5))        # [0, 1, 2, 3, 4]<br>list(range(2, 5))     # [2, 3, 4]<br>list(range(0, 10, 2)) # [0, 2, 4, 6, 8]</pre>"
-        },
-        {
-            topic: "DÖNGÜLER",
-            question: "Döngüyü tamamen sonlandırmak için hangi anahtar kelime kullanılır?",
-            options: [
-                "stop",
-                "exit",
-                "break",
-                "continue"
-            ],
-            answer: "break",
-            explanation: "✅ Döngü kontrol anahtar kelimeleri:<br>• break: döngüyü tamamen sonlandırır<br>• continue: mevcut iterasyonu atlar, döngü devam eder<br><br>📌 Örnekler:<br><pre>for i in range(5):<br>    if i == 3:<br>        break      # döngüyü sonlandırır<br>    print(i)       # 0 1 2<br><br>for i in range(5):<br>    if i == 2:<br>        continue   # 2'yi atlar<br>    print(i)       # 0 1 3 4</pre>"
-        },
-        {
-            topic: "DÖNGÜLER",
-            question: "for i in range(2, 10, 2): döngüsü hangi sayıları üretir?",
-            options: [
-                "2, 4, 6, 8, 10",
-                "2, 4, 6, 8",
-                "0, 2, 4, 6, 8",
-                "2, 3, 4, 5, 6, 7, 8, 9"
-            ],
-            answer: "2, 4, 6, 8",
-            explanation: "✅ range(2, 10, 2):<br>• 2'den başlar<br>• 10'a kadar (10 dahil değil)<br>• 2'şer artar<br><br>📌 Adım adım:<br><pre>2 (ilk değer)<br>4 (2+2)<br>6 (4+2)<br>8 (6+2)<br># 10'a ulaşıldı, döngü biter</pre>"
-        },
-        {
-            topic: "DÖNGÜLER",
-            question: "for i in 'Python': döngüsü kaç kez çalışır?",
-            options: [
-                "5",
-                "6",
-                "7",
-                "Hata verir"
-            ],
-            answer: "6",
-            explanation: "✅ for döngüsü string, liste, demet gibi iterable objelerle çalışır. String'in her karakteri için döngü çalışır.<br><br>📌 Örnek:<br><pre>kelime = 'Python'<br>for harf in kelime:<br>    print(harf)<br># Çıktı: P y t h o n (6 kez çalışır)</pre>"
-        },
-        // ========== BÖLÜM 6: FONKSİYONLAR (5 soru) ==========
-        {
-            topic: "FONKSİYONLAR",
-            question: "Python'da fonksiyon tanımlamak için hangi anahtar kelime kullanılır?",
-            options: [
-                "function",
-                "def",
-                "func",
-                "define"
-            ],
-            answer: "def",
-            explanation: "✅ Python'da fonksiyonlar 'def' anahtar kelimesiyle tanımlanır.<br><br>📌 Örnek:<br><pre>def merhaba():<br>    print('Merhaba Dünya')<br><br>def topla(a, b):<br>    return a + b</pre>"
-        },
-        {
-            topic: "FONKSİYONLAR",
-            question: "Fonksiyondan değer döndürmek için hangi anahtar kelime kullanılır?",
-            options: [
-                "return",
-                "break",
-                "yield",
-                "exit"
-            ],
-            answer: "return",
-            explanation: "✅ Fonksiyon dönüş değerleri:<br>• return: fonksiyondan değer döndürür<br>• yield: generator fonksiyonlarında kullanılır<br><br>📌 Örnekler:<br><pre>def kare(x):<br>    return x * x  # değer döndürür<br><br>sonuc = kare(5)   # sonuc = 25</pre>"
-        },
-        {
-            topic: "FONKSİYONLAR",
-            question: "Fonksiyon parametresine varsayılan değer nasıl verilir?",
-            options: [
-                "param=deger",
-                "param:deger",
-                "param->deger",
-                "param:=deger"
-            ],
-            answer: "param=deger",
-            explanation: "✅ Varsayılan parametreler:<br><pre>def selamla(isim='Misafir'):<br>    print(f'Merhaba {isim}')<br><br>selamla()          # Merhaba Misafir<br>selamla('Ali')     # Merhaba Ali</pre><br>📌 Not: Varsayılan parametreler her zaman sonda olmalıdır."
-        },
-        {
-            topic: "FONKSİYONLAR",
-            question: "*args parametresi ne işe yarar?",
-            options: [
-                "Keyword argümanları alır",
-                "Değişken sayıda pozisyonel argüman alır",
-                "Sadece integer argümanları alır",
-                "Sadece string argümanları alır"
-            ],
-            answer: "Değişken sayıda pozisyonel argüman alır",
-            explanation: "✅ *args ve **kwargs:<br>• *args: değişken sayıda pozisyonel argüman (tuple olarak)<br>• **kwargs: değişken sayıda keyword argümanı (dict olarak)<br><br>📌 Örnek:<br><pre>def topla(*sayilar):<br>    return sum(sayilar)<br><br>topla(1, 2, 3)     # 6<br>topla(1, 2, 3, 4)  # 10</pre>"
-        },
-        {
-            topic: "FONKSİYONLAR",
-            question: "Lambda fonksiyonu nedir?",
-            options: [
-                "Uzun fonksiyonlar yazmak için",
-                "Anonim (isimsiz) fonksiyon",
-                "Sadece matematiksel işlemler için",
-                "Modül içe aktarmak için"
-            ],
-            answer: "Anonim (isimsiz) fonksiyon",
-            explanation: "✅ Lambda fonksiyonları:<br>• Tek satırlık anonim fonksiyonlardır<br>• return anahtar kelimesi kullanılmaz<br>• Genellikle kısa işlemler için kullanılır<br><br>📌 Örnekler:<br><pre>kare = lambda x: x * x<br>print(kare(5))  # 25<br><br>topla = lambda a, b: a + b<br>print(topla(3, 4))  # 7</pre>"
-        },
-        // ========== BÖLÜM 7: HATA YAKALAMA (3 soru) ==========
-        {
-            topic: "HATA YAKALAMA",
-            question: "try-except bloğu ne işe yarar?",
-            options: [
-                "Kodun daha hızlı çalışmasını sağlar",
-                "Programdaki hataları yakalar ve yönetir",
-                "Döngüleri kontrol eder",
-                "Fonksiyonları tanımlar"
-            ],
-            answer: "Programdaki hataları yakalar ve yönetir",
-            explanation: "✅ try-except hata yakalama (exception handling) için kullanılır. Programın beklenmeyen hatalardan dolayı çökmesini engeller.<br><br>📌 Örnek:<br><pre>try:<br>    sayi = int(input('Sayı girin: '))<br>    sonuc = 10 / sayi<br>except ValueError:<br>    print('Geçersiz sayı!')<br>except ZeroDivisionError:<br>    print('Sıfıra bölme hatası!')</pre>"
-        },
-        {
-            topic: "HATA YAKALAMA",
-            question: "Sıfıra bölme hatası hangi hata türüdür?",
-            options: [
-                "ValueError",
-                "TypeError",
-                "ZeroDivisionError",
-                "ArithmeticError"
-            ],
-            answer: "ZeroDivisionError",
-            explanation: "✅ Yaygın hata türleri:<br>• ZeroDivisionError: sıfıra bölme<br>• ValueError: geçersiz değer<br>• TypeError: geçersiz tip işlemi<br>• IndexError: geçersiz liste indeksi<br>• KeyError: sözlükte olmayan anahtar<br><br>📌 Örnek:<br><pre>10 / 0  # ZeroDivisionError<br>int('abc')  # ValueError<br>'sayı' + 5  # TypeError</pre>"
-        },
-        {
-            topic: "HATA YAKALAMA",
-            question: "Geçersiz liste indeksi hatası hangisidir?",
-            options: [
-                "ValueError",
-                "IndexError",
-                "KeyError",
-                "TypeError"
-            ],
-            answer: "IndexError",
-            explanation: "✅ Liste hataları:<br>• IndexError: geçersiz indeks (liste[10] gibi)<br>• Liste sınırları dışına çıkıldığında oluşur<br><br>📌 Örnek:<br><pre>liste = [1, 2, 3]<br>print(liste[5])  # IndexError: list index out of range</pre>"
-        },
-        // ========== BÖLÜM 8: DOSYA İŞLEMLERİ (3 soru) ==========
-        {
-            topic: "DOSYA İŞLEMLERİ",
-            question: "Dosyayı okumak için hangi mod kullanılır?",
-            options: [
-                "'w' modu",
-                "'r' modu",
-                "'a' modu",
-                "'x' modu"
-            ],
-            answer: "'r' modu",
-            explanation: "✅ Dosya açma modları:<br>• 'r': okuma (read) - varsayılan<br>• 'w': yazma (write) - dosyayı sıfırlar<br>• 'a': ekleme (append) - sona ekler<br>• 'x': oluşturma (create) - dosya varsa hata<br><br>📌 Örnek:<br><pre># Dosya okuma<br>with open('dosya.txt', 'r') as f:<br>    icerik = f.read()</pre>"
-        },
-        {
-            topic: "DOSYA İŞLEMLERİ",
-            question: "'with open()' kullanmanın avantajı nedir?",
-            options: [
-                "Daha hızlı çalışır",
-                "Dosyayı otomatik kapatır",
-                "Daha az bellek kullanır",
-                "Daha güvenlidir"
-            ],
-            answer: "Dosyayı otomatik kapatır",
-            explanation: "✅ with open() kullanmanın avantajları:<br>• Dosyayı otomatik kapatır (close() gerekmez)<br>• Hata durumunda bile dosyayı kapatır<br>• Daha temiz ve güvenli kod<br><br>📌 Karşılaştırma:<br><pre># Eski yöntem<br>f = open('dosya.txt')<br>icerik = f.read()<br>f.close()  # unutulabilir!<br><br># Yeni yöntem<br>with open('dosya.txt') as f:<br>    icerik = f.read()  # otomatik kapanır</pre>"
-        },
-        {
-            topic: "DOSYA İŞLEMLERİ",
-            question: "Dosyadan satır satır okumak için hangi metod kullanılır?",
-            options: [
-                "read()",
-                "readline()",
-                "readlines()",
-                "Hem B hem C"
-            ],
-            answer: "Hem B hem C",
-            explanation: "✅ Dosya okuma metodları:<br>• read(): tüm dosyayı okur<br>• readline(): tek satır okur<br>• readlines(): tüm satırları liste olarak okur<br><br>📌 Örnekler:<br><pre>with open('dosya.txt') as f:<br>    satir = f.readline()  # tek satır<br>    tum_satirlar = f.readlines()  # tüm satırlar listesi</pre>"
-        },
-        // ========== BÖLÜM 9: KÜTÜPHANELER (5 soru) ==========
-        {
-            topic: "KÜTÜPHANELER",
-            question: "Bir kütüphaneyi içe aktarmak için hangi anahtar kelime kullanılır?",
-            options: [
-                "include",
-                "import",
-                "require",
-                "using"
-            ],
-            answer: "import",
-            explanation: "✅ Kütüphane içe aktarma yöntemleri:<br>• import math: tüm modülü içe aktar<br>• from math import sqrt: belirli fonksiyonu aktar<br>• import numpy as np: takma ad vererek aktar<br><br>📌 Örnekler:<br><pre>import math<br>print(math.sqrt(16))<br><br>from math import sqrt, pi<br>print(sqrt(9), pi)</pre>"
-        },
-        {
-            topic: "KÜTÜPHANELER",
-            question: "NumPy kütüphanesi ne işe yarar?",
-            options: [
-                "Web sayfaları oluşturmak için",
-                "Veritabanı işlemleri için",
-                "Bilimsel hesaplamalar ve çok boyutlu diziler için",
-                "Grafik arayüzleri oluşturmak için"
-            ],
-            answer: "Bilimsel hesaplamalar ve çok boyutlu diziler için",
-            explanation: "✅ NumPy özellikleri:<br>• Çok boyutlu diziler (array)<br>• Bilimsel hesaplamalar<br>• Matematiksel fonksiyonlar<br>• Hızlı vektör işlemleri<br><br>📌 Örnek:<br><pre>import numpy as np<br>arr = np.array([1, 2, 3, 4])<br>print(arr * 2)  # [2, 4, 6, 8]</pre>"
-        },
-        {
-            topic: "KÜTÜPHANELER",
-            question: "Pandas'da tablo verilerini temsil eden yapı nedir?",
-            options: [
-                "Array",
-                "DataFrame",
-                "Matrix",
-                "Table"
-            ],
-            answer: "DataFrame",
-            explanation: "✅ Pandas veri yapıları:<br>• DataFrame: iki boyutlu tablo (Excel benzeri)<br>• Series: tek boyutlu dizi<br><br>📌 Örnek:<br><pre>import pandas as pd<br>df = pd.DataFrame({'Ad': ['Ali', 'Veli'], 'Yaş': [20, 25]})<br>print(df)</pre>"
-        },
-        {
-            topic: "KÜTÜPHANELER",
-            question: "Matplotlib ne işe yarar?",
-            options: [
-                "Veritabanı işlemleri",
-                "Web scraping",
-                "Veri görselleştirme ve grafik çizme",
-                "Makine öğrenimi"
-            ],
-            answer: "Veri görselleştirme ve grafik çizme",
-            explanation: "✅ Matplotlib özellikleri:<br>• Çizgi grafikleri<br>• Çubuk grafikler<br>• Pasta grafikler<br>• Histogramlar<br><br>📌 Örnek:<br><pre>import matplotlib.pyplot as plt<br>x = [1, 2, 3, 4]<br>y = [1, 4, 9, 16]<br>plt.plot(x, y)<br>plt.show()</pre>"
-        },
-        {
-            topic: "KÜTÜPHANELER",
-            question: "numpy kütüphanesini 'np' takma adıyla nasıl içe aktarırız?",
-            options: [
-                "import np from numpy",
-                "import numpy as np",
-                "from numpy import np",
-                "include numpy as np"
-            ],
-            answer: "import numpy as np",
-            explanation: "✅ Takma ad (alias) ile içe aktarma:<br>• Genellikle NumPy için 'np'<br>• Pandas için 'pd'<br>• Matplotlib için 'plt' kullanılır<br><br>📌 Örnekler:<br><pre>import numpy as np<br>import pandas as pd<br>import matplotlib.pyplot as plt</pre>"
-        },
-        // ========== BÖLÜM 10: İLERİ KONULAR (5 soru) ==========
-        {
-            topic: "İLERİ KONULAR",
-            question: "Requests kütüphanesi ne işe yarar?",
-            options: [
-                "Dosya işlemleri",
-                "HTTP istekleri göndermek",
-                "Veritabanı bağlantısı",
-                "Grafik çizme"
-            ],
-            answer: "HTTP istekleri göndermek",
-            explanation: "✅ Requests kütüphanesi:<br>• HTTP istekleri göndermek<br>• API'lerle iletişim kurmak<br>• Web scraping için kullanılır<br><br>📌 Örnek:<br><pre>import requests<br>response = requests.get('https://api.github.com')<br>print(response.status_code)</pre>"
-        },
-        {
-            topic: "İLERİ KONULAR",
-            question: "pywhatkit kütüphanesiyle ilgili hangisi doğrudur?",
-            options: [
-                "Excel dosyalarını okumak için kullanılır",
-                "WhatsApp mesajı göndermek için kullanılır",
-                "Veri analizi yapmak için kullanılır",
-                "Grafik çizmek için kullanılır"
-            ],
-            answer: "WhatsApp mesajı göndermek için kullanılır",
-            explanation: "✅ pywhatkit özellikleri:<br>• WhatsApp mesajı gönderme<br>• YouTube videosu açma<br>• Google arama yapma<br>• Metni el yazısına çevirme<br><br>📌 Örnek:<br><pre>import pywhatkit<br>pywhatkit.sendwhatmsg('+905551234567', 'Merhaba!', 15, 30)</pre>"
-        },
-        {
-            topic: "İLERİ KONULAR",
-            question: "ipywidgets kütüphanesi ne işe yarar?",
-            options: [
-                "Web sayfaları oluşturmak",
-                "Etkileşimli widget'lar oluşturmak",
-                "Veritabanı yönetmek",
-                "Grafik çizmek"
-            ],
-            answer: "Etkileşimli widget'lar oluşturmak",
-            explanation: "✅ ipywidgets özellikleri:<br>• Jupyter notebook'ta etkileşimli arayüzler<br>• Butonlar, kaydırıcılar, metin kutuları<br>• Gerçek zamanlı veri görselleştirme<br><br>📌 Örnek:<br><pre>from ipywidgets import Button<br>button = Button(description='Tıkla')<br>button.on_click(lambda b: print('Tıklandı!'))</pre>"
-        },
-        {
-            topic: "İLERİ KONULAR",
-            question: "JSON verisini Python nesnesine çevirmek için hangi fonksiyon kullanılır?",
-            options: [
-                "json.parse()",
-                "json.loads()",
-                "json.decode()",
-                "json.to_python()"
-            ],
-            answer: "json.loads()",
-            explanation: "✅ JSON işlemleri:<br>• json.loads(): JSON string'ini Python nesnesine çevirir<br>• json.dumps(): Python nesnesini JSON string'ine çevirir<br><br>📌 Örnek:<br><pre>import json<br>json_str = '{\"ad\": \"Ali\", \"yas\": 20}'<br>veri = json.loads(json_str)  # Python dict</pre>"
-        },
-        {
-            topic: "İLERİ KONULAR",
-            question: "requests.get() fonksiyonu ne yapar?",
-            options: [
-                "Dosya okur",
-                "HTTP GET isteği gönderir",
-                "Veritabanına bağlanır",
-                "Grafik çizer"
-            ],
-            answer: "HTTP GET isteği gönderir",
-            explanation: "✅ requests.get() özellikleri:<br>• Belirtilen URL'ye HTTP GET isteği gönderir<br>• Response object döndürür<br>• status_code, content, text gibi özellikleri vardır<br><br>📌 Örnek:<br><pre>import requests<br>response = requests.get('https://jsonplaceholder.typicode.com/posts/1')<br>print(response.json())  # JSON verisini alır</pre>"
-        },
-        // ========== BÖLÜM 11: STRING İŞLEMLERİ (5 soru) ==========
-        {
-            topic: "STRING İŞLEMLERİ",
-            question: "Bir string'in uzunluğunu nasıl buluruz?",
-            options: [
-                "size()",
-                "length()",
-                "len()",
-                "count()"
-            ],
-            answer: "len()",
-            explanation: "✅ len() fonksiyonu:<br>• String, liste, demet, sözlük uzunluğunu verir<br>• count() ise belirli bir elemanın sayısını verir<br><br>📌 Örnekler:<br><pre>text = 'Python'<br>print(len(text))      # 6<br>print(text.count('P')) # 1<br><br>liste = [1, 2, 3]<br>print(len(liste))     # 3</pre>"
-        },
-        {
-            topic: "STRING İŞLEMLERİ",
-            question: "String'i büyük harfe çevirmek için hangi metot kullanılır?",
-            options: [
-                "upper()",
-                "lower()",
-                "capitalize()",
-                "title()"
-            ],
-            answer: "upper()",
-            explanation: "✅ String dönüşüm metodları:<br>• upper(): büyük harfe çevirir<br>• lower(): küçük harfe çevirir<br>• capitalize(): ilk harfi büyük yapar<br>• title(): her kelimenin ilk harfini büyük yapar<br><br>📌 Örnekler:<br><pre>'python'.upper()      # 'PYTHON'<br>'PYTHON'.lower()      # 'python'<br>'python'.capitalize() # 'Python'<br>'python programlama'.title() # 'Python Programlama'</pre>"
-        },
-        {
-            topic: "STRING İŞLEMLERİ",
-            question: "String'i ters çevirmek için hangi yöntem kullanılır?",
-            options: [
-                "reverse()",
-                "reversed()",
-                "[::-1] dilimleme",
-                "flip()"
-            ],
-            answer: "[::-1] dilimleme",
-            explanation: "✅ String ters çevirme yöntemleri:<br>• Dilimleme: text[::-1]<br>• reversed() fonksiyonu<br>• join() metodu ile<br><br>📌 Örnekler:<br><pre>text = 'Python'<br>print(text[::-1])                # 'nohtyP'<br>print(''.join(reversed(text)))  # 'nohtyP'</pre>"
-        },
-        {
-            topic: "STRING İŞLEMLERİ",
-            question: "String'in başında ve sonundaki boşlukları temizlemek için hangi metot kullanılır?",
-            options: [
-                "clean()",
-                "strip()",
-                "trim()",
-                "remove()"
-            ],
-            answer: "strip()",
-            explanation: "✅ String temizleme metodları:<br>• strip(): baş ve sondaki boşlukları siler<br>• lstrip(): sadece baştaki boşlukları siler<br>• rstrip(): sadece sondaki boşlukları siler<br><br>📌 Örnekler:<br><pre>'  python  '.strip()   # 'python'<br>'  python  '.lstrip()  # 'python  '<br>'  python  '.rstrip()  # '  python'</pre>"
-        },
-        {
-            topic: "STRING İŞLEMLERİ",
-            question: "String'i belirli bir ayraçla bölmek için hangi metot kullanılır?",
-            options: [
-                "cut()",
-                "split()",
-                "divide()",
-                "slice()"
-            ],
-            answer: "split()",
-            explanation: "✅ String bölme metodları:<br>• split(): varsayılan olarak boşluğa göre böler<br>• split(','): virgülle böler<br>• splitlines(): satırlara göre böler<br><br>📌 Örnekler:<br><pre>'Python Java C++'.split()      # ['Python', 'Java', 'C++']<br>'ali,veli,ayşe'.split(',')    # ['ali', 'veli', 'ayşe']<br>'satır1\nsatır2'.splitlines() # ['satır1', 'satır2']</pre>"
-        },
-        // ========== BÖLÜM 12: LİSTE METOTLARI (5 soru) ==========
-        {
-            topic: "LİSTE METOTLARI",
-            question: "Listeyi ters çevirmek için hangi metot kullanılır?",
-            options: [
-                "reverse()",
-                "sort()",
-                "reversed()",
-                "flip()"
-            ],
-            answer: "reverse()",
-            explanation: "✅ Liste düzenleme metodları:<br>• reverse(): listeyi ters çevirir (yerinde değişiklik)<br>• reversed(): ters sırada iterator döndürür<br>• sort(): listeyi sıralar<br><br>📌 Örnekler:<br><pre>liste = [1, 2, 3]<br>liste.reverse()           # [3, 2, 1]<br>print(list(reversed(liste))) # [1, 2, 3] iterator<br>liste.sort()              # [1, 2, 3]</pre>"
-        },
-        {
-            topic: "LİSTE METOTLARI",
-            question: "Listedeki eleman sayısını nasıl buluruz?",
-            options: [
-                "list.size()",
-                "list.length()",
-                "len(list)",
-                "list.count()"
-            ],
-            answer: "len(list)",
-            explanation: "✅ Liste bilgi metodları:<br>• len(liste): eleman sayısını verir<br>• liste.count(deger): belirli değerin sayısını verir<br>• liste.index(deger): değerin indeksini verir<br><br>📌 Örnekler:<br><pre>liste = [1, 2, 2, 3]<br>print(len(liste))      # 4<br>print(liste.count(2))  # 2<br>print(liste.index(3))  # 3</pre>"
-        },
-        {
-            topic: "LİSTE METOTLARI",
-            question: "Listeden eleman silmek için hangisi kullanılamaz?",
-            options: [
-                "remove()",
-                "pop()",
-                "delete()",
-                "del anahtar kelimesi"
-            ],
-            answer: "delete()",
-            explanation: "✅ Liste eleman silme yöntemleri:<br>• remove(deger): değeri siler<br>• pop(indeks): indeksteki elemanı siler ve döndürür<br>• del liste[indeks]: indeksteki elemanı siler<br>• clear(): tüm elemanları siler<br><br>📌 Örnekler:<br><pre>liste = [1, 2, 3, 4]<br>liste.remove(2)        # [1, 3, 4]<br>liste.pop(0)           # 1'i siler, [3, 4]<br>del liste[0]           # [4]<br>liste.clear()          # []</pre>"
-        },
-        {
-            topic: "LİSTE METOTLARI",
-            question: "Listeyi sıralamak için hangi metot kullanılır?",
-            options: [
-                "order()",
-                "sort()",
-                "sorted()",
-                "Hem B hem C"
-            ],
-            answer: "Hem B hem C",
-            explanation: "✅ Sıralama yöntemleri:<br>• liste.sort(): listeyi sıralar (yerinde değişiklik)<br>• sorted(liste): yeni sıralı liste döndürür<br><br>📌 Örnekler:<br><pre>liste = [3, 1, 4, 2]<br>liste.sort()           # [1, 2, 3, 4]<br>yeni = sorted(liste)   # [1, 2, 3, 4]</pre>"
-        },
-        {
-            topic: "LİSTE METOTLARI",
-            question: "Liste kopyalama ile ilgili hangisi doğrudur?",
-            options: [
-                "liste2 = liste1 tam kopya oluşturur",
-                "copy() metodu sığ kopya oluşturur",
-                "deepcopy() derin kopya için kullanılır",
-                "Hem B hem C"
-            ],
-            answer: "Hem B hem C",
-            explanation: "✅ Liste kopyalama:<br>• liste2 = liste1: referans kopyası (aynı nesne)<br>• liste2 = liste1.copy(): sığ kopya (shallow copy)<br>• import copy; liste2 = copy.deepcopy(liste1): derin kopya<br><br>📌 Örnek:<br><pre>import copy<br>liste1 = [[1, 2], [3, 4]]<br>liste2 = copy.deepcopy(liste1)  # tam kopya</pre>"
-        },
-        // ========== BÖLÜM 13: DEMET VE KÜME İŞLEMLERİ (5 soru) ==========
-        {
-            topic: "DEMETLER",
-            question: "Demetlerle ilgili hangisi doğrudur?",
-            options: [
-                "Elemanları değiştirilebilir",
-                "Sıralı değildir",
-                "Eleman eklenebilir",
-                "Değiştirilemez (immutable)"
-            ],
-            answer: "Değiştirilemez (immutable)",
-            explanation: "✅ Demet (tuple) özellikleri:<br>• ( ) ile tanımlanır<br>• Immutable (değiştirilemez)<br>• Sıralıdır (ordered)<br>• Eleman eklenemez/çıkarılamaz<br><br>📌 Örnek:<br><pre>demet = (1, 2, 3)<br>print(demet[0])    # 1 (okunabilir)<br># demet[0] = 10    # HATA! değiştirilemez</pre>"
-        },
-        {
-            topic: "KÜMELER",
-            question: "Kümeden eleman silmek için hangi metot kullanılır?",
-            options: [
-                "delete()",
-                "remove()",
-                "discard()",
-                "Hem B hem C"
-            ],
-            answer: "Hem B hem C",
-            explanation: "✅ Küme eleman silme:<br>• remove(eleman): elemanı siler (yoksa KeyError)<br>• discard(eleman): elemanı siler (yoksa hata vermez)<br>• pop(): rastgele eleman siler ve döndürür<br><br>📌 Örnekler:<br><pre>kume = {1, 2, 3}<br>kume.remove(2)     # {1, 3}<br>kume.discard(5)    # hata vermez<br>eleman = kume.pop() # rastgele eleman siler</pre>"
-        },
-        {
-            topic: "KÜMELER",
-            question: "Kümeler için hangi işlem doğrudur?",
-            options: [
-                "Birleşim: | operatörü",
-                "Kesişim: & operatörü",
-                "Fark: - operatörü",
-                "Hepsi doğru"
-            ],
-            answer: "Hepsi doğru",
-            explanation: "✅ Küme işlemleri:<br>• Birleşim: A | B<br>• Kesişim: A & B<br>• Fark: A - B<br>• Simetrik fark: A ^ B<br><br>📌 Örnekler:<br><pre>A = {1, 2, 3}<br>B = {3, 4, 5}<br>print(A | B)  # {1, 2, 3, 4, 5}<br>print(A & B)  # {3}<br>print(A - B)  # {1, 2}</pre>"
-        },
-        {
-            topic: "DEMETLER",
-            question: "Demet paketleme ve açma (packing/unpacking) nedir?",
-            options: [
-                "Demeti dosyaya kaydetmek",
-                "Demet elemanlarını değişkenlere atamak",
-                "Demeti sıkıştırmak",
-                "Demeti şifrelemek"
-            ],
-            answer: "Demet elemanlarını değişkenlere atamak",
-            explanation: "✅ Demet paketleme/açma:<br>• Packing: değerleri demete paketlemek<br>• Unpacking: demeti değişkenlere açmak<br><br>📌 Örnekler:<br><pre># Packing<br>demet = 1, 2, 3  # (1, 2, 3)<br><br># Unpacking<br>a, b, c = demet  # a=1, b=2, c=3<br><br># * operatörü ile<br>ilk, *orta, son = [1, 2, 3, 4, 5]  # ilk=1, orta=[2,3,4], son=5</pre>"
-        },
-        {
-            topic: "KÜMELER",
-            question: "Alt küme kontrolü için hangi operatör/metot kullanılır?",
-            options: [
-                "<=",
-                "issubset()",
-                "contains()",
-                "Hem A hem B"
-            ],
-            answer: "Hem A hem B",
-            explanation: "✅ Küme ilişki kontrolleri:<br>• Alt küme: A <= B veya A.issubset(B)<br>• Üst küme: A >= B veya A.issuperset(B)<br><br>📌 Örnekler:<br><pre>A = {1, 2}<br>B = {1, 2, 3}<br>print(A <= B)           # True<br>print(A.issubset(B))    # True<br>print(B.issuperset(A))  # True</pre>"
-        },
-        // ========== BÖLÜM 14: TİP DÖNÜŞÜMLERİ (5 soru) ==========
-        {
-            topic: "TİP DÖNÜŞÜMÜ",
-            question: "String'i integer'a çevirmek için hangi fonksiyon kullanılır?",
-            options: [
-                "str()",
-                "int()",
-                "float()",
-                "bool()"
-            ],
-            answer: "int()",
-            explanation: "✅ Tip dönüşüm fonksiyonları:<br>• int(): string/float → integer<br>• float(): string/integer → float<br>• str(): herhangi bir tip → string<br>• bool(): herhangi bir tip → boolean<br><br>📌 Örnekler:<br><pre>int('42')     # 42<br>float('3.14') # 3.14<br>str(100)      # '100'<br>bool(0)       # False</pre>"
-        },
-        {
-            topic: "TİP DÖNÜŞÜMÜ",
-            question: "Hangi dönüşüm geçersizdir?",
-            options: [
-                "int('42')",
-                "float('3.14')",
-                "str(100)",
-                "int('3.14')"
-            ],
-            answer: "int('3.14')",
-            explanation: "✅ Dönüşüm hataları:<br>• int('3.14') → ValueError (ondalıklı string)<br>• Çözüm: önce float'a sonra int'e çevir<br><br>📌 Doğru yöntem:<br><pre>int(float('3.14'))  # 3<br># veya<br>sayi = float('3.14')<br>tam_sayi = int(sayi)  # 3</pre>"
-        },
-        {
-            topic: "TİP DÖNÜŞÜMÜ",
-            question: "Listeyi string'e çevirmek için hangi yöntem kullanılır?",
-            options: [
-                "str(liste)",
-                "' '.join(liste)",
-                "listToString(liste)",
-                "Hem A hem B"
-            ],
-            answer: "Hem A hem B",
-            explanation: "✅ Liste → String dönüşümü:<br>• str(liste): liste yapısıyla birlikte string<br>• join(): liste elemanlarını birleştirir<br><br>📌 Örnekler:<br><pre>liste = ['Python', 'Java', 'C++']<br>print(str(liste))        # \"['Python', 'Java', 'C++']\"<br>print(', '.join(liste))  # 'Python, Java, C++'</pre>"
-        },
-        {
-            topic: "TİP DÖNÜŞÜMÜ",
-            question: "Hangi ifade doğru bir tür dönüşümü yapar?",
-            options: [
-                "list('hello') → ['h','e','l','l','o']",
-                "tuple([1,2,3]) → (1,2,3)",
-                "set([1,2,2,3]) → {1,2,3}",
-                "Hepsi doğru"
-            ],
-            answer: "Hepsi doğru",
-            explanation: "✅ Türler arası dönüşümler:<br>• String → Liste: list('abc') = ['a','b','c']<br>• Liste → Demet: tuple([1,2,3]) = (1,2,3)<br>• Liste → Küme: set([1,2,2,3]) = {1,2,3}<br><br>📌 Örnekler:<br><pre>print(list('Python'))       # ['P','y','t','h','o','n']<br>print(tuple([1, 2, 3]))    # (1, 2, 3)<br>print(set([1, 2, 2, 3]))   # {1, 2, 3}</pre>"
-        },
-        {
-            topic: "TİP DÖNÜŞÜMÜ",
-            question: "ASCII kodunu karaktere çevirmek için hangi fonksiyon kullanılır?",
-            options: [
-                "ascii()",
-                "chr()",
-                "ord()",
-                "char()"
-            ],
-            answer: "chr()",
-            explanation: "✅ ASCII işlemleri:<br>• chr(kod): ASCII kodunu karaktere çevirir<br>• ord(karakter): karakterin ASCII kodunu verir<br><br>📌 Örnekler:<br><pre>print(chr(65))    # 'A'<br>print(ord('A'))   # 65<br>print(chr(97))    # 'a'<br>print(ord('a'))   # 97</pre>"
-        },
-        // ========== BÖLÜM 15: MANTIKSAL DEĞERLER (5 soru) ==========
-        {
-            topic: "MANTIKSAL DEĞERLER",
-            question: "Python'da False olarak kabul edilen değerlerden hangisi değildir?",
-            options: [
-                "0",
-                "'' (boş string)",
-                "[] (boş liste)",
-                "1"
-            ],
-            answer: "1",
-            explanation: "✅ False olan değerler (falsy):<br>• False<br>• None<br>• 0, 0.0, 0j<br>• '', [], (), {}<br>• range(0)<br><br>✅ True olan değerler (truthy):<br>• 1, -1, 3.14, 'a', [1], (1,), {1:1}<br><br>📌 Örnek:<br><pre>if 1: print('Çalışır')      # Çalışır<br>if 0: print('Çalışmaz')    # Çalışmaz<br>if '': print('Çalışmaz')   # Çalışmaz</pre>"
-        },
-        {
-            topic: "MANTIKSAL DEĞERLER",
-            question: "continue anahtar kelimesi ne yapar?",
-            options: [
-                "Döngüyü tamamen sonlandırır",
-                "O turu atlayıp döngüye devam eder",
-                "Programı sonlandırır",
-                "Fonksiyondan çıkar"
-            ],
-            answer: "O turu atlayıp döngüye devam eder",
-            explanation: "✅ continue ve break farkı:<br>• continue: mevcut iterasyonu atlar, sonrakiyle devam eder<br>• break: döngüyü tamamen sonlandırır<br><br>📌 Örnek:<br><pre>for i in range(5):<br>    if i == 2:<br>        continue  # 2'yi atla<br>    print(i)      # 0 1 3 4<br><br>for i in range(5):<br>    if i == 2:<br>        break     # döngüyü bitir<br>    print(i)      # 0 1</pre>"
-        },
-        {
-            topic: "MANTIKSAL DEĞERLER",
-            question: "'is' operatörü ne işe yarar?",
-            options: [
-                "Değer karşılaştırması yapar",
-                "Nesne kimliği (identity) karşılaştırması yapar",
-                "Matematiksel işlem yapar",
-                "Tip kontrolü yapar"
-            ],
-            answer: "Nesne kimliği (identity) karşılaştırması yapar",
-            explanation: "✅ 'is' vs '==':<br>• is: nesnelerin aynı olup olmadığını kontrol eder (id() değeri)<br>• ==: değerlerin eşit olup olmadığını kontrol eder<br><br>📌 Örnek:<br><pre>a = [1, 2, 3]<br>b = [1, 2, 3]<br>c = a<br><br>print(a == b)  # True (değerler aynı)<br>print(a is b)  # False (farklı nesneler)<br>print(a is c)  # True (aynı nesne)</pre>"
-        },
-        {
-            topic: "MANTIKSAL DEĞERLER",
-            question: "'in' operatörü ne işe yarar?",
-            options: [
-                "Matematiksel işlem yapar",
-                "Üyelik testi yapar",
-                "Tip dönüşümü yapar",
-                "Döngü başlatır"
-            ],
-            answer: "Üyelik testi yapar",
-            explanation: "✅ 'in' operatörü:<br>• String, liste, demet, sözlük, kümede üyelik testi<br>• not in: üye olmama testi<br><br>📌 Örnekler:<br><pre>'a' in 'python'        # False<br>3 in [1, 2, 3]         # True<br>'ad' in {'ad': 'Ali'}  # True (sadece anahtarları kontrol eder)<br>5 not in {1, 2, 3}     # True</pre>"
-        },
-        {
-            topic: "MANTIKSAL DEĞERLER",
-            question: "Hangi mantıksal ifade True döner?",
-            options: [
-                "not True",
-                "False or False",
-                "True and False",
-                "not False"
-            ],
-            answer: "not False",
-            explanation: "✅ Mantıksal işlemler:<br>• not False = True<br>• True and False = False<br>• False or False = False<br>• not True = False<br><br>📌 Örnekler:<br><pre>print(not False)       # True<br>print(True and False) # False<br>print(False or True)  # True</pre>"
-        },
-        // ========== BÖLÜM 16: FORMATLI ÇIKTI (5 soru) ==========
-        {
-            topic: "FORMATLI ÇIKTI",
-            question: "f-string formatında değişken nasıl kullanılır?",
-            options: [
-                "{variable}",
-                "$variable",
-                "%variable",
-                "&variable"
-            ],
-            answer: "{variable}",
-            explanation: "✅ f-string (formatted string literals):<br>• Python 3.6+ ile gelmiştir<br>• Değişkenler {} içine yazılır<br>• İfadeler de kullanılabilir<br><br>📌 Örnekler:<br><pre>ad = 'Ali'<br>yas = 20<br>print(f'Ad: {ad}, Yaş: {yas}')  # Ad: Ali, Yaş: 20<br>print(f'{5 + 3}')                # 8<br>print(f'{ad.upper()}')          # ALI</pre>"
-        },
-        {
-            topic: "FORMATLI ÇIKTI",
-            question: "Sayıyı 2 ondalık basamakla göstermek için hangi format kullanılır?",
-            options: [
-                "{:.2}",
-                "{:.2f}",
-                "{:2d}",
-                "{:2}"
-            ],
-            answer: "{:.2f}",
-            explanation: "✅ Sayı formatlama:<br>• {:.2f}: float, 2 ondalık basamak<br>• {:d}: integer<br>• {:s}: string<br>• {:,}: binlik ayırıcı<br><br>📌 Örnekler:<br><pre>sayi = 3.14159<br>print(f'{sayi:.2f}')   # 3.14<br>print(f'{1000:,}')     # 1,000<br>print(f'{10:05d}')     # 00010 (5 hane, başta sıfır)</pre>"
-        },
-        {
-            topic: "FORMATLI ÇIKTI",
-            question: "Eski stil string formatlama için hangi operatör kullanılır?",
-            options: [
-                "%",
-                "&",
-                "$",
-                "#"
-            ],
-            answer: "%",
-            explanation: "✅ Eski stil formatlama (% operatörü):<br>• %s: string<br>• %d: integer<br>• %f: float<br>• %.2f: 2 ondalıklı float<br><br>📌 Örnekler:<br><pre>ad = 'Ali'<br>yas = 20<br>print('Ad: %s, Yaş: %d' % (ad, yas))<br>print('Sayı: %.2f' % 3.14159)</pre>"
-        },
-        {
-            topic: "FORMATLI ÇIKTI",
-            question: "format() metodu ile hangisi doğru kullanılmıştır?",
-            options: [
-                "'{} {}'.format('a', 'b')",
-                "'{1} {0}'.format('a', 'b')",
-                "'{ad} {yas}'.format(ad='Ali', yas=20)",
-                "Hepsi doğru"
-            ],
-            answer: "Hepsi doğru",
-            explanation: "✅ format() metodu kullanımları:<br>• Sıralı: '{} {}'.format('a', 'b')<br>• İndeksli: '{1} {0}'.format('a', 'b') → 'b a'<br>• İsimli: '{ad} {yas}'.format(ad='Ali', yas=20)<br><br>📌 Örnekler:<br><pre>print('{} + {} = {}'.format(2, 3, 5))  # 2 + 3 = 5<br>print('{1}, {0}'.format('dünya', 'merhaba'))  # merhaba, dünya<br>print('{ad} {soyad}'.format(ad='Ali', soyad='Yılmaz'))</pre>"
-        },
-        {
-            topic: "FORMATLI ÇIKTI",
-            question: "Hangi formatlama yöntemi en hızlıdır?",
-            options: [
-                "% operatörü",
-                "format() metodu",
-                "f-string",
-                "Hepsi aynı hızda"
-            ],
-            answer: "f-string",
-            explanation: "✅ Formatlama yöntemleri karşılaştırması:<br>• f-string: en hızlı, en okunaklı (Python 3.6+)<br>• format(): orta hız, esneklik<br>• % operatörü: en yavaş, eski stil<br><br>📌 Performans sıralaması:<br>1. f-string (en iyi)<br>2. format() metodu<br>3. % operatörü</pre>"
-        },
-        // ========== BÖLÜM 17: KOD ANALİZİ SORULARI (15 yeni soru) ==========
-        {
-            topic: "KOD ANALİZİ",
-            question: "Aşağıdaki kodun çıktısı nedir?<br><pre>x = 10<br>y = 3<br>print(x // y, x % y)</pre>",
-            options: [
-                "3 1",
-                "3.33 1",
-                "3 0.33",
-                "3 3"
-            ],
-            answer: "3 1",
-            explanation: "✅ Kod analizi:<br>• x // y = 10 // 3 = 3 (tam bölme)<br>• x % y = 10 % 3 = 1 (kalan)<br><br>📌 Açıklama:<br>10'un 3'e bölümü: 3 * 3 = 9, kalan 1"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodda hata var mıdır? Varsa nedir?<br><pre>liste = [1, 2, 3]<br>liste[3] = 4</pre>",
-            options: [
-                "Hata yok",
-                "IndexError: liste indeksi sınır dışı",
-                "TypeError: liste değiştirilemez",
-                "ValueError: geçersiz değer"
-            ],
-            answer: "IndexError: liste indeksi sınır dışı",
-            explanation: "✅ Hata analizi:<br>• liste = [1, 2, 3] indeksleri: 0, 1, 2<br>• liste[3] = 4 → 3. indeks yok (IndexError)<br><br>📌 Çözüm:<br>liste.append(4) veya liste.insert(3, 4)"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodun çıktısı nedir?<br><pre>for i in range(3):<br>    print(i, end=' ')<br>    if i == 1:<br>        break</pre>",
-            options: [
-                "0 1 2",
-                "0 1",
-                "0",
-                "1 2"
-            ],
-            answer: "0 1",
-            explanation: "✅ Döngü analizi:<br>• i = 0: print(0) → break yok → devam<br>• i = 1: print(1) → break çalışır → döngü biter<br>• i = 2: hiç çalışmaz<br><br>📌 end=' ' parametresi yan yana yazdırır"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu fonksiyonun çıktısı nedir?<br><pre>def test(a, b=2):<br>    return a * b<br>print(test(3))</pre>",
-            options: [
-                "6",
-                "9",
-                "Hata verir",
-                "32"
-            ],
-            answer: "6",
-            explanation: "✅ Fonksiyon analizi:<br>• test(3) çağrılıyor<br>• a = 3, b = 2 (varsayılan değer)<br>• return 3 * 2 = 6<br><br>📌 Varsayılan parametreler:<br>def fonksiyon(param=default_value):"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodda hata var mıdır?<br><pre>sayi = '123'<br>sonuc = sayi + 5</pre>",
-            options: [
-                "Hata yok, sonuc '1235' olur",
-                "TypeError: string ve int toplanamaz",
-                "ValueError: geçersiz dönüşüm",
-                "Hata yok, sonuc 128 olur"
-            ],
-            answer: "TypeError: string ve int toplanamaz",
-            explanation: "✅ Hata analizi:<br>• sayi = '123' (string)<br>• sayi + 5 → string + int → TypeError<br><br>📌 Çözümler:<br>1. int('123') + 5 = 128<br>2. '123' + str(5) = '1235'"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodun çıktısı nedir?<br><pre>text = 'Python'<br>print(text[1:4])</pre>",
-            options: [
-                "Pyt",
-                "yth",
-                "thon",
-                "ytho"
-            ],
-            answer: "yth",
-            explanation: "✅ String dilimleme:<br>• text[1:4] → indeks 1'den 4'e kadar (4 dahil değil)<br>• 'Python' indeksleri: 0:P, 1:y, 2:t, 3:h, 4:o, 5:n<br>• 1:y, 2:t, 3:h → 'yth'<br><br>📌 Dilimleme syntax'ı:<br>string[baslangic:bitis:adim]"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodun çıktısı nedir?<br><pre>a = [1, 2, 3]<br>b = a<br>b[0] = 10<br>print(a)</pre>",
-            options: [
-                "[1, 2, 3]",
-                "[10, 2, 3]",
-                "[1, 10, 3]",
-                "Hata verir"
-            ],
-            answer: "[10, 2, 3]",
-            explanation: "✅ Referans kopyası:<br>• b = a → b, a'nın referansını alır (aynı nesne)<br>• b[0] = 10 → aynı zamanda a[0] da değişir<br>• print(a) → [10, 2, 3]<br><br>📌 Derin kopya için:<br>import copy; b = copy.deepcopy(a)"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodda kaç kez 'Merhaba' yazdırılır?<br><pre>for i in range(5):<br>    if i % 2 == 0:<br>        continue<br>    print('Merhaba')</pre>",
-            options: [
-                "5",
-                "3",
-                "2",
-                "0"
-            ],
-            answer: "2",
-            explanation: "✅ Döngü analizi:<br>range(5) → 0,1,2,3,4<br>• i=0: i%2=0 → continue → atla<br>• i=1: i%2=1 → print('Merhaba')<br>• i=2: i%2=0 → continue → atla<br>• i=3: i%2=1 → print('Merhaba')<br>• i=4: i%2=0 → continue → atla<br><br>📌 Toplam 2 kez yazdırılır"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodun çıktısı nedir?<br><pre>x = 5<br>y = '10'<br>print(x + int(y))</pre>",
-            options: [
-                "510",
-                "15",
-                "Hata verir",
-                "50"
-            ],
-            answer: "15",
-            explanation: "✅ Tip dönüşümü:<br>• x = 5 (int)<br>• y = '10' (string)<br>• int(y) = 10 (string → int)<br>• 5 + 10 = 15<br><br>📌 Dikkat:<br>• x + y → TypeError<br>• str(x) + y → '510'"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodda hata var mıdır?<br><pre>def bol(a, b):<br>    return a / b<br>print(bol(10, 0))</pre>",
-            options: [
-                "Hata yok, sonsuz döner",
-                "ZeroDivisionError",
-                "ValueError",
-                "TypeError"
-            ],
-            answer: "ZeroDivisionError",
-            explanation: "✅ Matematiksel hata:<br>• 10 / 0 → sıfıra bölme hatası<br>• ZeroDivisionError<br><br>📌 Hata önleme:<br><pre>def bol(a, b):<br>    try:<br>        return a / b<br>    except ZeroDivisionError:<br>        return 'Sıfıra bölünemez'</pre>"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodun çıktısı nedir?<br><pre>sozluk = {'a': 1, 'b': 2}<br>print(sozluk.get('c', 0))</pre>",
-            options: [
-                "None",
-                "Hata verir",
-                "0",
-                "3"
-            ],
-            answer: "0",
-            explanation: "✅ Sözlük get() metodu:<br>• sozluk.get(key, default)<br>• Anahtar varsa değeri döner<br>• Anahtar yoksa default değeri döner<br><br>📌 Karşılaştırma:<br>• sozluk['c'] → KeyError<br>• sozluk.get('c') → None<br>• sozluk.get('c', 0) → 0"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodda kaç kez döngü çalışır?<br><pre>i = 0<br>while i < 5:<br>    i += 1<br>    if i == 3:<br>        break</pre>",
-            options: [
-                "5",
-                "4",
-                "3",
-                "Sonsuz döngü"
-            ],
-            answer: "3",
-            explanation: "✅ while döngüsü analizi:<br>1. i=0 → i<5 True → i=1 → i==3 False<br>2. i=1 → i<5 True → i=2 → i==3 False<br>3. i=2 → i<5 True → i=3 → i==3 True → break<br><br>📌 Toplam 3 kez çalışır"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodun çıktısı nedir?<br><pre>liste = [x**2 for x in range(5)]<br>print(liste)</pre>",
-            options: [
-                "[0, 1, 2, 3, 4]",
-                "[0, 1, 4, 9, 16]",
-                "[1, 4, 9, 16, 25]",
-                "Hata verir"
-            ],
-            answer: "[0, 1, 4, 9, 16]",
-            explanation: "✅ List comprehension:<br>• range(5) = 0,1,2,3,4<br>• x**2: 0²=0, 1²=1, 2²=4, 3²=9, 4²=16<br>• [0, 1, 4, 9, 16]<br><br>📌 List comprehension syntax'ı:<br>[expression for item in iterable if condition]"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodda hata var mıdır?<br><pre>demet = (1, 2, 3)<br>demet.append(4)</pre>",
-            options: [
-                "Hata yok, demet (1,2,3,4) olur",
-                "AttributeError: demetlerde append yok",
-                "TypeError: demet değiştirilemez",
-                "Hem B hem C"
-            ],
-            answer: "Hem B hem C",
-            explanation: "✅ Demet özellikleri:<br>• Demetler immutable (değiştirilemez)<br>• append(), insert(), remove() gibi metodlar yok<br>• AttributeError: 'tuple' object has no attribute 'append'<br><br>📌 Çözüm:<br>liste = list(demet)<br>liste.append(4)<br>demet = tuple(liste)"
-        },
-        {
-            topic: "KOD ANALİZİ",
-            question: "Bu kodun çıktısı nedir?<br><pre>import math<br>print(math.sqrt(16) + math.floor(3.7))</pre>",
-            options: [
-                "7.0",
-                "8.0",
-                "7",
-                "8"
-            ],
-            answer: "7.0",
-            explanation: "✅ Math modülü fonksiyonları:<br>• math.sqrt(16) = 4.0<br>• math.floor(3.7) = 3 (aşağı yuvarlar)<br>• 4.0 + 3 = 7.0<br><br>📌 Diğer math fonksiyonları:<br>• math.ceil(): yukarı yuvarlar<br>• math.pow(): üs alma<br>• math.pi: π sayısı"
-        },
-        // ========== BÖLÜM 18: ALGORİTMA/PSUEDOCODE/AKIŞ ŞEMASI (10 yeni soru) ==========
-        {
-            topic: "ALGORİTMA",
-            question: "Aşağıdaki sözde koda göre hangisi doğrudur?<br><pre>BAŞLA<br>OKU sayi<br>EĞER sayi > 0 İSE<br>   YAZ 'Pozitif'<br>DEĞİLSE EĞER sayi < 0 İSE<br>   YAZ 'Negatif'<br>DEĞİLSE<br>   YAZ 'Sıfır'<br>BİTİR</pre>",
-            options: [
-                "Sayının işaretini ekrana yazar",
-                "Sayının karesini hesaplar",
-                "Sayıyı ters çevirir",
-                "Sayının faktöriyelini hesaplar"
-            ],
-            answer: "Sayının işaretini ekrana yazar",
-            explanation: "✅ Sözde kod analizi:<br>• sayi > 0 ise 'Pozitif'<br>• sayi < 0 ise 'Negatif'<br>• değilse 'Sıfır'<br><br>📌 Python kodu:<br><pre>sayi = int(input('Sayı: '))<br>if sayi > 0:<br>    print('Pozitif')<br>elif sayi < 0:<br>    print('Negatif')<br>else:<br>    print('Sıfır')</pre>"
-        },
-        {
-            topic: "AKIŞ ŞEMASI",
-            question: "Akış şemasında karar (decision) kutusu hangi sembolle gösterilir?",
-            options: [
-                "Dikdörtgen",
-                "Elmas",
-                "Oval",
-                "Paralelkenar"
-            ],
-            answer: "Elmas",
-            explanation: "✅ Akış şeması sembolleri:<br>• Oval: Başla/Bitir<br>• Dikdörtgen: İşlem<br>• Elmas: Karar (Evet/Hayır)<br>• Paralelkenar: Giriş/Çıkış<br>• Ok: Akış yönü<br><br>📌 Örnek karar sorusu:<br>Sayı çift mi? (Evet/Hayır)"
-        },
-        {
-            topic: "ALGORİTMA",
-            question: "İki sayının ortalamasını hesaplayan algoritma için hangi adım doğrudur?",
-            options: [
-                "İki sayıyı topla, 2'ye böl",
-                "İki sayıyı çarp, karekök al",
-                "Büyük sayıdan küçüğü çıkar",
-                "İki sayıyı böl"
-            ],
-            answer: "İki sayıyı topla, 2'ye böl",
-            explanation: "✅ Ortalama algoritması:<br>1. Başla<br>2. sayi1, sayi2 oku<br>3. toplam = sayi1 + sayi2<br>4. ortalama = toplam / 2<br>5. ortalama yaz<br>6. Bitir<br><br>📌 Python kodu:<br><pre>sayi1 = float(input('1. sayı: '))<br>sayi2 = float(input('2. sayı: '))<br>ortalama = (sayi1 + sayi2) / 2<br>print('Ortalama:', ortalama)</pre>"
-        },
-        {
-            topic: "PSUEDOCODE",
-            question: "Sözde koddaki 'OKU' komutu ne anlama gelir?",
-            options: [
-                "Ekrana yaz",
-                "Kullanıcıdan veri al",
-                "Dosyadan oku",
-                "Hesapla"
-            ],
-            answer: "Kullanıcıdan veri al",
-            explanation: "✅ Sözde kod komutları:<br>• OKU: input (kullanıcıdan veri al)<br>• YAZ: print (ekrana yaz)<br>• EĞER: if (koşul)<br>• DÖNGÜ: while/for<br>• ATAMA: değişkene değer ver<br><br>📌 Örnek:<br>OKU yas → yas = input('Yaşınız: ')"
-        },
-        {
-            topic: "AKIŞ ŞEMASI",
-            question: "1'den 100'e kadar sayıların toplamını bulan akış şemasında hangi yapı kullanılır?",
-            options: [
-                "Sadece karar kutusu",
-                "Döngü ve toplam değişkeni",
-                "Sadece giriş/çıkış",
-                "Fonksiyon çağırma"
-            ],
-            answer: "Döngü ve toplam değişkeni",
-            explanation: "✅ Toplama algoritması:<br>1. Başla<br>2. sayac = 1, toplam = 0<br>3. sayac ≤ 100 iken:<br>4.   toplam = toplam + sayac<br>5.   sayac = sayac + 1<br>6. toplam yaz<br>7. Bitir<br><br>📌 Python kodu:<br><pre>toplam = 0<br>for i in range(1, 101):<br>    toplam += i<br>print('Toplam:', toplam)</pre>"
-        },
-        {
-            topic: "ALGORİTMA",
-            question: "Bir sayının faktöriyelini hesaplayan algoritmada hangi yapı kullanılır?",
-            options: [
-                "Sadece if-else",
-                "Döngü ve çarpım",
-                "Sadece toplama",
-                "Fonksiyon recursion"
-            ],
-            answer: "Döngü ve çarpım",
-            explanation: "✅ Faktöriyel algoritması:<br>1. Başla<br>2. OKU n<br>3. faktoriyel = 1, i = 1<br>4. i ≤ n iken:<br>5.   faktoriyel = faktoriyel × i<br>6.   i = i + 1<br>7. faktoriyel YAZ<br>8. Bitir<br><br>📌 Python kodu:<br><pre>n = int(input('Sayı: '))<br>fakt = 1<br>for i in range(1, n+1):<br>    fakt *= i<br>print(f'{n}! = {fakt}')</pre>"
-        },
-        {
-            topic: "PSUEDOCODE",
-            question: "Hangi sözde kod iki sayıyı karşılaştırır?",
-            options: [
-                "OKU a,b; YAZ a+b",
-                "OKU a,b; EĞER a>b YAZ 'a büyük'",
-                "OKU a; a=a*2; YAZ a",
-                "OKU a,b,c; YAZ (a+b+c)/3"
-            ],
-            answer: "OKU a,b; EĞER a>b YAZ 'a büyük'",
-            explanation: "✅ Karşılaştırma algoritması:<br>• İki sayı al<br>• Karşılaştır<br>• Sonucu ekrana yaz<br><br>📌 Tam algoritma:<br><pre>OKU a, b<br>EĞER a > b İSE<br>   YAZ 'a büyük'<br>DEĞİLSE EĞER b > a İSE<br>   YAZ 'b büyük'<br>DEĞİLSE<br>   YAZ 'eşit'</pre>"
-        },
-        {
-            topic: "AKIŞ ŞEMASI",
-            question: "Akış şemasında döngü sonu nereye döner?",
-            options: [
-                "Doğrudan BİTİR'e",
-                "Döngü başlangıcına",
-                "Farklı bir işleme",
-                "Giriş kutusuna"
-            ],
-            answer: "Döngü başlangıcına",
-            explanation: "✅ Döngü yapısı:<br>1. Döngü başlangıcı (şart kontrolü)<br>2. Şart doğruysa işlemler<br>3. Döngü sonu (başa dön)<br>4. Şart yanlışsa çık<br><br>📌 Akış şeması bileşenleri:<br>• Başlangıç noktası<br>• Karar kutusu (şart)<br>• İşlem kutuları<br>• Döngü okları (başa dön)<br>• Bitiş noktası"
-        },
-        {
-            topic: "ALGORİTMA",
-            question: "Bir dizideki en büyük sayıyı bulan algoritma nasıl çalışır?",
-            options: [
-                "Tüm sayıları toplar",
-                "İlk sayıyı en büyük kabul eder, diğerleriyle karşılaştırır",
-                "Sayıları sıralar, ortadakini alır",
-                "Sayı adedini sayar"
-            ],
-            answer: "İlk sayıyı en büyük kabul eder, diğerleriyle karşılaştırır",
-            explanation: "✅ En büyük sayı algoritması:<br>1. Başla<br>2. OKU n (sayı adedi)<br>3. OKU ilk sayı → enbuyuk<br>4. i = 2'den n'ye kadar:<br>5.   OKU sayi<br>6.   EĞER sayi > enbuyuk İSE enbuyuk = sayi<br>7. enbuyuk YAZ<br>8. Bitir<br><br>📌 Python kodu:<br><pre>sayilar = [3, 7, 2, 9, 5]<br>enbuyuk = sayilar[0]<br>for sayi in sayilar:<br>    if sayi > enbuyuk:<br>        enbuyuk = sayi<br>print('En büyük:', enbuyuk)</pre>"
-        },
-        {
-            topic: "PSUEDOCODE",
-            question: "Sözde koddaki 'DÖNGÜ' yapısı Python'da hangisine karşılık gelir?",
-            options: [
-                "if-elif-else",
-                "while veya for",
-                "def fonksiyon()",
-                "try-except"
-            ],
-            answer: "while veya for",
-            explanation: "✅ Sözde kod - Python karşılıkları:<br>• DÖNGÜ şart: while şart:<br>• DÖNGÜ i=1'den n'ye: for i in range(1, n+1):<br>• EĞER: if<br>• DEĞİLSE: else<br>• OKU: input()<br>• YAZ: print()<br><br>📌 Örnek çeviri:<br>Sözde: DÖNGÜ i=1'den 10'a → Python: for i in range(1, 11):"
-        },
-        // ========== BÖLÜM 19: EK PYTHON KONULARI (20 yeni soru) ==========
-        {
-            topic: "GENEL",
-            question: "Anıl KUŞ hocanın dersi hangi üniversitededir?",
-            options: [
-                "ODTÜ",
-                "İstanbul Üniversitesi",
-                "Yozgat Bozok Üniversitesi",
-                "Ankara Üniversitesi"
-            ],
-            answer: "Yozgat Bozok Üniversitesi",
-            explanation: "✅ Ders notlarının başında 'YOZGAT BOZOK ÜNİVERSİTESİ' yazmaktadır. Anıl KUŞ hocamız bu üniversitede Python programlama dersi vermektedir."
-        },
-        {
-            topic: "YORUM SATIRI",
-            question: "Python'da tek satırlık yorum nasıl yapılır?",
-            options: [
-                "// yorum",
-                "# yorum",
-                "/* yorum */",
-                "<!-- yorum -->"
-            ],
-            answer: "# yorum",
-            explanation: "✅ Python yorum satırları:<br>• # tek satırlık yorum<br>• ''' çok satırlı yorum ''' (docstring)<br>• \"\"\" çok satırlı yorum \"\"\"<br><br>📌 Örnekler:<br><pre># Bu bir yorum satırı<br>x = 5  # değişken tanımı<br>'''<br>Bu çok satırlı<br>bir yorumdur<br>'''</pre>"
-        },
-        {
-            topic: "MODÜLLER",
-            question: "math modülünden sqrt fonksiyonunu nasıl içe aktarırız?",
-            options: [
-                "import sqrt from math",
-                "from math import sqrt",
-                "include math.sqrt",
-                "using math.sqrt"
-            ],
-            answer: "from math import sqrt",
-            explanation: "✅ Belirli fonksiyonları içe aktarma:<br>• from math import sqrt, pi<br>• from math import * (tümünü aktar)<br>• import math (tüm modül)<br><br>📌 Kullanım farkları:<br><pre>from math import sqrt<br>print(sqrt(16))  # 4.0<br><br>import math<br>print(math.sqrt(16))  # 4.0</pre>"
-        },
-        {
-            topic: "RANDOM KÜTÜPHANESİ",
-            question: "Random kütüphanesi ne işe yarar?",
-            options: [
-                "Rastgele sayı üretmek",
-                "Dosyaları karıştırmak",
-                "Veritabanı işlemleri",
-                "Grafik çizmek"
-            ],
-            answer: "Rastgele sayı üretmek",
-            explanation: "✅ random modülü fonksiyonları:<br>• random.random(): 0-1 arası rastgele float<br>• random.randint(a,b): a-b arası tam sayı<br>• random.choice(liste): listeden rastgele eleman<br>• random.shuffle(liste): listeyi karıştırır<br><br>📌 Örnek:<br><pre>import random<br>print(random.randint(1, 10))  # 1-10 arası sayı<br>print(random.choice(['a','b','c']))  # rastgele harf</pre>"
-        },
-        {
-            topic: "RANDOM KÜTÜPHANESİ",
-            question: "1-10 arası rastgele tam sayı üretmek için hangi fonksiyon kullanılır?",
-            options: [
-                "random.random()",
-                "random.randint(1,10)",
-                "random.choice(range(1,11))",
-                "Hem B hem C"
-            ],
-            answer: "Hem B hem C",
-            explanation: "✅ Rastgele sayı üretme yöntemleri:<br>• random.randint(1, 10): 1-10 dahil<br>• random.choice(range(1, 11)): 1-10 dahil<br>• random.randrange(1, 11): 1-10 (11 dahil değil)<br><br>📌 Örnekler:<br><pre>import random<br>print(random.randint(1, 10))        # 1-10 dahil<br>print(random.choice(range(1, 11)))  # 1-10 dahil<br>print(random.randrange(1, 11))      # 1-10 (11 dahil değil)</pre>"
-        },
-        {
-            topic: "UYGULAMA",
-            question: "Adam asmaca oyununda hangi kütüphane kullanılmıştır?",
-            options: [
-                "numpy",
-                "random",
-                "pandas",
-                "matplotlib"
-            ],
-            answer: "random",
-            explanation: "✅ Adam asmaca oyununda:<br>• Rastgele kelime seçmek için random kütüphanesi<br>• random.choice() ile kelime listesinden seçim<br><br>📌 Örnek kod:<br><pre>import random<br>kelimeler = ['python', 'programlama', 'bilgisayar']<br>secim = random.choice(kelimeler)  # rastgele kelime</pre>"
-        },
-        {
-            topic: "UYGULAMA",
-            question: "Taş-kağıt-makas oyununda bilgisayarın seçimi nasıl yapılır?",
-            options: [
-                "input() ile",
-                "random.choice() ile",
-                "Sabit değerle",
-                "Kullanıcıdan alınarak"
-            ],
-            answer: "random.choice() ile",
-            explanation: "✅ Taş-kağıt-makas oyunu:<br>• Bilgisayar random.choice() ile rastgele seçim yapar<br>• Kullanıcı input() ile seçim yapar<br>• Karşılaştırma yapılır<br><br>📌 Örnek kod:<br><pre>import random<br>secenekler = ['taş', 'kağıt', 'makas']<br>bilgisayar = random.choice(secenekler)<br>kullanici = input('Taş/Kağıt/Makas: ')</pre>"
-        },
-        {
-            topic: "JSON İŞLEMLERİ",
-            question: "JSON verisini Python nesnesine çevirmek için hangi fonksiyon kullanılır?",
-            options: [
-                "json.parse()",
-                "json.loads()",
-                "json.decode()",
-                "json.to_python()"
-            ],
-            answer: "json.loads()",
-            explanation: "✅ JSON işlemleri:<br>• json.loads(): JSON string → Python dict<br>• json.dumps(): Python dict → JSON string<br>• json.load(): JSON dosyası → Python dict<br>• json.dump(): Python dict → JSON dosyası<br><br>📌 Örnekler:<br><pre>import json<br>json_str = '{\"ad\": \"Ali\", \"yas\": 20}'<br>veri = json.loads(json_str)  # Python dict<br>yeni_json = json.dumps(veri)  # JSON string</pre>"
-        },
-        {
-            topic: "OPENPYXL",
-            question: "openpyxl kütüphanesi ne işe yarar?",
-            options: [
-                "Word dosyaları oluşturmak",
-                "Excel dosyaları okumak/yazmak",
-                "PDF dosyaları oluşturmak",
-                "Resim işleme"
-            ],
-            answer: "Excel dosyaları okumak/yazmak",
-            explanation: "✅ openpyxl özellikleri:<br>• .xlsx uzantılı Excel dosyaları<br>• Dosya okuma/yazma<br>• Hücre işlemleri<br>• Formül ekleme<br><br>📌 Örnek kod:<br><pre>from openpyxl import Workbook<br>wb = Workbook()<br>ws = wb.active<br>ws['A1'] = 'Merhaba'<br>wb.save('dosya.xlsx')</pre>"
-        },
-        {
-            topic: "PYWIDGETS",
-            question: "ipywidgets kütüphanesinde buton oluşturmak için hangi sınıf kullanılır?",
-            options: [
-                "Button",
-                "Click",
-                "Action",
-                "Press"
-            ],
-            answer: "Button",
-            explanation: "✅ ipywidgets bileşenleri:<br>• Button: buton<br>• IntSlider: tamsayı kaydırıcı<br>• FloatSlider: ondalıklı kaydırıcı<br>• Text: metin kutusu<br>• Dropdown: açılır menü<br><br>📌 Örnek kod:<br><pre>from ipywidgets import Button, IntSlider<br>button = Button(description='Tıkla')<br>slider = IntSlider(min=0, max=10, value=5)</pre>"
-        },
-        {
-            topic: "KARŞILAŞTIRMA",
-            question: "Python'da 'eşit değil' kontrolü için hangi operatör kullanılır?",
-            options: [
-                "==",
-                "!=",
-                "<>",
-                "~="
-            ],
-            answer: "!=",
-            explanation: "✅ Karşılaştırma operatörleri:<br>• == : eşit<br>• != : eşit değil<br>• > : büyük<br>• < : küçük<br>• >= : büyük eşit<br>• <= : küçük eşit<br><br>📌 Not: <> operatörü Python 2'de vardı, Python 3'te kaldırıldı."
-        },
-        {
-            topic: "KARŞILAŞTIRMA",
-            question: "'and' operatörü ne zaman True döner?",
-            options: [
-                "En az bir koşul True ise",
-                "Tüm koşullar True ise",
-                "Koşullardan biri False ise",
-                "Hiçbir koşul True değilse"
-            ],
-            answer: "Tüm koşullar True ise",
-            explanation: "✅ Mantıksal operatörler:<br>• and: tüm koşullar True ise True<br>• or: en az bir koşul True ise True<br>• not: True'yu False, False'u True yapar<br><br>📌 Doğruluk tablosu:<br><pre>True and True = True<br>True and False = False<br>False and False = False<br>True or False = True<br>not True = False</pre>"
-        },
-        {
-            topic: "SÖZLÜKLER",
-            question: "Sözlükteki tüm anahtarları almak için hangi metot kullanılır?",
-            options: [
-                "keys()",
-                "values()",
-                "items()",
-                "get()"
-            ],
-            answer: "keys()",
-            explanation: "✅ Sözlük metodları:<br>• keys(): tüm anahtarlar<br>• values(): tüm değerler<br>• items(): anahtar-değer çiftleri<br>• get(key, default): değer al<br><br>📌 Örnekler:<br><pre>sozluk = {'a': 1, 'b': 2}<br>print(list(sozluk.keys()))    # ['a', 'b']<br>print(list(sozluk.values()))  # [1, 2]<br>print(list(sozluk.items()))   # [('a', 1), ('b', 2)]</pre>"
-        },
-        {
-            topic: "DÖNGÜ KONTROLÜ",
-            question: "continue anahtar kelimesi ne yapar?",
-            options: [
-                "Döngüyü tamamen sonlandırır",
-                "O turu atlayıp döngüye devam eder",
-                "Programı sonlandırır",
-                "Fonksiyondan çıkar"
-            ],
-            answer: "O turu atlayıp döngüye devam eder",
-            explanation: "✅ Döngü kontrol anahtar kelimeleri:<br>• break: döngüyü tamamen sonlandırır<br>• continue: mevcut iterasyonu atlar, döngü devam eder<br>• pass: hiçbir şey yapmaz (placeholder)<br><br>📌 Örnek:<br><pre>for i in range(5):<br>    if i == 2:<br>        continue  # 2'yi atla<br>    print(i)      # 0 1 3 4</pre>"
-        },
-        {
-            topic: "FOR DÖNGÜSÜ",
-            question: "for döngüsü hangi yapılarla kullanılabilir?",
-            options: [
-                "Sadece sayılar",
-                "Sadece listeler",
-                "String, liste, demet, sözlük",
-                "Sadece stringler"
-            ],
-            answer: "String, liste, demet, sözlük",
-            explanation: "✅ for döngüsü iterable objeler:<br>• String: for harf in 'python'<br>• Liste: for eleman in [1,2,3]<br>• Demet: for eleman in (1,2,3)<br>• Sözlük: for anahtar in sozluk<br>• Küme: for eleman in {1,2,3}<br>• range(): for i in range(5)<br><br>📌 Örnekler:<br><pre>for harf in 'Python': print(harf)<br>for anahtar, deger in {'a':1, 'b':2}.items(): print(anahtar, deger)</pre>"
-        },
-        {
-            topic: "HATA TÜRLERİ",
-            question: "Geçersiz liste indeksi hatası hangisidir?",
-            options: [
-                "ValueError",
-                "IndexError",
-                "KeyError",
-                "TypeError"
-            ],
-            answer: "IndexError",
-            explanation: "✅ Hata türleri:<br>• IndexError: liste[10] (geçersiz indeks)<br>• KeyError: sozluk['olmayan'] (geçersiz anahtar)<br>• ValueError: int('abc') (geçersiz değer)<br>• TypeError: 'sayı' + 5 (geçersiz tip işlemi)<br>• ZeroDivisionError: 10 / 0 (sıfıra bölme)<br><br>📌 Örnekler:<br><pre>liste[10]           # IndexError<br>sozluk['x']         # KeyError (x anahtarı yoksa)<br>int('abc')          # ValueError<br>'a' + 5             # TypeError</pre>"
-        },
-        {
-            topic: "API İŞLEMLERİ",
-            question: "requests.get() fonksiyonu ne yapar?",
-            options: [
-                "Dosya okur",
-                "HTTP GET isteği gönderir",
-                "Veritabanına bağlanır",
-                "Grafik çizer"
-            ],
-            answer: "HTTP GET isteği gönderir",
-            explanation: "✅ requests.get() kullanımı:<br>• URL'ye HTTP GET isteği gönderir<br>• Response objesi döndürür<br>• status_code, text, json() metodları vardır<br><br>📌 Örnek kod:<br><pre>import requests<br>response = requests.get('https://api.github.com')<br>print(response.status_code)  # 200<br>print(response.json())       # JSON verisi</pre>"
-        },
-        {
-            topic: "RANDOM KÜTÜPHANESİ",
-            question: "Listeyi karıştırmak için hangi fonksiyon kullanılır?",
-            options: [
-                "random.mix()",
-                "random.shuffle()",
-                "random.randomize()",
-                "random.sort()"
-            ],
-            answer: "random.shuffle()",
-            explanation: "✅ random.shuffle() fonksiyonu:<br>• Listeyi yerinde karıştırır<br>• Orijinal listeyi değiştirir<br>• None döndürür (liste döndürmez)<br><br>📌 Örnekler:<br><pre>import random<br>liste = [1, 2, 3, 4, 5]<br>random.shuffle(liste)  # liste karışır<br>print(liste)           # [3, 1, 5, 2, 4] gibi</pre>"
-        },
-        {
-            topic: "MODÜLLER",
-            question: "datetime modülü ne işe yarar?",
-            options: [
-                "Matematiksel işlemler",
-                "Tarih ve zaman işlemleri",
-                "Dosya işlemleri",
-                "Ağ işlemleri"
-            ],
-            answer: "Tarih ve zaman işlemleri",
-            explanation: "✅ datetime modülü fonksiyonları:<br>• datetime.now(): şu anki tarih-zaman<br>• date.today(): bugünün tarihi<br>• timedelta: zaman farkı<br>• strftime(): formatlama<br><br>📌 Örnekler:<br><pre>from datetime import datetime, date<br>print(datetime.now())  # 2024-01-15 10:30:00<br>print(date.today())    # 2024-01-15<br>print(datetime.now().strftime('%d/%m/%Y'))  # 15/01/2024</pre>"
-        },
-        {
-            topic: "DOSYA İŞLEMLERİ",
-            question: "Dosya var mı diye kontrol etmek için hangi modül kullanılır?",
-            options: [
-                "sys",
-                "os",
-                "io",
-                "file"
-            ],
-            answer: "os",
-            explanation: "✅ os modülü dosya işlemleri:<br>• os.path.exists(): dosya var mı?<br>• os.path.isfile(): dosya mı?<br>• os.path.isdir(): klasör mü?<br>• os.remove(): dosya sil<br><br>📌 Örnekler:<br><pre>import os<br>if os.path.exists('dosya.txt'):<br>    print('Dosya var')<br>else:<br>    print('Dosya yok')</pre>"
+        // --- HAFTA 1: ALGORİTMA ---
+        {
+            t: "Algoritma",
+            q: "Akış şemalarında 'Oval' (Elips) şekli neyi temsil eder?",
+            o: ["İşlem", "Karar", "Başlangıç / Bitiş", "Veri Girişi"],
+            a: "Başlangıç / Bitiş",
+            exp: "Oval şekiller akış şemasının başladığı ve bittiği noktaları gösterir."
+        },
+        {
+            t: "Algoritma",
+            q: "Bir problemin çözüm adımlarının sözel olarak madde madde yazılmasına ne denir?",
+            o: ["Akış Şeması", "Sözde Kod (Pseudocode)", "Derleme", "Debug"],
+            a: "Sözde Kod (Pseudocode)",
+            exp: "Sözde kod, algoritmanın mantığını günlük konuşma diliyle ifade etme yöntemidir."
+        },
+        {
+            t: "Algoritma",
+            q: "Akış şemasında 'Dikdörtgen' şekli hangi işlem için kullanılır?",
+            o: ["Matematiksel İşlem / Atama", "Karar Verme", "Veri Girişi", "Döngü"],
+            a: "Matematiksel İşlem / Atama",
+            exp: "Dikdörtgen, 'x = x + 1' veya 'toplam = a + b' gibi hesaplama ve atama işlemlerini gösterir."
+        },
+        
+        // --- HAFTA 2: PYTHON GİRİŞ ---
+        {
+            t: "Temel Python",
+            q: "Python'da tek satırlık yorum yazmak için hangi karakter kullanılır?",
+            o: ["//", "/*", "#", "--"],
+            a: "#",
+            exp: "Python'da yorum satırları '#' işareti ile başlar."
+        },
+        {
+            t: "Temel Python",
+            q: "Aşağıdakilerden hangisi geçerli bir değişken ismidir?",
+            o: ["1sayi", "sayi bir", "if", "ogrenci_notu"],
+            a: "ogrenci_notu",
+            exp: "Değişkenler rakamla başlayamaz, boşluk içeremez ve 'if' gibi anahtar kelimeler olamaz."
+        },
+        {
+            t: "Temel Python",
+            q: "Python'da kod blokları (if, while vb. içi) nasıl belirtilir?",
+            o: ["Süslü parantez {}", "Noktalı virgül ;", "Girinti (Indentation)", "Begin-End"],
+            a: "Girinti (Indentation)",
+            exp: "Python'da blok yapısı girinti (tab veya boşluk) ile sağlanır, süslü parantez kullanılmaz."
+        },
+
+        // --- HAFTA 3: VERİ TİPLERİ VE OPERATÖRLER ---
+        {
+            t: "Veri Tipleri",
+            q: "Aşağıdaki kodun çıktısı ne olur? <div class='code-block'>print(type(3.14))</div>",
+            o: ["int", "float", "str", "bool"],
+            a: "float",
+            exp: "Ondalıklı sayılar Python'da 'float' veri tipi olarak geçer."
+        },
+        {
+            t: "Operatörler",
+            q: "Aşağıdaki işlemin sonucu nedir? <div class='code-block'>print(10 % 3)</div>",
+            o: ["1", "3", "3.33", "0"],
+            a: "1",
+            exp: "% operatörü mod alma (bölümden kalanı bulma) işlemidir. 10'un 3'e bölümünden kalan 1'dir."
+        },
+        {
+            t: "Operatörler",
+            q: "Python'da 'Tam Bölme' (ondalıksız) operatörü hangisidir?",
+            o: ["/", "//", "%", "div"],
+            a: "//",
+            exp: "// operatörü bölme işleminin sonucunun tam sayı kısmını alır (örn: 7 // 2 = 3)."
+        },
+        {
+            t: "Mantıksal Operatörler",
+            q: "Hangi ifade 'True' (Doğru) döner?",
+            o: ["5 > 5", "5 == '5'", "5 != 4", "True and False"],
+            a: "5 != 4",
+            exp: "5 sayısı 4'e eşit değildir (!=), bu yüzden ifade Doğrudur. (5 == '5' False'tur çünkü türleri farklıdır)."
+        },
+
+        // --- HAFTA 4: GİRİŞ ÇIKIŞ ---
+        {
+            t: "Input/Output",
+            q: "Kullanıcıdan veri almak için hangi fonksiyon kullanılır?",
+            o: ["get()", "scan()", "input()", "read()"],
+            a: "input()",
+            exp: "Kullanıcı girişi için input() kullanılır ve değer her zaman string olarak gelir."
+        },
+        {
+            t: "Input/Output",
+            q: "Aşağıdaki kodun çıktısı nedir? <div class='code-block'>a = '10'\nb = '20'\nprint(a+b)</div>",
+            o: ["30", "1020", "Hata", "10 20"],
+            a: "1020",
+            exp: "Değişkenler tırnak içinde olduğu için string'dir. Stringlerde + operatörü birleştirme yapar."
+        },
+        {
+            t: "String Formatlama",
+            q: "f-string kullanımında değişken nereye yazılır?",
+            o: ["(degisken)", "{degisken}", "[degisken]", "%degisken"],
+            a: "{degisken}",
+            exp: "f-string yapısında değişkenler süslü parantez içine yazılır: f'Merhaba {isim}'."
+        },
+        {
+            t: "Input/Output",
+            q: "print fonksiyonunda 'end' parametresi ne işe yarar?",
+            o: ["Satır başı yapar", "Çıktının sonuna ne ekleneceğini belirler", "Boşluk bırakır", "Değişken tipini değiştirir"],
+            a: "Çıktının sonuna ne ekleneceğini belirler",
+            exp: "Varsayılan olarak '\\n' (yeni satır) olan değeri değiştirmeyi sağlar. Örn: end=' ' yan yana yazar."
+        },
+
+        // --- HAFTA 5: KOŞULLAR ---
+        {
+            t: "Koşullu İfadeler",
+            q: "Birden fazla koşulu zincirleme kontrol etmek için hangisi kullanılır?",
+            o: ["else if", "elif", "check", "loop"],
+            a: "elif",
+            exp: "Python'da 'else if' yerine kısaltılmış 'elif' kullanılır."
+        },
+        {
+            t: "Koşullu İfadeler",
+            q: "Aşağıdaki kodda x=10 ise çıktı ne olur? <div class='code-block'>if x > 5:\n    print('A')\nif x > 8:\n    print('B')</div>",
+            o: ["Sadece A", "Sadece B", "A ve B", "Hiçbiri"],
+            a: "A ve B",
+            exp: "Burada 'elif' değil, iki ayrı 'if' kullanılmıştır. İki koşul da (10>5 ve 10>8) doğru olduğu için ikisi de çalışır."
+        },
+        {
+            t: "Listeler",
+            q: "Bir listenin sonuna eleman eklemek için hangi metod kullanılır?",
+            o: ["push()", "insert()", "add()", "append()"],
+            a: "append()",
+            exp: "Listelerde sona ekleme yapmak için .append() metodu kullanılır."
+        },
+        {
+            t: "Listeler",
+            q: "Listeden belirli bir DEĞERİ silmek için hangisi kullanılır?",
+            o: ["delete()", "remove()", "pop()", "del"],
+            a: "remove()",
+            exp: "remove('değer') değeri arar ve siler. pop() ise indekse göre siler."
+        },
+        {
+            t: "Listeler",
+            q: "Aşağıdaki listenin 1. indeksi nedir? <div class='code-block'>liste = ['elma', 'armut', 'muz']</div>",
+            o: ["elma", "armut", "muz", "Hata"],
+            a: "armut",
+            exp: "Python'da indeksler 0'dan başlar. 0:elma, 1:armut."
+        },
+
+        // --- HAFTA 6: DÖNGÜLER VE SÖZLÜKLER ---
+        {
+            t: "While Döngüsü",
+            q: "While döngüsü ne zaman çalışmayı durdurur?",
+            o: ["Belirli sayıya ulaşınca", "Koşul 'False' olduğunda", "Break komutu olmadan durmaz", "Hata verince"],
+            a: "Koşul 'False' olduğunda",
+            exp: "While döngüsü yanındaki koşul True olduğu sürece döner, False olunca biter."
+        },
+        {
+            t: "Sözlükler",
+            q: "Sözlük (Dictionary) veri yapısının özelliği nedir?",
+            o: ["Sıralı sayılardan oluşur", "Anahtar-Değer (Key-Value) çiftleri tutar", "Değiştirilemez", "Tekrarlı eleman içerir"],
+            a: "Anahtar-Değer (Key-Value) çiftleri tutar",
+            exp: "Sözlükler {key: value} yapısındadır."
+        },
+        {
+            t: "Kümeler (Set)",
+            q: "Aşağıdaki kümenin eleman sayısı kaçtır? <div class='code-block'>kume = {1, 2, 2, 3, 3, 3}</div>",
+            o: ["6", "3", "1", "Hata"],
+            a: "3",
+            exp: "Kümeler (Set) benzersiz eleman tutar. Tekrarlar otomatik silinir. Kalanlar: {1, 2, 3}."
+        },
+        {
+            t: "Kod Analizi",
+            q: "Sonsuz döngüden çıkmak için klavyeden hangi tuş kombinasyonu kullanılır?",
+            o: ["Ctrl+C", "Alt+F4", "Esc", "Ctrl+Z"],
+            a: "Ctrl+C",
+            exp: "Terminalde çalışan bir Python programını durdurmak için Ctrl+C (KeyboardInterrupt) kullanılır."
+        },
+
+        // --- HAFTA 7: FOR DÖNGÜSÜ ---
+        {
+            t: "For Döngüsü",
+            q: "range(5) fonksiyonu hangi sayıları üretir?",
+            o: ["1,2,3,4,5", "0,1,2,3,4,5", "0,1,2,3,4", "1,2,3,4"],
+            a: "0,1,2,3,4",
+            exp: "range(n) 0'dan başlar ve n'ye kadar (n dahil değil) gider."
+        },
+        {
+            t: "For Döngüsü",
+            q: "Döngüyü tamamen sonlandırmak (kırmak) için hangi komut kullanılır?",
+            o: ["continue", "pass", "return", "break"],
+            a: "break",
+            exp: "break komutu döngüyü anında sonlandırır."
+        },
+        {
+            t: "For Döngüsü",
+            q: "continue komutu ne işe yarar?",
+            o: ["Döngüyü bitirir", "Döngüden çıkar", "O anki adımı atlar, başa döner", "Programı kapatır"],
+            a: "O anki adımı atlar, başa döner",
+            exp: "continue, altındaki kodları çalıştırmadan döngünün bir sonraki adımına geçer."
+        },
+        {
+            t: "Kod Analizi",
+            q: "Çıktı nedir? <div class='code-block'>for i in range(2, 5):\n    print(i, end='')</div>",
+            o: ["2345", "234", "345", "1234"],
+            a: "234",
+            exp: "2'den başlar, 5'e kadar (5 yok). Yan yana yazdırır: 234."
+        },
+
+        // --- HAFTA 9-10: FONKSİYONLAR ---
+        {
+            t: "Fonksiyonlar",
+            q: "Fonksiyon tanımlamak için hangi anahtar kelime kullanılır?",
+            o: ["func", "def", "function", "lambda"],
+            a: "def",
+            exp: "Python'da fonksiyonlar 'def fonksiyon_adi():' şeklinde tanımlanır."
+        },
+        {
+            t: "Fonksiyonlar",
+            q: "Fonksiyonun sonucunu çağıran yere göndermek için ne kullanılır?",
+            o: ["print", "send", "return", "back"],
+            a: "return",
+            exp: "return, fonksiyonun ürettiği değeri döndürür."
+        },
+        {
+            t: "Fonksiyonlar",
+            q: "Aşağıdaki fonksiyon çağrısının sonucu nedir? <div class='code-block'>def topla(a, b=10):\n    return a+b\n\nprint(topla(5))</div>",
+            o: ["5", "15", "10", "Hata"],
+            a: "15",
+            exp: "b parametresinin varsayılan değeri 10'dur. a=5 gönderildiği için 5+10=15 olur."
+        },
+        {
+            t: "Fonksiyonlar",
+            q: "Lambda fonksiyonu nedir?",
+            o: ["Ana fonksiyon", "Tek satırlık isimsiz fonksiyon", "Döngü fonksiyonu", "Kütüphane"],
+            a: "Tek satırlık isimsiz fonksiyon",
+            exp: "Lambda, kısa ve tek kullanımlık fonksiyonlar (anonim) oluşturmak için kullanılır."
+        },
+        {
+            t: "Kapsam (Scope)",
+            q: "Bir fonksiyon içinde tanımlanan değişkene ne ad verilir?",
+            o: ["Global değişken", "Yerel (Local) değişken", "Sabit", "Sınıf değişkeni"],
+            a: "Yerel (Local) değişken",
+            exp: "Fonksiyon içinde tanımlananlar yereldir, sadece o fonksiyon içinde erişilebilir."
+        },
+
+        // --- HAFTA 11: HATA YAKALAMA ---
+        {
+            t: "Hata Yakalama",
+            q: "Hata yakalama bloğu hangisidir?",
+            o: ["if-else", "try-except", "for-while", "def-return"],
+            a: "try-except",
+            exp: "Hataları yönetmek için try (dene) ve except (hata varsa yakala) kullanılır."
+        },
+        {
+            t: "Hata Türleri",
+            q: "Sıfıra bölme işleminde hangi hata oluşur?",
+            o: ["ValueError", "IndexError", "ZeroDivisionError", "TypeError"],
+            a: "ZeroDivisionError",
+            exp: "Bir sayıyı 0'a bölmek matematikte tanımsızdır, Python'da ZeroDivisionError verir."
+        },
+        {
+            t: "Hata Türleri",
+            q: "Var olmayan bir dosya açılmak istendiğinde hangi hata alınır?",
+            o: ["FileNotFoundError", "IOError", "ImportError", "KeyError"],
+            a: "FileNotFoundError",
+            exp: "Dosya bulunamadı hatası FileNotFoundError'dır."
+        },
+        {
+            t: "Hata Yakalama",
+            q: "finally bloğu ne zaman çalışır?",
+            o: ["Sadece hata varsa", "Sadece hata yoksa", "Her durumda", "Hiçbir zaman"],
+            a: "Her durumda",
+            exp: "finally bloğu, hata olsa da olmasa da en sonda mutlaka çalışır (örn: dosya kapatma)."
+        },
+
+        // --- HAFTA 12: KÜTÜPHANELER I ---
+        {
+            t: "Modüller",
+            q: "Bir modülü programa dahil etmek için hangi komut kullanılır?",
+            o: ["include", "using", "import", "require"],
+            a: "import",
+            exp: "Python'da kütüphane/modül çağırmak için 'import modul_adi' kullanılır."
+        },
+        {
+            t: "Random Modülü",
+            q: "0 ile 1 arasında rastgele ondalıklı sayı üreten fonksiyon hangisidir?",
+            o: ["randint()", "random()", "choice()", "uniform()"],
+            a: "random()",
+            exp: "random.random() 0.0 ile 1.0 arasında float üretir."
+        },
+        {
+            t: "Random Modülü",
+            q: "random.randint(1, 3) fonksiyonu hangi çıktıları üretebilir?",
+            o: ["1, 2", "1, 2, 3", "0, 1, 2", "Sadece 3"],
+            a: "1, 2, 3",
+            exp: "randint(min, max) fonksiyonunda her iki sınır değer de dahildir. Bu yüzden 1, 2 ve 3 üretilebilir."
+        },
+        {
+            t: "OpenPyXL",
+            q: "Python ile Excel dosyalarını okumak/yazmak için hangi kütüphane kullanılır?",
+            o: ["pandas", "openpyxl", "numpy", "csv"],
+            a: "openpyxl",
+            exp: "Ders notlarında .xlsx dosyaları ile çalışmak için 'openpyxl' kütüphanesi işlenmiştir."
+        },
+        {
+            t: "Proje",
+            q: "Adam Asmaca oyununda rastgele kelime seçmek için hangi fonksiyon uygundur?",
+            o: ["random.choice()", "random.shuffle()", "random.random()", "random.randint()"],
+            a: "random.choice()",
+            exp: "Bir listeden rastgele bir eleman seçmek için choice() kullanılır."
+        },
+
+        // --- HAFTA 13: KÜTÜPHANELER II ---
+        {
+            t: "Numpy",
+            q: "Numpy kütüphanesinin temel veri yapısı nedir?",
+            o: ["List", "Dictionary", "Array (Dizi)", "Tuple"],
+            a: "Array (Dizi)",
+            exp: "Numpy, yüksek performanslı 'ndarray' (Numpy Array) yapısını kullanır."
+        },
+        {
+            t: "Numpy",
+            q: "Bir Numpy dizisindeki sayıların ortalamasını alan fonksiyon hangisidir?",
+            o: ["np.average()", "np.mean()", "np.median()", "np.sum()"],
+            a: "np.mean()",
+            exp: "Ortalama hesaplamak için np.mean() kullanılır."
+        },
+        {
+            t: "Pandas",
+            q: "Pandas kütüphanesinde tablo şeklindeki veri yapısına ne ad verilir?",
+            o: ["Series", "DataFrame", "Table", "Sheet"],
+            a: "DataFrame",
+            exp: "Satır ve sütunlardan oluşan yapıya DataFrame denir."
+        },
+        {
+            t: "Matplotlib",
+            q: "Verileri grafiğe dökmek (çizmek) için kullanılan temel fonksiyon hangisidir?",
+            o: ["plt.show()", "plt.draw()", "plt.plot()", "plt.graph()"],
+            a: "plt.plot()",
+            exp: "plt.plot(x, y) verileri çizgi grafik olarak hazırlar."
+        },
+        {
+            t: "PyWhatKit",
+            q: "PyWhatKit kütüphanesi derste hangi amaçla kullanıldı?",
+            o: ["Veri analizi", "Otomatik WhatsApp mesajı gönderme", "Yüz tanıma", "Excel okuma"],
+            a: "Otomatik WhatsApp mesajı gönderme",
+            exp: "PyWhatKit, WhatsApp üzerinden zaman ayarlı mesaj göndermek için kullanıldı."
+        },
+        {
+            t: "IpyWidgets",
+            q: "Jupyter ortamında interaktif buton ve slider eklemek için hangisi kullanılır?",
+            o: ["tkinter", "ipywidgets", "pygame", "requests"],
+            a: "ipywidgets",
+            exp: "Notebook ortamında etkileşimli araçlar için ipywidgets kütüphanesi kullanılır."
+        },
+
+        // --- KOD ANALİZİ VE EKSTRALAR ---
+        {
+            t: "Kod Analizi",
+            q: "Çıktı nedir? <div class='code-block'>s = 'Python'\nprint(s[1:4])</div>",
+            o: ["Pyt", "yth", "ytho", "tho"],
+            a: "yth",
+            exp: "1. indeksten başlar (y), 4'e kadar gider (4 dahil değil, t-h). Sonuç: yth."
+        },
+        {
+            t: "String Metotları",
+            q: "Bir metindeki tüm harfleri büyük harfe çeviren metod hangisidir?",
+            o: ["upper()", "lower()", "capitalize()", "title()"],
+            a: "upper()",
+            exp: "upper() metodu stringin tüm karakterlerini büyük harfe çevirir."
+        },
+        {
+            t: "String Metotları",
+            q: "Bir string'in başındaki ve sonundaki boşlukları silen metod?",
+            o: ["clean()", "strip()", "trim()", "delete()"],
+            a: "strip()",
+            exp: "strip() metodu baştaki ve sondaki whitespace (boşluk) karakterlerini temizler."
+        },
+        {
+            t: "Dosya İşlemleri",
+            q: "Dosya açarken 'w' modu ne yapar?",
+            o: ["Okuma yapar", "Ekleme yapar", "Yazma yapar (Dosyayı silip yeniden oluşturur)", "Hata verir"],
+            a: "Yazma yapar (Dosyayı silip yeniden oluşturur)",
+            exp: "'w' (write) modu dosyayı sıfırdan yazar, dosya varsa içeriği silinir."
+        },
+        {
+            t: "Dosya İşlemleri",
+            q: "Dosyayı açıp, işim bitince otomatik kapatan yapı hangisidir?",
+            o: ["open()", "with open() ... as", "close()", "try-file"],
+            a: "with open() ... as",
+            exp: "'with' bloğu kullanıldığında blok bitince dosya otomatik kapanır (close gerekmez)."
+        },
+        {
+            t: "Liste Metotları",
+            q: "Bir listeyi küçükten büyüğe sıralayan metod hangisidir?",
+            o: ["order()", "sort()", "reverse()", "align()"],
+            a: "sort()",
+            exp: "sort() metodu listeyi kalıcı olarak sıralar."
+        },
+        {
+            t: "Liste Metotları",
+            q: "len() fonksiyonu ne işe yarar?",
+            o: ["Eleman sayısını (uzunluğunu) verir", "Listeyi siler", "Son elemanı verir", "Tipi verir"],
+            a: "Eleman sayısını (uzunluğunu) verir",
+            exp: "len() (length) string, liste vb. yapıların uzunluğunu döndürür."
+        },
+        {
+            t: "Genel",
+            q: "Python'da 'None' neyi ifade eder?",
+            o: ["0 sayısını", "Boş stringi", "Değer yokluğunu (Boşluk/Hiçlik)", "Hatayı"],
+            a: "Değer yokluğunu (Boşluk/Hiçlik)",
+            exp: "None, Python'da bir değerin olmadığını veya boş olduğunu belirten özel bir veri tipidir."
+        },
+        {
+            t: "Döngüler",
+            q: "İç içe döngülerde (Nested Loops), en içteki döngü mü en dıştaki döngü mü daha hızlı döner?",
+            o: ["En dıştaki", "En içteki", "İkisi de aynı", "Python'da iç içe döngü yoktur"],
+            a: "En içteki",
+            exp: "Dış döngünün her bir adımı için iç döngü baştan sona çalışır, yani iç döngü daha sık döner."
+        },
+        {
+            t: "Matematik Modülü",
+            q: "Karekök almak için math modülünde hangi fonksiyon kullanılır?",
+            o: ["sqr()", "sqrt()", "pow()", "ceil()"],
+            a: "sqrt()",
+            exp: "math.sqrt() (Square Root) karekök alma fonksiyonudur."
+        },
+        {
+            t: "String",
+            q: "String ifadeleri parçalayıp listeye çeviren metod hangisidir? (Örn: 'ali,veli' -> ['ali','veli'])",
+            o: ["split()", "join()", "cut()", "slice()"],
+            a: "split()",
+            exp: "split() metodu stringi belirtilen ayraçtan böler ve liste döndürür."
+        },
+        {
+            t: "Algoritma",
+            q: "Bir değişkenin değerini 1 artırmak için hangisi kullanılır?",
+            o: ["x++", "x =+ 1", "x += 1", "x == 1"],
+            a: "x += 1",
+            exp: "Python'da x++ yoktur. Artırma işlemi x += 1 veya x = x + 1 ile yapılır."
+        },
+        {
+            t: "Python",
+            q: "Python dili hangi programlama türündedir?",
+            o: ["Derlenen (Compiled)", "Yorumlanan (Interpreted)", "Makine Dili", "Assembly"],
+            a: "Yorumlanan (Interpreted)",
+            exp: "Python yorumlanan (interpreted) bir dildir, kodlar satır satır çalıştırılır."
+        },
+
+        // --- YENİ EKLENEN: KÜTÜPHANE ODAKLI KOD SORULARI (10 Adet) ---
+        {
+            t: "NumPy Kod Analizi",
+            q: "Aşağıdaki kodun çıktısı nedir? <div class='code-block'>import numpy as np\narr = np.array([1, 2, 3])\nprint(arr * 2)</div>",
+            o: ["[1, 2, 3, 1, 2, 3]", "[2, 4, 6]", "Hata verir", "[1, 2, 3, 2]"],
+            a: "[2, 4, 6]",
+            exp: "NumPy dizileri matematiksel işlemleri her elemana uygular (Broadcasting). [1*2, 2*2, 3*2] = [2, 4, 6]."
+        },
+        {
+            t: "Pandas Kod Analizi",
+            q: "Aşağıdaki kodda 'Ankara' verisine nasıl ulaşılır? <div class='code-block'>import pandas as pd\ns = pd.Series([10, 20], index=['İst', 'Ank'])\n# Ankara değerini (20) al</div>",
+            o: ["s[1]", "s['Ank']", "s.iloc[1]", "Hepsi"],
+            a: "Hepsi",
+            exp: "Pandas serilerinde hem etiket (label) ile `s['Ank']` hem de pozisyon (index) ile `s[1]` veya `iloc[1]` erişim mümkündür."
+        },
+        {
+            t: "Random Kod Analizi",
+            q: "Aşağıdaki kodun olası çıktısı hangisi OLAMAZ? <div class='code-block'>import random\nprint(random.choice(['A', 'B', 'C']))</div>",
+            o: ["A", "B", "C", "D"],
+            a: "D",
+            exp: "random.choice() sadece listede var olan elemanlardan birini seçer. 'D' listede yoktur."
+        },
+        {
+            t: "Matplotlib Kod Analizi",
+            q: "Bir pasta grafiği çizdirmek için hangi fonksiyon kullanılır?",
+            o: ["plt.plot()", "plt.bar()", "plt.pie()", "plt.hist()"],
+            a: "plt.pie()",
+            exp: "Pasta grafiği (Pie Chart) çizdirmek için `plt.pie()` fonksiyonu kullanılır."
+        },
+        {
+            t: "NumPy Kod Analizi",
+            q: "Aşağıdaki kodun çıktısı nedir? <div class='code-block'>import numpy as np\na = np.zeros(3)\nprint(a)</div>",
+            o: ["[0, 0, 0]", "[0. 0. 0.]", "[1, 1, 1]", "[]"],
+            a: "[0. 0. 0.]",
+            exp: "np.zeros(3) varsayılan olarak float tipinde sıfırlardan oluşan bir dizi oluşturur (0.)."
+        },
+        {
+            t: "Math Kod Analizi",
+            q: "Aşağıdaki kodun çıktısı nedir? <div class='code-block'>import math\nprint(math.ceil(4.2))</div>",
+            o: ["4", "5", "4.2", "4.0"],
+            a: "5",
+            exp: "math.ceil() fonksiyonu sayıyı bir üst tam sayıya yuvarlar (Tavan). 4.2 -> 5."
+        },
+        {
+            t: "Pandas Kod Analizi",
+            q: "Bir DataFrame'in ilk 5 satırını görüntülemek için hangi metod kullanılır?",
+            o: ["df.tail()", "df.info()", "df.head()", "df.view()"],
+            a: "df.head()",
+            exp: "df.head() varsayılan olarak ilk 5 satırı getirir. df.tail() son 5 satırı getirir."
+        },
+        {
+            t: "Datetime Kod Analizi",
+            q: "Şu anki tarih ve saati almak için hangi kod kullanılır?",
+            o: ["datetime.today()", "datetime.now()", "time.now()", "date.now()"],
+            a: "datetime.now()",
+            exp: "datetime modülünde `datetime.now()` fonksiyonu o anki tarih ve saati verir."
+        },
+        {
+            t: "OS Modülü Kod Analizi",
+            q: "Bulunduğumuz dizindeki dosyaları listelemek için hangi fonksiyon kullanılır?",
+            o: ["os.mkdir()", "os.getcwd()", "os.listdir()", "os.remove()"],
+            a: "os.listdir()",
+            exp: "os.listdir() belirtilen dizindeki (veya mevcut dizindeki) dosya ve klasörleri liste olarak döndürür."
+        },
+        {
+            t: "JSON Modülü Kod Analizi",
+            q: "Python sözlüğünü (dict) JSON formatında string'e çevirmek için hangisi kullanılır?",
+            o: ["json.load()", "json.dump()", "json.loads()", "json.dumps()"],
+            a: "json.dumps()",
+            exp: "json.dumps() (dump string), Python nesnesini JSON string'ine dönüştürür."
         }
     ];
 
-    // Test durumu
-    let currentQuestionIndex = 0;
-    let correctScore = 0;
-    let wrongScore = 0;
-    let skippedQuestions = 0;
-    const totalQuestions = questions.length;
-    let userAnswers = new Array(totalQuestions).fill(null);
-    let visitedQuestions = new Set();
+    let currentQIndex = 0;
+    let score = 0;
+    let wrong = 0;
+    // Cevapları saklamak için dizi (null: cevaplanmadı, string: seçilen şık)
+    let answers = new Array(questions.length).fill(null);
 
-    // DOM elementleri
-    const questionEl = document.getElementById("question-text");
-    const topicEl = document.getElementById("question-topic");
-    const optionsEl = document.getElementById("options-list");
-    const questionNumberEl = document.getElementById("question-number");
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
-    const currentQEl = document.getElementById("current-q");
-    const correctCountEl = document.getElementById("correct-count");
-    const wrongCountEl = document.getElementById("wrong-count");
-    const progressEl = document.getElementById("progress-percent");
-    const explanationBox = document.getElementById("explanation-box");
-    const explanationContent = document.getElementById("explanation-content");
-
-// Sayfa yüklendiğinde
-document.addEventListener('DOMContentLoaded', function() {
-    // LocalStorage'ı temizle
-    localStorage.removeItem('pythonQuizState');
-    
-    // İlk soruyu yükle
-    loadQuestion();
-    
-    // İlerleme durumunu güncelle
-    updateProgress();
-});
-    function loadSavedState() {
-        const savedState = localStorage.getItem('pythonQuizState');
-        if (savedState) {
-            try {
-                const state = JSON.parse(savedState);
-                currentQuestionIndex = state.currentQuestionIndex || 0;
-                correctScore = state.correctScore || 0;
-                wrongScore = state.wrongScore || 0;
-                skippedQuestions = state.skippedQuestions || 0;
-                userAnswers = state.userAnswers || new Array(totalQuestions).fill(null);
-                visitedQuestions = new Set(state.visitedQuestions || []);
-                
-                // İstatistikleri güncelle
-                correctCountEl.textContent = correctScore;
-                wrongCountEl.textContent = wrongScore;
-            } catch (e) {
-                console.error("Kayıtlı durum yüklenemedi:", e);
-                localStorage.removeItem('pythonQuizState');
-            }
-        }
-    }
-
-    function saveState() {
-        const state = {
-            currentQuestionIndex: currentQuestionIndex,
-            correctScore: correctScore,
-            wrongScore: wrongScore,
-            skippedQuestions: skippedQuestions,
-            userAnswers: userAnswers,
-            visitedQuestions: Array.from(visitedQuestions),
-            timestamp: new Date().getTime()
-        };
-        localStorage.setItem('pythonQuizState', JSON.stringify(state));
-    }
+    // Elementleri Seç
+    const els = {
+        quizScreen: document.getElementById('quiz-screen'),
+        resultScreen: document.getElementById('result-screen'),
+        topic: document.getElementById('topic'),
+        question: document.getElementById('question'),
+        options: document.getElementById('options'),
+        nextBtn: document.getElementById('next-btn'),
+        prevBtn: document.getElementById('prev-btn'),
+        qVal: document.getElementById('q-val'),
+        scoreVal: document.getElementById('score-val'),
+        wrongVal: document.getElementById('wrong-val'),
+        explanation: document.getElementById('explanation'),
+        expText: document.getElementById('explanation-text'),
+        progress: document.getElementById('progress')
+    };
 
     function loadQuestion() {
-        // Mevcut soruyu kontrol et
-        if (currentQuestionIndex >= questions.length) {
-            currentQuestionIndex = 0; // Güvenlik önlemi
-        }
+        const q = questions[currentQIndex];
+        const savedAnswer = answers[currentQIndex]; // Bu soru daha önce cevaplandı mı?
         
-        const currentQ = questions[currentQuestionIndex];
+        // UI Güncelle
+        els.topic.innerText = q.t;
+        els.question.innerHTML = q.q;
+        els.qVal.innerText = `${currentQIndex + 1}/${questions.length}`;
+        els.progress.style.width = `${((currentQIndex) / questions.length) * 100}%`;
         
-        // Soru bilgilerini güncelle
-        questionEl.innerHTML = currentQ.question;
-        topicEl.textContent = currentQ.topic;
-        currentQEl.textContent = currentQuestionIndex + 1;
-        questionNumberEl.textContent = currentQuestionIndex + 1;
+        // Buton durumları
+        els.prevBtn.disabled = (currentQIndex === 0);
+        // Eğer cevaplanmışsa ileri butonu aktif, yoksa pasif
+        els.nextBtn.disabled = (savedAnswer === null);
         
-        // Seçenekleri temizle
-        optionsEl.innerHTML = "";
-        
-        // Açıklama kutusunu gizle (sadece ilk yüklemede)
-        if (userAnswers[currentQuestionIndex] === null) {
-            explanationBox.style.display = "none";
-        }
-        
-        // Ziyaret edilen sorulara ekle
-        visitedQuestions.add(currentQuestionIndex);
-        
-        // Navigasyon butonlarını güncelle
-        updateNavigationButtons();
-        
-        // Seçenekleri oluştur
-        const optionLetters = ['A', 'B', 'C', 'D'];
-        currentQ.options.forEach((option, index) => {
-            const btn = document.createElement("button");
-            btn.className = "option-btn";
-            
-            // Önceden seçilmişse stil uygula
-            if (userAnswers[currentQuestionIndex] === option) {
-                if (option === currentQ.answer) {
-                    btn.classList.add("correct");
-                } else {
-                    btn.classList.add("wrong");
-                    // Doğru cevabı da yeşil yap
-                    setTimeout(() => {
-                        const allBtns = document.querySelectorAll(".option-btn");
-                        allBtns.forEach(b => {
-                            if (b.querySelector(".option-text").textContent === currentQ.answer) {
-                                b.classList.add("correct");
-                            }
-                        });
-                        // Açıklamayı göster
-                        showExplanation(currentQ.explanation);
-                    }, 100);
-                }
-            }
-            
-            btn.innerHTML = `
-                <div class="option-letter">${optionLetters[index]}</div>
-                <div class="option-text">${option}</div>
-            `;
-            
-            btn.onclick = () => {
-                if (userAnswers[currentQuestionIndex] === null) {
-                    selectAnswer(btn, option, currentQ.answer, currentQ.explanation);
-                }
-            };
-            
-            // Eğer zaten cevaplandıysa butonu disable et
-            if (userAnswers[currentQuestionIndex] !== null) {
-                btn.disabled = true;
-            }
-            
-            optionsEl.appendChild(btn);
-        });
-        
-        // Eğer bu soru daha önce cevaplandıysa açıklamayı göster
-        if (userAnswers[currentQuestionIndex] !== null) {
-            showExplanation(currentQ.explanation);
-        }
-        
-        // Durumu kaydet
-        saveState();
-    }
-
-    function showExplanation(explanation) {
-        explanationContent.innerHTML = explanation;
-        explanationBox.style.display = "block";
-    }
-
-    function selectAnswer(btn, selected, correct, explanation) {
-        // Tüm butonları disable et
-        const allBtns = document.querySelectorAll(".option-btn");
-        allBtns.forEach(b => b.disabled = true);
-        
-        // Seçeneği kaydet
-        userAnswers[currentQuestionIndex] = selected;
-        
-        // Doğru/yanlış kontrolü
-        if (selected === correct) {
-            btn.classList.add("correct");
-            correctScore++;
-            correctCountEl.textContent = correctScore;
+        // Açıklama alanı: cevaplandıysa göster, yoksa gizle
+        if (savedAnswer) {
+            els.expText.innerText = q.exp;
+            els.explanation.style.display = 'block';
         } else {
-            btn.classList.add("wrong");
-            wrongScore++;
-            wrongCountEl.textContent = wrongScore;
+            els.explanation.style.display = 'none';
+        }
+        
+        // Seçenekleri Oluştur
+        els.options.innerHTML = '';
+        
+        q.o.forEach((opt, index) => {
+            const btn = document.createElement('div');
+            btn.className = 'option-btn';
+            btn.innerHTML = `<div class="btn-letter">${String.fromCharCode(65 + index)}</div> ${opt}`;
             
-            // Doğru cevabı da yeşil yap
-            allBtns.forEach(b => {
-                if (b.querySelector(".option-text").textContent === correct) {
-                    b.classList.add("correct");
+            // Gizli olarak şıkkın gerçek değerini butona ekliyoruz
+            btn.dataset.option = opt;
+
+            // Eğer soru daha önce cevaplandıysa durumunu yansıt
+            if (savedAnswer) {
+                btn.style.pointerEvents = 'none'; // Tıklamayı engelle
+                if (opt === q.a) {
+                    btn.classList.add('correct');
                 }
+                if (opt === savedAnswer && savedAnswer !== q.a) {
+                    btn.classList.add('selected-wrong');
+                }
+            } else {
+                // Cevaplanmamışsa tıklama olayını ekle
+                btn.onclick = () => checkAnswer(btn, opt, q.a, q.exp);
+            }
+            
+            els.options.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(btn, selected, correct, explanation) {
+        // Cevabı kaydet
+        answers[currentQIndex] = selected;
+
+        // Tüm butonları kilitle
+        const allBtns = document.querySelectorAll('.option-btn');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+
+        if (selected === correct) {
+            btn.classList.add('correct');
+            score++;
+            els.scoreVal.innerText = score;
+        } else {
+            btn.classList.add('selected-wrong');
+            wrong++;
+            els.wrongVal.innerText = wrong;
+            // Doğru cevabı göster
+            allBtns.forEach(b => {
+                // Sadece text includes değil, tam eşleşme kontrolü yapıyoruz
+                if(b.dataset.option === correct) b.classList.add('correct');
             });
         }
-        
-        // Açıklamayı göster
-        showExplanation(explanation);
-        
-        // İlerleme durumunu güncelle
-        updateProgress();
-        
-        // Durumu kaydet
-        saveState();
-    }
 
-    function updateNavigationButtons() {
-        // Önceki buton
-        prevBtn.disabled = currentQuestionIndex === 0;
-        
-        // Sonraki buton
-        if (currentQuestionIndex === totalQuestions - 1) {
-            nextBtn.innerHTML = 'Testi Bitir <i class="fas fa-flag-checkered"></i>';
-            nextBtn.className = "nav-btn finish-btn";
-        } else {
-            nextBtn.innerHTML = 'Sonraki Soru <i class="fas fa-arrow-right"></i>';
-            nextBtn.className = "nav-btn next-btn";
-        }
-    }
-
-    function updateProgress() {
-        const progress = Math.round(((currentQuestionIndex + 1) / totalQuestions) * 100);
-        progressEl.textContent = `${progress}%`;
-    }
-
-    function prevQuestion() {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            loadQuestion();
-            updateProgress();
-        }
+        // Açıklama göster ve butonu aç
+        els.expText.innerText = explanation;
+        els.explanation.style.display = 'block';
+        els.nextBtn.disabled = false;
     }
 
     function nextQuestion() {
-        if (currentQuestionIndex < totalQuestions - 1) {
-            currentQuestionIndex++;
+        if (currentQIndex < questions.length - 1) {
+            currentQIndex++;
             loadQuestion();
-            updateProgress();
         } else {
-            finishQuiz();
+            showResult();
         }
     }
 
-    function finishQuiz() {
-        // Boş bırakılan soruları say
-        skippedQuestions = userAnswers.filter(answer => answer === null).length;
-        
-        // Sonuç ekranını göster
-        document.getElementById("quiz-screen").style.display = "none";
-        document.getElementById("result-screen").style.display = "block";
-        
-        // Sonuçları güncelle
-        document.getElementById("final-correct").textContent = correctScore;
-        document.getElementById("final-wrong").textContent = wrongScore;
-        document.getElementById("final-skipped").textContent = skippedQuestions;
-        
-        // Skor hesapla
-        let score = Math.round((correctScore / totalQuestions) * 100);
-        document.getElementById("final-score").textContent = score + "%";
-        
-        // Dairesel grafiği güncelle
-        const circle = document.getElementById("score-circle");
-        circle.style.strokeDasharray = `${score}, 100`;
-        
-        // Skora göre renk ve ikon ayarla
-        const icon = document.getElementById("result-icon");
-        if (score >= 85) {
-            circle.style.stroke = "#4caf50";
-            icon.className = "fas fa-trophy score-excellent";
-            document.getElementById("feedback-text").textContent = "🏆 MÜKEMMEL! Python programlama temellerine tamamen hakimsin. Anıl hocanın derslerini çok iyi anlamışsın!";
-        } else if (score >= 70) {
-            circle.style.stroke = "#ff9800";
-            icon.className = "fas fa-medal score-good";
-            document.getElementById("feedback-text").textContent = "👏 ÇOK İYİ! Python konularında oldukça başarılısın. Küçük tekrarlarla daha da iyi olabilirsin.";
-        } else if (score >= 50) {
-            circle.style.stroke = "#ff9800";
-            icon.className = "fas fa-award score-average";
-            document.getElementById("feedback-text").textContent = "👍 ORTA SEVİYE! Python temellerini anlamışsın. Özellikle döngüler ve fonksiyonlar üzerine biraz daha çalışman yararlı olacaktır.";
-        } else {
-            circle.style.stroke = "#f44336";
-            icon.className = "fas fa-book score-poor";
-            document.getElementById("feedback-text").textContent = "📚 ÇALIŞMA ZAMANI! Python temellerini tekrar gözden geçirmelisin. Anıl hocanın ders notlarına ve örnek kodlara bakarak kendini geliştirebilirsin.";
-        }
-        
-        // LocalStorage'ı temizle
-        localStorage.removeItem('pythonQuizState');
-    }
-
-    function restartQuiz() {
-        // Durumu sıfırla
-        currentQuestionIndex = 0;
-        correctScore = 0;
-        wrongScore = 0;
-        skippedQuestions = 0;
-        userAnswers = new Array(totalQuestions).fill(null);
-        visitedQuestions = new Set();
-        
-        // İstatistikleri sıfırla
-        correctCountEl.textContent = "0";
-        wrongCountEl.textContent = "0";
-        currentQEl.textContent = "1";
-        progressEl.textContent = "1%";
-        
-        // Ekranları değiştir
-        document.getElementById("result-screen").style.display = "none";
-        document.getElementById("quiz-screen").style.display = "block";
-        
-        // İlk soruyu yükle
-        loadQuestion();
-        updateProgress();
-        
-        // LocalStorage'ı temizle
-        localStorage.removeItem('pythonQuizState');
-    }
-
-    function reviewAnswers() {
-        let reviewText = "CEVAPLARINIZI İNCELEYİN:\n\n";
-        
-        for (let i = 0; i < questions.length; i++) {
-            const q = questions[i];
-            const userAnswer = userAnswers[i];
-            const isCorrect = userAnswer === q.answer;
-            
-            reviewText += `Soru ${i + 1}: ${q.topic}\n`;
-            reviewText += `Doğru Cevap: ${q.answer}\n`;
-            reviewText += `Sizin Cevabınız: ${userAnswer || "Boş"}\n`;
-            reviewText += `Durum: ${isCorrect ? "✓ DOĞRU" : "✗ YANLIŞ"}\n\n`;
-        }
-        
-        alert(reviewText);
-    }
-
-    // Sayfa kapanırken veya yenilenirken durumu kaydet
-    window.addEventListener('beforeunload', function(e) {
-        if (document.getElementById("quiz-screen").style.display !== "none") {
-            saveState();
-        }
-    });
-
-    // Sayfa görünür olduğunda durumu kontrol et
-    document.addEventListener('visibilitychange', function() {
-        if (document.visibilityState === 'hidden' && document.getElementById("quiz-screen").style.display !== "none") {
-            saveState();
-        }
-    });
-
-    // Hata yüklenmesini önlemek için DOM'un tamamen yüklendiğinden emin ol
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
+    function prevQuestion() {
+        if (currentQIndex > 0) {
+            currentQIndex--;
             loadQuestion();
-        });
-    } else {
-        loadQuestion();
+        }
     }
+
+    function showResult() {
+        els.quizScreen.style.display = 'none';
+        els.resultScreen.style.display = 'block';
+        
+        document.getElementById('final-correct').innerText = score;
+        document.getElementById('final-wrong').innerText = wrong;
+        
+        const percent = Math.round((score / questions.length) * 100);
+        document.getElementById('final-score').innerText = `%${percent}`;
+        document.getElementById('final-circle').style.background = `conic-gradient(#27ae60 ${percent}%, #eee 0%)`;
+    }
+
+    // Başlat
+    loadQuestion();
+
 </script>
 </body>
 </html>
