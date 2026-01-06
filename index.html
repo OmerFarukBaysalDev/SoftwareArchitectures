@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Final Hazırlık - 75 Soru</title>
+    <title>Yazılım Mimarileri - Geniş Anlatımlı Final (71 Soru)</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         :root {
@@ -36,7 +35,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            min-height: 650px;
+            min-height: 750px;
         }
 
         .header {
@@ -75,9 +74,9 @@
         .content { padding: 30px; flex: 1; display: flex; flex-direction: column; }
 
         .progress-bar {
-            height: 6px;
+            height: 8px;
             background: #ecf0f1;
-            border-radius: 3px;
+            border-radius: 4px;
             margin-bottom: 25px;
             overflow: hidden;
         }
@@ -110,32 +109,11 @@
         }
 
         .question-text {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: #2c3e50;
             font-weight: 600;
             line-height: 1.5;
         }
-
-        .code-block {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            margin: 10px 0;
-            font-size: 0.95rem;
-            overflow-x: auto;
-            border-left: 4px solid #fdcb6e;
-            white-space: pre;
-            line-height: 1.5;
-            tab-size: 4;
-        }
-
-        .code-block .keyword { color: #569cd6; }
-        .code-block .string { color: #ce9178; }
-        .code-block .function { color: #dcdcaa; }
-        .code-block .comment { color: #6a9955; }
-        .code-block .number { color: #b5cea8; }
 
         .options-grid {
             display: grid;
@@ -169,15 +147,15 @@
         .option-btn.selected-wrong { border-color: var(--accent); background: #fdedec; color: var(--accent); }
 
         .btn-letter {
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             background: #eee;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #777;
             flex-shrink: 0;
         }
@@ -194,6 +172,7 @@
             color: #0e6251;
             display: none;
             animation: fadeIn 0.4s;
+            line-height: 1.6;
         }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -252,11 +231,11 @@
     <div id="quiz-screen" style="display: flex; flex-direction: column; height: 100%;">
         <div class="header">
             <div class="title-group">
-                <h1>Python Final Hazırlık</h1>
-                <p>Yozgat Bozok Üni. - Öğr. Gör. Anıl KUŞ</p>
+                <h1>Yazılım Mimarileri Final</h1>
+                <p>Kapsam: Hafta 1 - Hafta 14 (Geniş Anlatımlı)</p>
             </div>
             <div class="stats">
-                <div class="stat-badge"><i class="fas fa-list-ol"></i> <span id="q-val">1/80</span></div>
+                <div class="stat-badge"><i class="fas fa-list-ol"></i> <span id="q-val">1/71</span></div>
                 <div class="stat-badge stat-correct"><i class="fas fa-check-circle"></i> <span id="score-val">0</span></div>
                 <div class="stat-badge stat-wrong"><i class="fas fa-times-circle"></i> <span id="wrong-val">0</span></div>
             </div>
@@ -273,7 +252,7 @@
             <div class="options-grid" id="options"></div>
 
             <div class="explanation" id="explanation">
-                <strong><i class="fas fa-info-circle"></i> Çözüm:</strong> <span id="explanation-text"></span>
+                <strong><i class="fas fa-info-circle"></i> Detaylı Açıklama:</strong> <br><span id="explanation-text"></span>
             </div>
         </div>
 
@@ -314,557 +293,545 @@
 
 <script>
     const questions = [
-        // --- HAFTA 1: ALGORİTMA ---
-        {
-            t: "Algoritma",
-            q: "Akış şemalarında 'Oval' (Elips) şekli neyi temsil eder?",
-            o: ["İşlem", "Karar", "Başlangıç / Bitiş", "Veri Girişi"],
-            a: "Başlangıç / Bitiş",
-            exp: "Oval şekiller akış şemasının başladığı ve bittiği noktaları gösterir."
-        },
-        {
-            t: "Algoritma",
-            q: "Bir problemin çözüm adımlarının sözel olarak madde madde yazılmasına ne denir?",
-            o: ["Akış Şeması", "Sözde Kod (Pseudocode)", "Derleme", "Debug"],
-            a: "Sözde Kod (Pseudocode)",
-            exp: "Sözde kod, algoritmanın mantığını günlük konuşma diliyle ifade etme yöntemidir."
-        },
-        {
-            t: "Algoritma",
-            q: "Akış şemasında 'Dikdörtgen' şekli hangi işlem için kullanılır?",
-            o: ["Matematiksel İşlem / Atama", "Karar Verme", "Veri Girişi", "Döngü"],
-            a: "Matematiksel İşlem / Atama",
-            exp: "Dikdörtgen, 'x = x + 1' veya 'toplam = a + b' gibi hesaplama ve atama işlemlerini gösterir."
-        },
-        
-        // --- HAFTA 2: PYTHON GİRİŞ ---
-        {
-            t: "Temel Python",
-            q: "Python'da tek satırlık yorum yazmak için hangi karakter kullanılır?",
-            o: ["//", "/*", "#", "--"],
-            a: "#",
-            exp: "Python'da yorum satırları '#' işareti ile başlar."
-        },
-        {
-            t: "Temel Python",
-            q: "Aşağıdakilerden hangisi geçerli bir değişken ismidir?",
-            o: ["1sayi", "sayi bir", "if", "ogrenci_notu"],
-            a: "ogrenci_notu",
-            exp: "Değişkenler rakamla başlayamaz, boşluk içeremez ve 'if' gibi anahtar kelimeler olamaz."
-        },
-        {
-            t: "Temel Python",
-            q: "Python'da kod blokları (if, while vb. içi) nasıl belirtilir?",
-            o: ["Süslü parantez {}", "Noktalı virgül ;", "Girinti (Indentation)", "Begin-End"],
-            a: "Girinti (Indentation)",
-            exp: "Python'da blok yapısı girinti (tab veya boşluk) ile sağlanır, süslü parantez kullanılmaz."
-        },
+    // --- HAFTA 1 ---
+    {
+        t: "Hafta 1: Temel Kavramlar",
+        q: "Bilgisayar donanımı ile kullanıcı uygulamaları arasındaki iletişimi sağlayan, kaynakları yöneten yazılım türü hangisidir?",
+        o: ["Application Software (Uygulama Yazılımı)", "System Software (Sistem Yazılımı)", "Database (Veritabanı)", "Gaming Software (Oyun Yazılımı)"],
+        a: "System Software (Sistem Yazılımı)",
+        exp: "System Software (Sistem Yazılımı), bilgisayarın temel işletim sistemini (Windows, Linux vb.) ve donanım ile iletişim kuran sürücüleri kapsar. Bilgisayarın kaynaklarını yöneterek diğer yazılımların çalışmasına zemin hazırlar."
+    },
+    {
+        t: "Hafta 1: Yazılım Kategorileri",
+        q: "Aşağıdakilerden hangisi bir Application Software (Uygulama Yazılımı) örneğidir?",
+        o: ["Windows 10", "Linux Kernel", "Ekran Kartı Sürücüsü", "Microsoft Word"],
+        a: "Microsoft Word",
+        exp: "Application Software (Uygulama Yazılımı), kullanıcıların belirli görevleri (yazı yazmak, hesap yapmak, oyun oynamak gibi) gerçekleştirmesi için tasarlanmıştır. İşletim sistemlerinin aksine doğrudan kullanıcı ihtiyaçlarına odaklanır."
+    },
+    {
+        t: "Hafta 1: Sanallaştırma",
+        q: "Yazılım uygulamalarını taşınabilir ve izole edilmiş paketlerde çalıştırmak için kullanılan teknolojiye ne denir?",
+        o: ["Compilation (Derleme)", "Containerization / Docker (Konteynerizasyon)", "Defragmentation (Birleştirme)", "Encryption (Şifreleme)"],
+        a: "Containerization / Docker (Konteynerizasyon)",
+        exp: "Docker ve Konteynerizasyon, yazılımların tüm bağımlılıkları (kütüphaneler vb.) ile birlikte paketlenip, her ortamda (Windows, Linux, Sunucu) sorunsuz ve izole bir şekilde çalışmasını sağlayan teknolojidir."
+    },
+    {
+        t: "Hafta 1: Bilişim Terimleri",
+        q: "Bilgisayar sistemlerinin büyük ölçekte depolandığı, işlendiği ve dağıtıldığı tesislere ne ad verilir?",
+        o: ["Data Center (Veri Merkezi)", "Internet Cafe", "Base Station (Baz İstasyonu)", "Router (Yönlendirici)"],
+        a: "Data Center (Veri Merkezi)",
+        exp: "Data Center (Veri Merkezi); büyük miktarda verinin saklandığı, sunucuların barındırıldığı, soğutma ve güvenlik sistemlerine sahip devasa tesislerdir."
+    },
+    {
+        t: "Hafta 1: Kurumsal Yazılımlar",
+        q: "Büyük işletmelerde Müşteri İlişkileri Yönetimi için kullanılan yazılım türünün İngilizce kısaltması nedir?",
+        o: ["ERP (Enterprise Resource Planning)", "SCM (Supply Chain Management)", "CRM (Customer Relationship Management)", "SSD (Solid State Drive)"],
+        a: "CRM (Customer Relationship Management)",
+        exp: "CRM (Customer Relationship Management - Müşteri İlişkileri Yönetimi); şirketlerin müşterileriyle olan etkileşimlerini, satış süreçlerini ve müşteri memnuniyetini yönetmek için kullandıkları yazılımlardır."
+    },
 
-        // --- HAFTA 3: VERİ TİPLERİ VE OPERATÖRLER ---
-        {
-            t: "Veri Tipleri",
-            q: "Aşağıdaki kodun çıktısı ne olur?<br><div class='code-block'>print(type(3.14))</div>",
-            o: ["int", "float", "str", "bool"],
-            a: "float",
-            exp: "Ondalıklı sayılar Python'da 'float' veri tipi olarak geçer."
-        },
-        {
-            t: "Operatörler",
-            q: "Aşağıdaki işlemin sonucu nedir?<br><div class='code-block'>print(10 % 3)</div>",
-            o: ["1", "3", "3.33", "0"],
-            a: "1",
-            exp: "% operatörü mod alma (bölümden kalanı bulma) işlemidir. 10'un 3'e bölümünden kalan 1'dir."
-        },
-        {
-            t: "Operatörler",
-            q: "Python'da 'Tam Bölme' (ondalıksız) operatörü hangisidir?",
-            o: ["/", "//", "%", "div"],
-            a: "//",
-            exp: "// operatörü bölme işleminin sonucunun tam sayı kısmını alır (örn: 7 // 2 = 3)."
-        },
-        {
-            t: "Mantıksal Operatörler",
-            q: "Hangi ifade 'True' (Doğru) döner?",
-            o: ["5 > 5", "5 == '5'", "5 != 4", "True and False"],
-            a: "5 != 4",
-            exp: "5 sayısı 4'e eşit değildir (!=), bu yüzden ifade Doğrudur. (5 == '5' False'tur çünkü türleri farklıdır)."
-        },
+    // --- HAFTA 2 ---
+    {
+        t: "Hafta 2: Linux Komutları",
+        q: "Linux terminalinde bulunduğunuz dizindeki dosyaları listelemek için hangi komut kullanılır?",
+        o: ["cd (change directory)", "ls (list)", "mkdir (make directory)", "rm (remove)"],
+        a: "ls (list)",
+        exp: "ls (list) komutu, o an içinde bulunduğunuz klasördeki (dizin) tüm dosya ve klasörleri ekrana listelemek için kullanılır."
+    },
+    {
+        t: "Hafta 2: Linux Komutları",
+        q: "Yeni bir dizin (klasör) oluşturmak için kullanılan komut hangisidir?",
+        o: ["touch", "cp (copy)", "mkdir (make directory)", "mv (move)"],
+        a: "mkdir (make directory)",
+        exp: "mkdir (Make Directory) komutu, dosya sisteminde yeni bir klasör yaratmak için kullanılır."
+    },
+    {
+        t: "Hafta 2: Linux Komutları",
+        q: "Bir dosyayı silmek için hangi komut kullanılır?",
+        o: ["rm (remove)", "kill", "ps (process status)", "grep"],
+        a: "rm (remove)",
+        exp: "rm (Remove) komutu, belirtilen dosya veya dizinleri silmek için kullanılır. Çok dikkatli kullanılması gerekir çünkü silinen dosyalar genellikle geri getirilemez."
+    },
+    {
+        t: "Hafta 2: Linux Komutları",
+        q: "Linux'ta dosya izinlerini (yetkilerini) değiştirmek için hangi komut kullanılır?",
+        o: ["chown (change owner)", "chmod (change mode)", "ping", "sudo (superuser do)"],
+        a: "chmod (change mode)",
+        exp: "chmod (Change Mode), bir dosyanın kimler tarafından okunabileceğini (read), yazılabileceğini (write) veya çalıştırılabileceğini (execute) belirleyen izinleri ayarlar."
+    },
+    {
+        t: "Hafta 2: Yazılım Mühendisliği",
+        q: "Yazılım mühendisliğinin temel amaçlarından biri aşağıdakilerden hangisidir?",
+        o: ["Yazılımı en pahalıya satmak", "Maliyeti düşürmek ve kaliteyi artırmak", "Sadece kod yazmak", "Donanım üretmek"],
+        a: "Maliyeti düşürmek ve kaliteyi artırmak",
+        exp: "Yazılım mühendisliği, sistematik mühendislik prensiplerini kullanarak; yazılımın hata oranını azaltmayı, kalitesini artırmayı ve bunları yaparken maliyeti ve süreyi optimize etmeyi hedefler."
+    },
 
-        // --- HAFTA 4: GİRİŞ ÇIKIŞ ---
-        {
-            t: "Input/Output",
-            q: "Kullanıcıdan veri almak için hangi fonksiyon kullanılır?",
-            o: ["get()", "scan()", "input()", "read()"],
-            a: "input()",
-            exp: "Kullanıcı girişi için input() kullanılır ve değer her zaman string olarak gelir."
-        },
-        {
-            t: "Input/Output",
-            q: "Aşağıdaki kodun çıktısı nedir?<br><div class='code-block'>a = '10'\nb = '20'\nprint(a + b)</div>",
-            o: ["30", "1020", "Hata", "10 20"],
-            a: "1020",
-            exp: "Değişkenler tırnak içinde olduğu için string'dir. Stringlerde + operatörü birleştirme yapar."
-        },
-        {
-            t: "String Formatlama",
-            q: "f-string kullanımında değişken nereye yazılır?",
-            o: ["(degisken)", "{degisken}", "[degisken]", "%degisken"],
-            a: "{degisken}",
-            exp: "f-string yapısında değişkenler süslü parantez içine yazılır: f'Merhaba {isim}'."
-        },
-        {
-            t: "Input/Output",
-            q: "print fonksiyonunda 'end' parametresi ne işe yarar?",
-            o: ["Satır başı yapar", "Çıktının sonuna ne ekleneceğini belirler", "Boşluk bırakır", "Değişken tipini değiştirir"],
-            a: "Çıktının sonuna ne ekleneceğini belirler",
-            exp: "Varsayılan olarak '\\n' (yeni satır) olan değeri değiştirmeyi sağlar. Örn: end=' ' yan yana yazar."
-        },
+    // --- HAFTA 3 ---
+    {
+        t: "Hafta 3: Gereksinim Süreci",
+        q: "Yazılım geliştirme sürecinin ilk ve en kritik aşaması genellikle hangisidir?",
+        o: ["Coding (Kodlama)", "Requirements Elicitation (Gereksinim Tanımlama)", "Testing (Test Etme)", "Deployment (Dağıtım)"],
+        a: "Requirements Elicitation (Gereksinim Tanımlama)",
+        exp: "Gereksinim Tanımlama, projenin temelidir. Müşterinin ne istediğinin ve sistemin ne yapması gerektiğinin belirlendiği aşamadır. Hatalı gereksinim tüm projeyi başarısızlığa uğratabilir."
+    },
+    {
+        t: "Hafta 3: Veri Toplama",
+        q: "Müşteriden gereksinim toplamak için kullanılan yöntemlerden biri hangisidir?",
+        o: ["Kod Derleme", "Anketler ve Mülakatlar (Interviews)", "Veritabanı Optimizasyonu", "Sunucu Kurulumu"],
+        a: "Anketler ve Mülakatlar (Interviews)",
+        exp: "Müşteri ve son kullanıcıların ihtiyaçlarını doğru anlamak için yüz yüze görüşmeler, anketler ve gözlem gibi teknikler kullanılır."
+    },
+    {
+        t: "Hafta 3: Analiz",
+        q: "Feasibility Study (Fizibilite Çalışması) hangi sorunun cevabını arar?",
+        o: ["Bu proje teknik ve mali açıdan yapılabilir mi?", "Hangi renkleri kullanalım?", "Kod hatası nerede?", "Sunucu IP adresi nedir?"],
+        a: "Bu proje teknik ve mali açıdan yapılabilir mi?",
+        exp: "Fizibilite Çalışması; projenin bütçeye, zaman çizelgesine ve mevcut teknolojiye uygun olup olmadığını analiz eder."
+    },
+    {
+        t: "Hafta 3: Tasarım",
+        q: "Yazılım tasarım aşamasında, sistemin işlevselliğini doğrulamak için erken aşamada oluşturulan taslağa ne denir?",
+        o: ["Final Product (Nihai Ürün)", "Prototype (Prototip)", "Backup (Yedek)", "Algorithm (Algoritma)"],
+        a: "Prototype (Prototip)",
+        exp: "Prototype (Prototip), sistemin bitmiş haline benzer, çalışan veya görsel bir modeldir. Müşteriden erken geri bildirim almak için kullanılır."
+    },
+    {
+        t: "Hafta 3: Tasarım Belgeleri",
+        q: "Tasarım aşamasının çıktısı genellikle nedir?",
+        o: ["Kaynak Kodları", "Ayrıntılı Tasarım Belgeleri (Mimari, Veritabanı Şemaları)", "User Manual (Kullanıcı Kılavuzu)", "Fatura"],
+        a: "Ayrıntılı Tasarım Belgeleri (Mimari, Veritabanı Şemaları)",
+        exp: "Tasarım süreci sonunda, kodlamaya geçilmeden önce sistemin mimarisini, veri yapısını ve arayüzlerini anlatan teknik belgeler üretilir."
+    },
 
-        // --- HAFTA 5: KOŞULLAR ---
-        {
-            t: "Koşullu İfadeler",
-            q: "Birden fazla koşulu zincirleme kontrol etmek için hangisi kullanılır?",
-            o: ["else if", "elif", "check", "loop"],
-            a: "elif",
-            exp: "Python'da 'else if' yerine kısaltılmış 'elif' kullanılır."
-        },
-        {
-            t: "Koşullu İfadeler",
-            q: "Aşağıdaki kodda x=10 ise çıktı ne olur?<br><div class='code-block'>if x > 5:\n    print('A')\nif x > 8:\n    print('B')</div>",
-            o: ["Sadece A", "Sadece B", "A ve B", "Hiçbiri"],
-            a: "A ve B",
-            exp: "Burada 'elif' değil, iki ayrı 'if' kullanılmıştır. İki koşul da (10>5 ve 10>8) doğru olduğu için ikisi de çalışır."
-        },
-        {
-            t: "Listeler",
-            q: "Bir listenin sonuna eleman eklemek için hangi metod kullanılır?",
-            o: ["push()", "insert()", "add()", "append()"],
-            a: "append()",
-            exp: "Listelerde sona ekleme yapmak için .append() metodu kullanılır."
-        },
-        {
-            t: "Listeler",
-            q: "Listeden belirli bir DEĞERİ silmek için hangisi kullanılır?",
-            o: ["delete()", "remove()", "pop()", "del"],
-            a: "remove()",
-            exp: "remove('değer') değeri arar ve siler. pop() ise indekse göre siler."
-        },
-        {
-            t: "Listeler",
-            q: "Aşağıdaki listenin 1. indeksi nedir?<br><div class='code-block'>liste = ['elma', 'armut', 'muz']</div>",
-            o: ["elma", "armut", "muz", "Hata"],
-            a: "armut",
-            exp: "Python'da indeksler 0'dan başlar. 0:elma, 1:armut."
-        },
+    // --- HAFTA 4 ---
+    {
+        t: "Hafta 4: Kodlama Süreci",
+        q: "Yazılım kodlama sürecinde ilk teknik karar genellikle nedir?",
+        o: ["Programming Language Selection (Programlama Dili Seçimi)", "Logo Tasarımı", "Fiyat Belirleme", "Reklam Verme"],
+        a: "Programming Language Selection (Programlama Dili Seçimi)",
+        exp: "Projenin gereksinimlerine (Web, Mobil, Masaüstü vb.) en uygun dilin (Java, Python, C# vb.) seçilmesi kodlama öncesi ilk kritik adımdır."
+    },
+    {
+        t: "Hafta 4: Kodlama Standartları",
+        q: "Kodun okunabilirliğini ve bakımını kolaylaştırmak için neye dikkat edilmelidir?",
+        o: ["Coding Standards (Kodlama Standartları) ve İsimlendirme Kurallarına", "Kodun mümkün olduğunca karmaşık olmasına", "Hiç yorum satırı eklememeye", "Tek satırda her şeyi yazmaya"],
+        a: "Coding Standards (Kodlama Standartları) ve İsimlendirme Kurallarına",
+        exp: "Kodun standartlara uygun yazılması, takım arkadaşlarının kodu anlamasını ve gelecekte bakımının yapılmasını kolaylaştırır."
+    },
+    {
+        t: "Hafta 4: Debugging",
+        q: "Debugging (Hata Ayıklama) ne demektir?",
+        o: ["Kod yazmayı bırakmak", "Koddaki hataları (Bug) bulup düzeltme süreci", "Bilgisayarı kapatıp açmak", "Verileri silmek"],
+        a: "Koddaki hataları (Bug) bulup düzeltme süreci",
+        exp: "Debugging, yazılımda istenmeyen davranışlara yol açan hataların (bug) tespit edilip giderilmesi sürecidir."
+    },
+    {
+        t: "Hafta 4: İşletim ve Bakım",
+        q: "Yazılımın canlıya alındıktan sonra hataların düzeltilmesi veya yeni özellikler eklenmesi hangi süreçtir?",
+        o: ["Maintenance (Bakım)", "Requirement (Gereksinim)", "Analysis (Analiz)", "Coding (Kodlama)"],
+        a: "Maintenance (Bakım)",
+        exp: "Maintenance (Bakım) süreci, yazılım teslim edildikten sonra başlar ve yazılımın ömrü boyunca devam eder; hata düzeltmeleri ve güncellemeleri içerir."
+    },
+    {
+        t: "Hafta 4: Kullanıcı Desteği",
+        q: "Yazılımın nasıl kullanılacağını anlatan dokümanlara ne ad verilir?",
+        o: ["Source Code (Kaynak Kod)", "User Manual / Documentation (Kullanıcı Dokümantasyonu)", "Database Log (Veritabanı Logları)", "Server Report (Sunucu Raporu)"],
+        a: "User Manual / Documentation (Kullanıcı Dokümantasyonu)",
+        exp: "Kullanıcıların yazılımı verimli kullanabilmesi için hazırlanan rehberler ve yardım dosyalarıdır."
+    },
 
-        // --- HAFTA 6: DÖNGÜLER VE SÖZLÜKLER ---
-        {
-            t: "While Döngüsü",
-            q: "While döngüsü ne zaman çalışmayı durdurur?",
-            o: ["Belirli sayıya ulaşınca", "Koşul 'False' olduğunda", "Break komutu olmadan durmaz", "Hata verince"],
-            a: "Koşul 'False' olduğunda",
-            exp: "While döngüsü yanındaki koşul True olduğu sürece döner, False olunca biter."
-        },
-        {
-            t: "Sözlükler",
-            q: "Sözlük (Dictionary) veri yapısının özelliği nedir?",
-            o: ["Sıralı sayılardan oluşur", "Anahtar-Değer (Key-Value) çiftleri tutar", "Değiştirilemez", "Tekrarlı eleman içerir"],
-            a: "Anahtar-Değer (Key-Value) çiftleri tutar",
-            exp: "Sözlükler {key: value} yapısındadır."
-        },
-        {
-            t: "Kümeler (Set)",
-            q: "Aşağıdaki kümenin eleman sayısı kaçtır?<br><div class='code-block'>kume = {1, 2, 2, 3, 3, 3}</div>",
-            o: ["6", "3", "1", "Hata"],
-            a: "3",
-            exp: "Kümeler (Set) benzersiz eleman tutar. Tekrarlar otomatik silinir. Kalanlar: {1, 2, 3}."
-        },
-        {
-            t: "Kod Analizi",
-            q: "Sonsuz döngüden çıkmak için klavyeden hangi tuş kombinasyonu kullanılır?",
-            o: ["Ctrl+C", "Alt+F4", "Esc", "Ctrl+Z"],
-            a: "Ctrl+C",
-            exp: "Terminalde çalışan bir Python programını durdurmak için Ctrl+C (KeyboardInterrupt) kullanılır."
-        },
+    // --- HAFTA 5 ---
+    {
+        t: "Hafta 5: Proje Yönetimi",
+        q: "Proje yönetiminin üç temel kısıtı (Proje Üçgeni) nelerdir?",
+        o: ["Kapsam (Scope), Zaman (Time), Maliyet (Cost)", "Klavye, Mouse, Ekran", "Kod, Tasarım, Test", "Plan, Uygulama, Kontrol"],
+        a: "Kapsam (Scope), Zaman (Time), Maliyet (Cost)",
+        exp: "Her proje bu üç kısıt arasında denge kurmaya çalışır. Birini değiştirmek (örneğin zamanı kısaltmak), diğerlerini (maliyeti artırmak veya kapsamı daraltmak gibi) etkiler."
+    },
+    {
+        t: "Hafta 5: Risk Yönetimi",
+        q: "Proje sırasında oluşabilecek olumsuz durumları önceden belirleyip önlem almaya ne denir?",
+        o: ["Crisis Management (Kriz Yönetimi)", "Risk Management (Risk Yönetimi)", "Time Management (Zaman Yönetimi)", "Cost Management (Maliyet Yönetimi)"],
+        a: "Risk Management (Risk Yönetimi)",
+        exp: "Risk Yönetimi, potansiyel problemleri henüz gerçekleşmeden öngörüp, etkilerini azaltmak veya tamamen önlemek için plan yapmaktır."
+    },
+    {
+        t: "Hafta 5: Konfigürasyon Yönetimi",
+        q: "Yazılımın kaynak kodundaki değişiklikleri takip eden ve farklı sürümleri yöneten sisteme ne denir?",
+        o: ["DBMS (Veritabanı Yönetim Sistemi)", "VCS - Version Control System (Sürüm Kontrol Sistemi / Örn: Git)", "OS (İşletim Sistemi)", "Firewall (Güvenlik Duvarı)"],
+        a: "VCS - Version Control System (Sürüm Kontrol Sistemi / Örn: Git)",
+        exp: "Sürüm Kontrol Sistemleri (Git gibi), kod üzerinde kimin ne zaman ne değişiklik yaptığını kaydeder ve gerektiğinde eski sürümlere dönmeyi sağlar."
+    },
+    {
+        t: "Hafta 5: Sürüm Kontrolü",
+        q: "Bir yazılımın 'v1.0', 'v1.1' gibi numaralandırılması neyi ifade eder?",
+        o: ["Fiyatını", "Version Number (Sürüm Numarasını)", "Hata sayısını", "Geliştirici sayısını"],
+        a: "Version Number (Sürüm Numarasını)",
+        exp: "Sürüm numaraları, yazılımın gelişim aşamalarını ve yapılan güncellemelerin büyüklüğünü belirtir."
+    },
+    {
+        t: "Hafta 5: Değişiklik Yönetimi",
+        q: "Yazılımda yapılacak bir değişikliğin onaylanıp uygulanması sürecine ne denir?",
+        o: ["Change Management (Değişiklik Yönetimi)", "Coding (Kodlama)", "Testing (Test Etme)", "Deployment (Dağıtım)"],
+        a: "Change Management (Değişiklik Yönetimi)",
+        exp: "Change Management, talep edilen değişikliklerin analiz edilmesi, onaylanması ve kontrollü bir şekilde sisteme entegre edilmesi sürecidir."
+    },
 
-        // --- HAFTA 7: FOR DÖNGÜSÜ ---
-        {
-            t: "For Döngüsü",
-            q: "range(5) fonksiyonu hangi sayıları üretir?",
-            o: ["1,2,3,4,5", "0,1,2,3,4,5", "0,1,2,3,4", "1,2,3,4"],
-            a: "0,1,2,3,4",
-            exp: "range(n) 0'dan başlar ve n'ye kadar (n dahil değil) gider."
-        },
-        {
-            t: "For Döngüsü",
-            q: "Döngüyü tamamen sonlandırmak (kırmak) için hangi komut kullanılır?",
-            o: ["continue", "pass", "return", "break"],
-            a: "break",
-            exp: "break komutu döngüyü anında sonlandırır."
-        },
-        {
-            t: "For Döngüsü",
-            q: "continue komutu ne işe yarar?",
-            o: ["Döngüyü bitirir", "Döngüden çıkar", "O anki adımı atlar, başa döner", "Programı kapatır"],
-            a: "O anki adımı atlar, başa döner",
-            exp: "continue, altındaki kodları çalıştırmadan döngünün bir sonraki adımına geçer."
-        },
-        {
-            t: "Kod Analizi",
-            q: "Çıktı nedir?<br><div class='code-block'>for i in range(2, 5):\n    print(i, end='')</div>",
-            o: ["2345", "234", "345", "1234"],
-            a: "234",
-            exp: "2'den başlar, 5'e kadar (5 yok). Yan yana yazdırır: 234."
-        },
+    // --- HAFTA 6 ---
+    {
+        t: "Hafta 6: Şelale Modeli",
+        q: "Aşamaların sırayla (Analiz -> Tasarım -> Kodlama...) ilerlediği ve geri dönüşün zor olduğu model hangisidir?",
+        o: ["Agile (Çevik)", "Waterfall Model (Şelale Modeli)", "Spiral", "Prototype"],
+        a: "Waterfall Model (Şelale Modeli)",
+        exp: "Waterfall Model, adını şelale gibi yukarıdan aşağıya akmasından alır. Her aşama bitince diğeri başlar, geriye dönüş maliyetlidir."
+    },
+    {
+        t: "Hafta 6: Şelale Dezavantajı",
+        q: "Şelale modelinin en büyük dezavantajı nedir?",
+        o: ["Çok hızlı olması", "Değişen gereksinimlere uyum sağlamasının zor olması", "Dokümantasyonun az olması", "Maliyetin çok düşük olması"],
+        a: "Değişen gereksinimlere uyum sağlamasının zor olması",
+        exp: "Günümüz projelerinde müşteri istekleri sık değişir. Şelale modeli bu değişikliklere esnek yanıt veremez, çünkü analiz en başta yapılır ve biter."
+    },
+    {
+        t: "Hafta 6: Çevik (Agile)",
+        q: "Agile Development (Çevik Geliştirme) yaklaşımının temel özelliği nedir?",
+        o: ["Değişime açık, esnek ve yinelemeli olması", "Sadece belgelere odaklanması", "Müşteri ile hiç görüşmemesi", "Tek seferde teslimat yapması"],
+        a: "Değişime açık, esnek ve yinelemeli olması",
+        exp: "Agile, katı planlar yerine değişime, müşteriyle işbirliğine ve çalışan yazılımı sık aralıklarla teslim etmeye odaklanır."
+    },
+    {
+        t: "Hafta 6: Scrum",
+        q: "Agile yöntemlerden biri olan Scrum'da, belirli süreli çalışma döngülerine ne ad verilir?",
+        o: ["Marathon (Maraton)", "Sprint", "Meeting (Toplantı)", "Loop (Döngü)"],
+        a: "Sprint",
+        exp: "Sprint, Scrum'da genellikle 2-4 hafta süren, ekibin belirlenen işleri tamamlayıp teslim ettiği kısa çalışma periyotlarıdır."
+    },
+    {
+        t: "Hafta 6: Model Seçimi",
+        q: "Gereksinimlerin belirsiz olduğu ve sık değişebileceği bir projede hangi model daha uygundur?",
+        o: ["Waterfall (Şelale)", "Agile (Çevik)", "V-Model", "Hiçbiri"],
+        a: "Agile (Çevik)",
+        exp: "Belirsizlik ve değişim durumunda Agile'ın esnek yapısı, projenin başarısız olmasını engeller ve müşteri memnuniyetini artırır."
+    },
 
-        // --- HAFTA 9-10: FONKSİYONLAR ---
-        {
-            t: "Fonksiyonlar",
-            q: "Fonksiyon tanımlamak için hangi anahtar kelime kullanılır?",
-            o: ["func", "def", "function", "lambda"],
-            a: "def",
-            exp: "Python'da fonksiyonlar 'def fonksiyon_adi():' şeklinde tanımlanır."
-        },
-        {
-            t: "Fonksiyonlar",
-            q: "Fonksiyonun sonucunu çağıran yere göndermek için ne kullanılır?",
-            o: ["print", "send", "return", "back"],
-            a: "return",
-            exp: "return, fonksiyonun ürettiği değeri döndürür."
-        },
-        {
-            t: "Fonksiyonlar",
-            q: "Aşağıdaki fonksiyon çağrısının sonucu nedir?<br><div class='code-block'>def topla(a, b=10):\n    return a + b\n\nprint(topla(5))</div>",
-            o: ["5", "15", "10", "Hata"],
-            a: "15",
-            exp: "b parametresinin varsayılan değeri 10'dur. a=5 gönderildiği için 5+10=15 olur."
-        },
-        {
-            t: "Fonksiyonlar",
-            q: "Lambda fonksiyonu nedir?",
-            o: ["Ana fonksiyon", "Tek satırlık isimsiz fonksiyon", "Döngü fonksiyonu", "Kütüphane"],
-            a: "Tek satırlık isimsiz fonksiyon",
-            exp: "Lambda, kısa ve tek kullanımlık fonksiyonlar (anonim) oluşturmak için kullanılır."
-        },
-        {
-            t: "Kapsam (Scope)",
-            q: "Bir fonksiyon içinde tanımlanan değişkene ne ad verilir?",
-            o: ["Global değişken", "Yerel (Local) değişken", "Sabit", "Sınıf değişkeni"],
-            a: "Yerel (Local) değişken",
-            exp: "Fonksiyon içinde tanımlananlar yereldir, sadece o fonksiyon içinde erişilebilir."
-        },
+    // --- HAFTA 7-8 ---
+    {
+        t: "Hafta 7: Spiral Model",
+        q: "Spiral modelin diğer modellerden en belirgin farkı nedir?",
+        o: ["Sadece kodlamaya odaklanması", "Risk analizi ve yönetimine odaklanması", "Çok basit olması", "Tek kişilik projeler için olması"],
+        a: "Risk analizi ve yönetimine odaklanması",
+        exp: "Spiral Model, her döngüde kapsamlı bir risk analizi yapar. Bu yüzden özellikle büyük ve riskli projelerde tercih edilir."
+    },
+    {
+        t: "Hafta 7: Spiral Aşamaları",
+        q: "Spiral modelde süreç nasıl ilerler?",
+        o: ["Düz bir çizgi halinde", "Döngüsel (Spiral) olarak tekrar eden aşamalarla", "Rastgele", "Sondan başa doğru"],
+        a: "Döngüsel (Spiral) olarak tekrar eden aşamalarla",
+        exp: "Planlama, Risk Analizi, Mühendislik ve Değerlendirme aşamaları bir sarmal (spiral) şeklinde sürekli tekrarlanır."
+    },
+    {
+        t: "Hafta 8: Kanban",
+        q: "Kanban metodolojisinin temel amacı nedir?",
+        o: ["İş akışını görselleştirmek ve sınırlamak", "Daha çok toplantı yapmak", "Dokümantasyonu artırmak", "Kod satır sayısını saymak"],
+        a: "İş akışını görselleştirmek ve sınırlamak",
+        exp: "Kanban, işleri bir tahta üzerinde (Yapılacak, Yapılıyor, Bitti) görselleştirerek akışı yönetir ve darboğazları görmeyi sağlar."
+    },
+    {
+        t: "Hafta 8: Kanban - WIP",
+        q: "Kanban'da WIP (Work In Progress - Devam Eden İş) limiti ne işe yarar?",
+        o: ["Çalışan sayısını artırır", "Aynı anda yapılan iş sayısını sınırlayarak darboğazları önler", "Proje süresini uzatır", "Hata sayısını artırır"],
+        a: "Aynı anda yapılan iş sayısını sınırlayarak darboğazları önler",
+        exp: "WIP Limiti, ekibin kapasitesinden fazla iş yüklenmesini engeller. 'Başlamayı bitir, bitirmeye başla' felsefesini uygular."
+    },
+    {
+        t: "Hafta 8: Sürekli İyileştirme",
+        q: "Kanban ve Agile'da sürecin sürekli değerlendirilip iyileştirilmesine Japonca ne denir?",
+        o: ["Kaizen (Sürekli İyileştirme)", "Sudoku", "Karaoke", "Samurai"],
+        a: "Kaizen (Sürekli İyileştirme)",
+        exp: "Kaizen, iş süreçlerinin küçük ama sürekli adımlarla her gün daha iyiye götürülmesi felsefesidir."
+    },
 
-        // --- HAFTA 11: HATA YAKALAMA ---
-        {
-            t: "Hata Yakalama",
-            q: "Hata yakalama bloğu hangisidir?",
-            o: ["if-else", "try-except", "for-while", "def-return"],
-            a: "try-except",
-            exp: "Hataları yönetmek için try (dene) ve except (hata varsa yakala) kullanılır."
-        },
-        {
-            t: "Hata Türleri",
-            q: "Sıfıra bölme işleminde hangi hata oluşur?",
-            o: ["ValueError", "IndexError", "ZeroDivisionError", "TypeError"],
-            a: "ZeroDivisionError",
-            exp: "Bir sayıyı 0'a bölmek matematikte tanımsızdır, Python'da ZeroDivisionError verir."
-        },
-        {
-            t: "Hata Türleri",
-            q: "Var olmayan bir dosya açılmak istendiğinde hangi hata alınır?",
-            o: ["FileNotFoundError", "IOError", "ImportError", "KeyError"],
-            a: "FileNotFoundError",
-            exp: "Dosya bulunamadı hatası FileNotFoundError'dır."
-        },
-        {
-            t: "Hata Yakalama",
-            q: "finally bloğu ne zaman çalışır?",
-            o: ["Sadece hata varsa", "Sadece hata yoksa", "Her durumda", "Hiçbir zaman"],
-            a: "Her durumda",
-            exp: "finally bloğu, hata olsa da olmasa da en sonda mutlaka çalışır (örn: dosya kapatma)."
-        },
+    // --- HAFTA 9 ---
+    {
+        t: "Hafta 9: İstemci-Sunucu",
+        q: "Client-Server (İstemci-Sunucu) mimarisinde, hizmeti talep eden taraf hangisidir?",
+        o: ["Server (Sunucu)", "Client (İstemci)", "Database (Veritabanı)", "Network Cable (Ağ Kablosu)"],
+        a: "Client (İstemci)",
+        exp: "Client (İstemci); web tarayıcısı veya mobil uygulama gibi kullanıcı tarafındaki araçtır, sunucudan veri veya hizmet ister."
+    },
+    {
+        t: "Hafta 9: Sunucu Görevi",
+        q: "Server (Sunucu) bileşeninin temel görevi nedir?",
+        o: ["Kullanıcı arayüzünü göstermek", "İstekleri işlemek, veriyi yönetmek ve yanıt göndermek", "Sadece elektrik tüketmek", "Fare hareketlerini izlemek"],
+        a: "İstekleri işlemek, veriyi yönetmek ve yanıt göndermek",
+        exp: "Sunucular güçlü donanımlardır; merkezi veritabanını yönetir, iş mantığını çalıştırır ve istemcilerin (Client) isteklerine cevap verir."
+    },
+    {
+        t: "Hafta 9: Avantajlar",
+        q: "İstemci-Sunucu mimarisinin bir avantajı nedir?",
+        o: ["Merkezi yönetim ve güvenlik", "Her bilgisayarın bağımsız olması", "Ağ bağlantısına gerek olmaması", "Kurulumun çok basit olması"],
+        a: "Merkezi yönetim ve güvenlik",
+        exp: "Veriler sunucuda tutulduğu için yedekleme yapmak ve güvenlik politikalarını uygulamak (tek bir noktadan yönetildiği için) daha kolaydır."
+    },
+    {
+        t: "Hafta 9: Dezavantajlar",
+        q: "İstemci-Sunucu mimarisinin en bilinen riski nedir?",
+        o: ["Single Point of Failure (Tek Hata Noktası - Sunucu çökerse sistem durur)", "Çok ucuz olması", "Veri kaybının imkansız olması", "İnternet gerektirmemesi"],
+        a: "Single Point of Failure (Tek Hata Noktası - Sunucu çökerse sistem durur)",
+        exp: "Tüm sistem sunucuya bağımlı olduğu için, sunucuda bir arıza olduğunda tüm istemciler hizmet dışı kalır."
+    },
+    {
+        t: "Hafta 9: Mimari Türü",
+        q: "İstemci ve Sunucunun doğrudan konuştuğu mimariye ne denir?",
+        o: ["Two-Tier Architecture (İki Katmanlı Mimari)", "Multi-Tier (Çok Katmanlı)", "Peer-to-Peer", "Monolithic"],
+        a: "Two-Tier Architecture (İki Katmanlı Mimari)",
+        exp: "İstemci -> Sunucu şeklindeki doğrudan yapı Two-Tier (2 Katmanlı) olarak adlandırılır. Araya başka katman girmez."
+    },
 
-        // --- HAFTA 12: KÜTÜPHANELER I ---
-        {
-            t: "Modüller",
-            q: "Bir modülü programa dahil etmek için hangi komut kullanılır?",
-            o: ["include", "using", "import", "require"],
-            a: "import",
-            exp: "Python'da kütüphane/modül çağırmak için 'import modul_adi' kullanılır."
-        },
-        {
-            t: "Random Modülü",
-            q: "0 ile 1 arasında rastgele ondalıklı sayı üreten fonksiyon hangisidir?",
-            o: ["randint()", "random()", "choice()", "uniform()"],
-            a: "random()",
-            exp: "random.random() 0.0 ile 1.0 arasında float üretir."
-        },
-        {
-            t: "Random Modülü",
-            q: "random.randint(1, 3) fonksiyonu hangi çıktıları üretebilir?",
-            o: ["1, 2", "1, 2, 3", "0, 1, 2", "Sadece 3"],
-            a: "1, 2, 3",
-            exp: "randint(min, max) fonksiyonunda her iki sınır değer de dahildir. Bu yüzden 1, 2 ve 3 üretilebilir."
-        },
-        {
-            t: "OpenPyXL",
-            q: "Python ile Excel dosyalarını okumak/yazmak için hangi kütüphane kullanılır?",
-            o: ["pandas", "openpyxl", "numpy", "csv"],
-            a: "openpyxl",
-            exp: "Ders notlarında .xlsx dosyaları ile çalışmak için 'openpyxl' kütüphanesi işlenmiştir."
-        },
-        {
-            t: "Proje",
-            q: "Adam Asmaca oyununda rastgele kelime seçmek için hangi fonksiyon uygundur?",
-            o: ["random.choice()", "random.shuffle()", "random.random()", "random.randint()"],
-            a: "random.choice()",
-            exp: "Bir listeden rastgele bir eleman seçmek için choice() kullanılır."
-        },
+    // --- HAFTA 10 ---
+    {
+        t: "Hafta 10: UML Nedir?",
+        q: "UML (Unified Modeling Language) ne işe yarar?",
+        o: ["Kod yazma dilidir", "Yazılım sistemlerini görsel olarak modelleme standardıdır", "Veritabanı sorgu dilidir", "İşletim sistemidir"],
+        a: "Yazılım sistemlerini görsel olarak modelleme standardıdır",
+        exp: "UML, bir programlama dili değildir. Yazılımın planını çizmek için kullanılan, kutucuklar ve oklardan oluşan standart bir görsel dildir."
+    },
+    {
+        t: "Hafta 10: Use Case",
+        q: "Sistemi kullanacak aktörleri ve onların yapabileceği eylemleri gösteren UML diyagramı hangisidir?",
+        o: ["Class Diagram (Sınıf Diyagramı)", "Use Case Diagram (Kullanım Durumu Diyagramı)", "Sequence Diagram (Sıralama Diyagramı)", "State Diagram (Durum Diyagramı)"],
+        a: "Use Case Diagram (Kullanım Durumu Diyagramı)",
+        exp: "Use Case Diyagramı, 'Sistemi kim kullanacak?' ve 'Neler yapabilir?' (Örn: Giriş yap, Ürün ara) sorularına cevap veren diyagramdır."
+    },
+    {
+        t: "Hafta 10: Class Diagram",
+        q: "Sistemin statik yapısını, sınıfları ve aralarındaki ilişkileri gösteren diyagram hangisidir?",
+        o: ["Class Diagram (Sınıf Diyagramı)", "Activity Diagram (Aktivite Diyagramı)", "Component Diagram (Bileşen Diyagramı)", "Deployment Diagram (Dağılım Diyagramı)"],
+        a: "Class Diagram (Sınıf Diyagramı)",
+        exp: "Class (Sınıf) Diyagramı, nesne yönelimli programlamanın (OOP) temelidir. Veri alanlarını ve metodları gösterir."
+    },
+    {
+        t: "Hafta 10: UML Avantajı",
+        q: "UML kullanmanın en büyük faydası nedir?",
+        o: ["Kod yazmayı gereksiz kılması", "Karmaşık sistemleri anlaşılır kılması ve iletişimi kolaylaştırması", "Bilgisayarı hızlandırması", "Hata yapmayı engellemesi"],
+        a: "Karmaşık sistemleri anlaşılır kılması ve iletişimi kolaylaştırması",
+        exp: "Görsel bir dil olduğu için, teknik olmayan kişilerle veya farklı dilleri konuşan geliştiricilerle anlaşmayı kolaylaştırır."
+    },
+    {
+        t: "Hafta 10: Sequence Diagram",
+        q: "Nesneler arasındaki mesaj alışverişini zaman sırasına göre gösteren diyagram hangisidir?",
+        o: ["Sequence Diagram (Sıralama Diyagramı)", "Class Diagram (Sınıf Diyagramı)", "Package Diagram (Paket Diyagramı)", "State Diagram (Durum Diyagramı)"],
+        a: "Sequence Diagram (Sıralama Diyagramı)",
+        exp: "Sequence Diyagramı, işlemlerin zaman içindeki akışını (Örn: Kullanıcı tıklar -> İstek gider -> Cevap döner) kronolojik olarak gösterir."
+    },
 
-        // --- HAFTA 13: KÜTÜPHANELER II ---
-        {
-            t: "NumPy",
-            q: "NumPy kütüphanesinin temel veri yapısı nedir?",
-            o: ["List", "Dictionary", "Array (Dizi)", "Tuple"],
-            a: "Array (Dizi)",
-            exp: "NumPy, yüksek performanslı 'ndarray' (NumPy Array) yapısını kullanır."
-        },
-        {
-            t: "NumPy",
-            q: "Bir NumPy dizisindeki sayıların ortalamasını alan fonksiyon hangisidir?",
-            o: ["np.average()", "np.mean()", "np.median()", "np.sum()"],
-            a: "np.mean()",
-            exp: "Ortalama hesaplamak için np.mean() kullanılır."
-        },
-        {
-            t: "Pandas",
-            q: "Pandas kütüphanesinde tablo şeklindeki veri yapısına ne ad verilir?",
-            o: ["Series", "DataFrame", "Table", "Sheet"],
-            a: "DataFrame",
-            exp: "Satır ve sütunlardan oluşan yapıya DataFrame denir."
-        },
-        {
-            t: "Matplotlib",
-            q: "Verileri grafiğe dökmek (çizmek) için kullanılan temel fonksiyon hangisidir?",
-            o: ["plt.show()", "plt.draw()", "plt.plot()", "plt.graph()"],
-            a: "plt.plot()",
-            exp: "plt.plot(x, y) verileri çizgi grafik olarak hazırlar."
-        },
-        {
-            t: "PyWhatKit",
-            q: "PyWhatKit kütüphanesi derste hangi amaçla kullanıldı?",
-            o: ["Veri analizi", "Otomatik WhatsApp mesajı gönderme", "Yüz tanıma", "Excel okuma"],
-            a: "Otomatik WhatsApp mesajı gönderme",
-            exp: "PyWhatKit, WhatsApp üzerinden zaman ayarlı mesaj göndermek için kullanıldı."
-        },
-        {
-            t: "IpyWidgets",
-            q: "Jupyter ortamında interaktif buton ve slider eklemek için hangisi kullanılır?",
-            o: ["tkinter", "ipywidgets", "pygame", "requests"],
-            a: "ipywidgets",
-            exp: "Notebook ortamında etkileşimli araçlar için ipywidgets kütüphanesi kullanılır."
-        },
+    // --- HAFTA 11 ---
+    {
+        t: "Hafta 11: SOA",
+        q: "SOA (Service-Oriented Architecture) mimarisinin temel yapı taşı nedir?",
+        o: ["Monolithic Code (Monolitik Kod)", "Independent Services (Bağımsız Hizmetler)", "Database Tables (Veritabanı Tabloları)", "HTML Files (HTML Dosyaları)"],
+        a: "Independent Services (Bağımsız Hizmetler)",
+        exp: "SOA, yazılımı tek bir blok yerine, ağ üzerinden birbirine bağlanan küçük ve bağımsız 'Hizmetler' (Services) şeklinde tasarlar."
+    },
+    {
+        t: "Hafta 11: SOA Özelliği",
+        q: "SOA'da Loosely Coupled (Gevşek Bağlılık) ne anlama gelir?",
+        o: ["Hizmetlerin birbirine sıkı sıkıya bağlı olması", "Bir hizmetteki değişikliğin diğerlerini minimum etkilemesi", "Hizmetlerin internetsiz çalışması", "Hizmetlerin aynı dilde yazılması"],
+        a: "Bir hizmetteki değişikliğin diğerlerini minimum etkilemesi",
+        exp: "Gevşek bağlılık, bir parçayı değiştirdiğinizde tüm sistemin çökmemesini sağlar. Hizmetler birbirinden bağımsızdır."
+    },
+    {
+        t: "Hafta 11: UI Tasarımı",
+        q: "UI (User Interface - Kullanıcı Arayüzü) tasarımının temel amacı nedir?",
+        o: ["Kullanıcı deneyimini iyileştirmek ve kullanımı kolaylaştırmak", "Sistemi karmaşıklaştırmak", "Arka plan kodlarını göstermek", "Veritabanını hızlandırmak"],
+        a: "Kullanıcı deneyimini iyileştirmek ve kullanımı kolaylaştırmak",
+        exp: "İyi bir UI tasarımı, kullanıcının sistemi zorlanmadan, sezgisel bir şekilde kullanmasını hedefler."
+    },
+    {
+        t: "Hafta 11: Kullanıcı Deneyimi",
+        q: "Kullanıcının bir ürünle etkileşimi sırasındaki genel hissi ve memnuniyetine ne denir?",
+        o: ["UI (User Interface)", "UX (User Experience - Kullanıcı Deneyimi)", "API", "SQL"],
+        a: "UX (User Experience - Kullanıcı Deneyimi)",
+        exp: "UX (Kullanıcı Deneyimi); tasarımın sadece nasıl göründüğü değil, kullanıcının kullanırken ne hissettiği ve ne kadar rahat ettiğiyle ilgilenir."
+    },
+    {
+        t: "Hafta 11: SOA ve Web Servisleri",
+        q: "SOA mimarisinde hizmetlerin iletişim kurmasını sağlayan teknoloji genellikle nedir?",
+        o: ["Web Services (Web Servisleri / SOAP, REST)", "Bluetooth", "USB", "CD-ROM"],
+        a: "Web Services (Web Servisleri / SOAP, REST)",
+        exp: "SOA mimarisinde hizmetler genellikle HTTP protokolü üzerinden SOAP veya REST gibi standartlar kullanarak haberleşir."
+    },
 
-        // --- KOD ANALİZİ VE EKSTRALAR ---
-        {
-            t: "Kod Analizi",
-            q: "Çıktı nedir?<br><div class='code-block'>s = 'Python'\nprint(s[1:4])</div>",
-            o: ["Pyt", "yth", "ytho", "tho"],
-            a: "yth",
-            exp: "1. indeksten başlar (y), 4'e kadar gider (4 dahil değil, t-h). Sonuç: yth."
-        },
-        {
-            t: "String Metotları",
-            q: "Bir metindeki tüm harfleri büyük harfe çeviren metod hangisidir?",
-            o: ["upper()", "lower()", "capitalize()", "title()"],
-            a: "upper()",
-            exp: "upper() metodu stringin tüm karakterlerini büyük harfe çevirir."
-        },
-        {
-            t: "String Metotları",
-            q: "Bir string'in başındaki ve sonundaki boşlukları silen metod?",
-            o: ["clean()", "strip()", "trim()", "delete()"],
-            a: "strip()",
-            exp: "strip() metodu baştaki ve sondaki whitespace (boşluk) karakterlerini temizler."
-        },
-        {
-            t: "Dosya İşlemleri",
-            q: "Dosya açarken 'w' modu ne yapar?",
-            o: ["Okuma yapar", "Ekleme yapar", "Yazma yapar (Dosyayı silip yeniden oluşturur)", "Hata verir"],
-            a: "Yazma yapar (Dosyayı silip yeniden oluşturur)",
-            exp: "'w' (write) modu dosyayı sıfırdan yazar, dosya varsa içeriği silinir."
-        },
-        {
-            t: "Dosya İşlemleri",
-            q: "Dosyayı açıp, işim bitince otomatik kapatan yapı hangisidir?",
-            o: ["open()", "with open() ... as", "close()", "try-file"],
-            a: "with open() ... as",
-            exp: "'with' bloğu kullanıldığında blok bitince dosya otomatik kapanır (close gerekmez)."
-        },
-        {
-            t: "Liste Metotları",
-            q: "Bir listeyi küçükten büyüğe sıralayan metod hangisidir?",
-            o: ["order()", "sort()", "reverse()", "align()"],
-            a: "sort()",
-            exp: "sort() metodu listeyi kalıcı olarak sıralar."
-        },
-        {
-            t: "Liste Metotları",
-            q: "len() fonksiyonu ne işe yarar?",
-            o: ["Eleman sayısını (uzunluğunu) verir", "Listeyi siler", "Son elemanı verir", "Tipi verir"],
-            a: "Eleman sayısını (uzunluğunu) verir",
-            exp: "len() (length) string, liste vb. yapıların uzunluğunu döndürür."
-        },
-        {
-            t: "Genel",
-            q: "Python'da 'None' neyi ifade eder?",
-            o: ["0 sayısını", "Boş stringi", "Değer yokluğunu (Boşluk/Hiçlik)", "Hatayı"],
-            a: "Değer yokluğunu (Boşluk/Hiçlik)",
-            exp: "None, Python'da bir değerin olmadığını veya boş olduğunu belirten özel bir veri tipidir."
-        },
-        {
-            t: "Döngüler",
-            q: "İç içe döngülerde (Nested Loops), en içteki döngü mü en dıştaki döngü mü daha hızlı döner?",
-            o: ["En dıştaki", "En içteki", "İkisi de aynı", "Python'da iç içe döngü yoktur"],
-            a: "En içteki",
-            exp: "Dış döngünün her bir adımı için iç döngü baştan sona çalışır, yani iç döngü daha sık döner."
-        },
-        {
-            t: "Matematik Modülü",
-            q: "Karekök almak için math modülünde hangi fonksiyon kullanılır?",
-            o: ["sqr()", "sqrt()", "pow()", "ceil()"],
-            a: "sqrt()",
-            exp: "math.sqrt() (Square Root) karekök alma fonksiyonudur."
-        },
-        {
-            t: "String",
-            q: "String ifadeleri parçalayıp listeye çeviren metod hangisidir? (Örn: 'ali,veli' -> ['ali','veli'])",
-            o: ["split()", "join()", "cut()", "slice()"],
-            a: "split()",
-            exp: "split() metodu stringi belirtilen ayraçtan böler ve liste döndürür."
-        },
-        {
-            t: "Algoritma",
-            q: "Bir değişkenin değerini 1 artırmak için hangisi kullanılır?",
-            o: ["x++", "x =+ 1", "x += 1", "x == 1"],
-            a: "x += 1",
-            exp: "Python'da x++ yoktur. Artırma işlemi x += 1 veya x = x + 1 ile yapılır."
-        },
-        {
-            t: "Python",
-            q: "Python dili hangi programlama türündedir?",
-            o: ["Derlenen (Compiled)", "Yorumlanan (Interpreted)", "Makine Dili", "Assembly"],
-            a: "Yorumlanan (Interpreted)",
-            exp: "Python yorumlanan (interpreted) bir dildir, kodlar satır satır çalıştırılır."
-        },
+    // --- HAFTA 12 ---
+    {
+        t: "Hafta 12: MVC Mimarisi",
+        q: "MVC mimarisi yazılımı hangi üç ana bileşene ayırır?",
+        o: ["Model, View, Controller", "Mouse, Video, Computer", "Main, Void, Class", "Mobil, Veri, Cloud"],
+        a: "Model, View, Controller",
+        exp: "MVC; veri işlerini Model, kullanıcı ekranını View ve bu ikisini yöneten beyni Controller olarak ayırır."
+    },
+    {
+        t: "Hafta 12: MVC - Model",
+        q: "MVC'de veritabanı işlemlerini ve iş mantığını yöneten katman hangisidir?",
+        o: ["View", "Controller", "Model", "Router"],
+        a: "Model",
+        exp: "Model katmanı, veriyi (data) temsil eder. Veritabanına kaydetme, veriyi çekme gibi işler burada yapılır."
+    },
+    {
+        t: "Hafta 12: MVC - View",
+        q: "MVC'de verinin kullanıcıya sunulduğu (ekran/arayüz) katman hangisidir?",
+        o: ["Model", "View", "Controller", "API"],
+        a: "View",
+        exp: "View (Görünüm), kullanıcının gördüğü HTML sayfaları veya uygulama ekranlarıdır. İçinde iş mantığı bulunmaz, sadece gösterim yapar."
+    },
+    {
+        t: "Hafta 12: API Nedir?",
+        q: "API (Application Programming Interface) ne işe yarar?",
+        o: ["Virüs taraması yapar", "İki farklı yazılımın birbiriyle konuşmasını sağlar", "Ekran kartını soğutur", "İnternet hızını artırır"],
+        a: "İki farklı yazılımın birbiriyle konuşmasını sağlar",
+        exp: "API, farklı yazılımların birbirinin özelliklerini kullanabilmesi için oluşturulmuş bir köprüdür (Örn: Bir sitenin Google Maps haritasını kendi içinde göstermesi)."
+    },
+    {
+        t: "Hafta 12: API Kullanımı",
+        q: "Bir hava durumu uygulamasının Meteoroloji kurumundan anlık veri çekmesi neye örnektir?",
+        o: ["API Kullanımı", "Hacking", "Format Atma", "Offline Çalışma"],
+        a: "API Kullanımı",
+        exp: "Uygulama, meteoroloji sunucusunun API'sine 'bana hava durumunu ver' diye istek atar, sunucu da cevabı döndürür."
+    },
+    {
+        t: "Hafta 12: API Tasarımı",
+        q: "İyi bir API tasarımında olması gereken özelliklerden biri nedir?",
+        o: ["Karmaşık olması", "Dokümantasyonunun olmaması", "Kullanıcı dostu ve sürdürülebilir olması", "Sürekli değişmesi"],
+        a: "Kullanıcı dostu ve sürdürülebilir olması",
+        exp: "API'lar diğer geliştiriciler tarafından kullanılacağı için anlaşılır, iyi belgelenmiş ve kararlı (sürekli bozulmayan) olmalıdır."
+    },
+    {
+        t: "Hafta 12: MVC - Controller",
+        q: "MVC'de kullanıcıdan gelen istekleri alıp Model ve View arasında köprü kuran katman hangisidir?",
+        o: ["Model", "View", "Controller", "Database"],
+        a: "Controller",
+        exp: "Controller, trafiği yöneten polistir. Kullanıcının isteğini alır, Model'den veriyi ister ve View'a göndererek ekrana basılmasını sağlar."
+    },
 
-        // === YENİ EKLENEN: KÜTÜPHANE ODAKLI 10 SORU ===
-        {
-            t: "NumPy",
-            q: "Aşağıdaki kod hangi kütüphane kullanılarak çalıştırılabilir?<br><div class='code-block'>import numpy as np\narr = np.array([1, 2, 3])\nprint(arr * 2)</div>",
-            o: ["Pandas", "NumPy", "Matplotlib", "Math"],
-            a: "NumPy",
-            exp: "np.array() ve broadcasting (her elemanı 2 ile çarpma) işlemleri NumPy kütüphanesine özgüdür."
-        },
-        {
-            t: "Pandas",
-            q: "Pandas kütüphanesinde DataFrame oluşturmak için hangi fonksiyon kullanılır?",
-            o: ["pd.DataFrame()", "pd.create_df()", "pd.make_table()", "pd.data()"],
-            a: "pd.DataFrame()",
-            exp: "Pandas'ta tablo oluşturmak için pd.DataFrame() fonksiyonu kullanılır."
-        },
-        {
-            t: "Random",
-            q: "Aşağıdaki kod parçası hangi kütüphaneye aittir?<br><div class='code-block'>import random\nsonuc = random.randint(1, 100)</div>",
-            o: ["Math", "Random", "NumPy", "Statistics"],
-            a: "Random",
-            exp: "random.randint() fonksiyonu Python'un standart random kütüphanesine aittir."
-        },
-        {
-            t: "Matplotlib",
-            q: "Matplotlib kütüphanesi hangi amaçla kullanılır?",
-            o: ["Veri analizi", "Veri görselleştirme (grafik çizme)", "Web scraping", "Dosya okuma/yazma"],
-            a: "Veri görselleştirme (grafik çizme)",
-            exp: "Matplotlib Python'da grafik ve görselleştirme oluşturmak için kullanılan temel kütüphanedir."
-        },
-        {
-            t: "DateTime",
-            q: "Aşağıdaki kod hangi kütüphaneye aittir?<br><div class='code-block'>from datetime import datetime\nbugun = datetime.now()</div>",
-            o: ["Time", "DateTime", "Calendar", "Date"],
-            a: "DateTime",
-            exp: "datetime.now() fonksiyonu Python'un datetime modülüne aittir."
-        },
-        {
-            t: "Math",
-            q: "Hangi kütüphaneyi kullanarak bir sayının mutlak değerini alabiliriz?",
-            o: ["Math", "NumPy", "Pandas", "Hepsi"],
-            a: "Hepsi",
-            exp: "Hem math.fabs(), hem numpy.abs(), hem de Python'un built-in abs() fonksiyonu kullanılabilir."
-        },
-        {
-            t: "JSON",
-            q: "JSON formatındaki bir string'i Python sözlüğüne çevirmek için hangi kütüphane kullanılır?",
-            o: ["json", "xml", "csv", "yaml"],
-            a: "json",
-            exp: "Python'un json modülü, JSON verilerini işlemek için kullanılır."
-        },
-        {
-            t: "OS",
-            q: "İşletim sistemi ile etkileşim (dosya işlemleri, dizin değiştirme vb.) için hangi kütüphane kullanılır?",
-            o: ["sys", "os", "platform", "subprocess"],
-            a: "os",
-            exp: "os modülü işletim sistemi işlemleri için kullanılan Python'un standart kütüphanesidir."
-        },
-        {
-            t: "Requests",
-            q: "Requests kütüphanesi ne için kullanılır?",
-            o: ["HTTP istekleri göndermek", "Dosya işlemleri", "Veritabanı bağlantısı", "Grafik çizme"],
-            a: "HTTP istekleri göndermek",
-            exp: "Requests kütüphanesi HTTP istekleri (GET, POST vb.) göndermek için kullanılır."
-        },
-        {
-            t: "Tkinter",
-            q: "Python'da grafiksel kullanıcı arayüzü (GUI) oluşturmak için hangi kütüphane kullanılır?",
-            o: ["PyGame", "Tkinter", "Kivy", "PyQt"],
-            a: "Tkinter",
-            exp: "Tkinter, Python ile GUI oluşturmak için kullanılan standart kütüphanedir."
-        },
-        {
-            t: "NumPy Kod Analizi",
-            q: "Aşağıdaki kodun çıktısı nedir?<br><div class='code-block'>import numpy as np\narr = np.array([1, 2, 3, 4, 5])\nprint(arr[arr > 2])</div>",
-            o: ["[1 2]", "[3 4 5]", "[True False False True True]", "Hata verir"],
-            a: "[3 4 5]",
-            exp: "NumPy'da koşullu indeksleme yapılabilir. arr > 2, [False, False, True, True, True] döndürür. Bu True olanlar seçilir: 3, 4, 5."
-        },
-        {
-            t: "Pandas Kod Analizi",
-            q: "Aşağıdaki kod hangi işlemi yapar?<br><div class='code-block'>import pandas as pd\ndf = pd.read_csv('veriler.csv')\nprint(df.describe())</div>",
-            o: ["İlk 5 satırı gösterir", "Veri setinin istatistiklerini gösterir", "Sütun isimlerini listeler", "Veri setini sıralar"],
-            a: "Veri setinin istatistiklerini gösterir",
-            exp: "describe() metodu sayısal sütunlar için count, mean, std, min, max gibi istatistiksel özet bilgileri verir."
-        },
-        {
-            t: "Math Kod Analizi",
-            q: "Aşağıdaki kodun çıktısı nedir?<br><div class='code-block'>import math\nprint(math.floor(4.9) + math.ceil(2.1))</div>",
-            o: ["6", "7", "8", "6.0"],
-            a: "7",
-            exp: "math.floor(4.9) = 4 (aşağı yuvarlar), math.ceil(2.1) = 3 (yukarı yuvarlar). 4 + 3 = 7"
-        },
-        {
-            t: "Random Kod Analizi",
-            q: "Aşağıdaki kod hangi değeri ÜRETEMEZ?<br><div class='code-block'>import random\nprint(random.randrange(10, 20, 2))</div>",
-            o: ["10", "12", "18", "19"],
-            a: "19",
-            exp: "randrange(10, 20, 2) 10'dan 20'ye kadar (20 dahil değil) 2'şer artan sayılar üretir: 10, 12, 14, 16, 18"
-        },
-        {
-            t: "OS Kod Analizi",
-            q: "Aşağıdaki kod ne işe yarar?<br><div class='code-block'>import os\nprint(os.path.exists('rapor.pdf'))</div>",
-            o: ["Dosya oluşturur", "Dosya siler", "Dosyanın var olup olmadığını kontrol eder", "Dosya adını değiştirir"],
-            a: "Dosyanın var olup olmadığını kontrol eder",
-            exp: "os.path.exists() fonksiyonu belirtilen dosya veya dizinin var olup olmadığını kontrol eder."
-        }
-    ];
+    // --- HAFTA 13 ---
+    {
+        t: "Hafta 13: Web Hataları",
+        q: "Web sunucusu istenen sayfayı bulamadığında hangi hata kodunu döndürür?",
+        o: ["200 (OK)", "500 (Internal Server Error)", "404 (Not Found)", "403 (Forbidden)"],
+        a: "404 (Not Found)",
+        exp: "HTTP 404, 'aradığın sayfa burada yok' anlamına gelen standart web hata kodudur."
+    },
+    {
+        t: "Hafta 13: Active Directory",
+        q: "Windows ağlarında kullanıcı ve bilgisayar bilgilerini tutan merkezi veritabanı hizmeti nedir?",
+        o: ["Active Directory", "DHCP", "DNS", "Proxy"],
+        a: "Active Directory",
+        exp: "Active Directory, kurumsal ağlarda kimin hangi bilgisayara girebileceğini, hangi yetkileri olduğunu yöneten Microsoft teknolojisidir."
+    },
+    {
+        t: "Hafta 13: Assembly",
+        q: "Makine diline en yakın, donanım seviyesinde kontrol sağlayan düşük seviyeli dil hangisidir?",
+        o: ["Python", "Java", "Assembly Language", "SQL"],
+        a: "Assembly Language",
+        exp: "Assembly, donanımın anladığı 1 ve 0'ların insanların anlayabileceği komutlara (MOV, ADD vb.) çevrilmiş en ilkel halidir."
+    },
+    {
+        t: "Hafta 13: Interpreter",
+        q: "Kodu satır satır yorumlayıp çalıştıran programa ne denir?",
+        o: ["Compiler (Derleyici)", "Interpreter (Yorumlayıcı)", "Linker", "Debugger"],
+        a: "Interpreter (Yorumlayıcı)",
+        exp: "Interpreter (Örn: Python), kodu bir bütün olarak derlemek yerine çalıştırıldığı anda satır satır okur ve işler."
+    },
+    {
+        t: "Hafta 13: Pazar Yazılımları",
+        q: "Birden çok sektöre hitap eden genel amaçlı yazılımlara (Örn: Word, Excel) ne denir?",
+        o: ["Vertical Market (Dikey Pazar)", "Horizontal Market Software (Yatay Pazar Yazılımı)", "Custom Software", "Embedded Software"],
+        a: "Horizontal Market Software (Yatay Pazar Yazılımı)",
+        exp: "Horizontal Market (Yatay Pazar) yazılımları, sektörü ne olursa olsun (hastane, okul, fabrika) herkesin işine yarayan genel yazılımlardır."
+    },
+    {
+        t: "Hafta 13: Heuristic",
+        q: "Heuristic (Sezgisel) yöntem ne anlama gelir?",
+        o: ["Kesin sonuç garantili yöntem", "Pratik ve hızlı çözüm sağlayan tahmini yöntem", "Hatalı yöntem", "Yavaş yöntem"],
+        a: "Pratik ve hızlı çözüm sağlayan tahmini yöntem",
+        exp: "Heuristic; mükemmel sonucu garanti etmese de, kısıtlı zamanda yeterince iyi bir çözüme ulaşmayı sağlayan 'başparmak kuralı' veya tecrübe dayalı yaklaşımdır."
+    },
+    {
+        t: "Hafta 13: İterasyon",
+        q: "Programlamada bir işlemin döngüsel olarak tekrarlanmasına ne denir?",
+        o: ["Iteration (İterasyon)", "Compilation", "Variable", "Class"],
+        a: "Iteration (İterasyon)",
+        exp: "Iteration (İterasyon), bir sürecin veya kod bloğunun (döngüler gibi) tekrar tekrar çalıştırılması demektir."
+    },
+
+    // --- HAFTA 14 ---
+    {
+        t: "Hafta 14: Java - JDBC",
+        q: "Java uygulamalarının veritabanı ile iletişim kurmasını sağlayan API hangisidir?",
+        o: ["JDBC (Java Database Connectivity)", "JDK", "JRE", "JVM"],
+        a: "JDBC (Java Database Connectivity)",
+        exp: "JDBC, Java kodlarının SQL veritabanlarına bağlanıp sorgu atmasını sağlayan standart kütüphanedir."
+    },
+    {
+        t: "Hafta 14: Java - JDK",
+        q: "Java geliştirme yapmak (kod yazmak ve derlemek) için gereken kit hangisidir?",
+        o: ["JRE", "JDK (Java Development Kit)", "JVM", "Notepad"],
+        a: "JDK (Java Development Kit)",
+        exp: "JDK, yazılımcıların kod yazması için gereken derleyici (compiler) ve araçları içerir."
+    },
+    {
+        t: "Hafta 14: Java - JRE",
+        q: "Sadece Java programlarını çalıştırmak isteyen son kullanıcı için hangisi yeterlidir?",
+        o: ["JDK", "JRE (Java Runtime Environment)", "Source Code", "IDE"],
+        a: "JRE (Java Runtime Environment)",
+        exp: "JRE, Java programlarını çalıştırmak için gereken sanal makineyi ve kütüphaneleri içerir, geliştirme araçlarını içermez."
+    },
+    {
+        t: "Hafta 14: XML",
+        q: "Hem insanlar hem makineler tarafından okunabilen, veri taşıma formatı hangisidir?",
+        o: ["Binary", "XML (Extensible Markup Language)", "Assembly", "Exe"],
+        a: "XML (Extensible Markup Language)",
+        exp: "XML, verileri etiketler (tags) arasında saklayan, hiyerarşik yapıda ve metin tabanlı bir veri formatıdır."
+    },
+    {
+        t: "Hafta 14: WYSIWYG",
+        q: "WYSIWYG (What You See Is What You Get) teriminin Türkçe karşılığı nedir?",
+        o: ["Ne Görüyorsan Onu Alırsın", "Hata Bulunamadı", "Sistem Çökmesi", "Veri Tabanı Bağlantısı"],
+        a: "Ne Görüyorsan Onu Alırsın",
+        exp: "WYSIWYG; Word gibi editörlerde ekranda düzenlediğiniz içeriğin, yazıcıdan çıktığında veya yayınlandığında birebir aynı görüneceğini ifade eder."
+    },
+    {
+        t: "Hafta 14: XAML",
+        q: "Microsoft teknolojilerinde arayüz tasarlamak için kullanılan XML tabanlı dil hangisidir?",
+        o: ["HTML", "XAML (Extensible Application Markup Language)", "SQL", "C#"],
+        a: "XAML (Extensible Application Markup Language)",
+        exp: "XAML, özellikle Windows uygulamalarında butonların, kutuların nerede duracağını tanımlayan tasarımsal dildir."
+    },
+    {
+        t: "Hafta 14: Query Language",
+        q: "Veritabanlarından veri çekmek için kullanılan dillere genel olarak ne denir?",
+        o: ["Query Language (Sorgulama Dili / SQL)", "Programming Language", "Markup Language", "Machine Language"],
+        a: "Query Language (Sorgulama Dili / SQL)",
+        exp: "Query Language (örneğin SQL), veritabanına 'bana şu verileri getir' emrini vermek için kullanılan dildir."
+    },
+    {
+        t: "Hafta 14: Winsock",
+        q: "Windows uygulamalarının TCP/IP ağına erişmesini sağlayan standart arabirim?",
+        o: ["Winsock (Windows Sockets)", "USB", "HDMI", "Bluetooth"],
+        a: "Winsock (Windows Sockets)",
+        exp: "Winsock, Windows işletim sisteminde programların internete veya ağa çıkmasını sağlayan kapıdır (API)."
+    },
+
+    // --- EKSTRA SORU (71. Soru) ---
+    {
+        t: "Ekstra: Kısaltmalar",
+        q: "Yazılım mimarilerinde sıkça kullanılan MVC kısaltmasının tam açılımı nedir?",
+        o: ["Model-View-Controller", "Main-Void-Class", "Mobile-View-Cloud", "Make-Verify-Commit"],
+        a: "Model-View-Controller",
+        exp: "MVC (Model-View-Controller); yazılımı Veri (Model), Arayüz (View) ve Kontrol (Controller) olmak üzere üç ana katmana ayıran mimari desendir."
+    }
+];
 
     let currentQIndex = 0;
     let score = 0;
@@ -900,7 +867,7 @@
         els.nextBtn.disabled = (savedAnswer === null);
         
         if (savedAnswer) {
-            els.expText.innerText = q.exp;
+            els.expText.innerHTML = q.exp;
             els.explanation.style.display = 'block';
         } else {
             els.explanation.style.display = 'none';
@@ -952,7 +919,7 @@
             });
         }
 
-        els.expText.innerText = explanation;
+        els.expText.innerHTML = explanation;
         els.explanation.style.display = 'block';
         els.nextBtn.disabled = false;
     }
